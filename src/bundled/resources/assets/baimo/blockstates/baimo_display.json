@@ -1,0 +1,9 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "baimo:block/baimo_display"
+      }
+    }
+  ]
+}

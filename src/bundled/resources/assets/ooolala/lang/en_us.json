@@ -1,0 +1,10 @@
+{
+  "block.ooolala.ooolala_display": "ooolala",
+  "item.ooolala.ooolala_doll": "ooolala",
+  "entity.ooolala.ooolala_doll": "ooolala",
+  "tooltip.ooolala.ooolala_doll": "A little companion in your palm.",
+  "tooltip.ooolala.controls": "Place on blocks. Click display to spin; sneak-click to retrieve. Fits helmet slot. Sneak-use in air to deploy. Click companion to pat; sneak-click to reclaim.",
+  "message.ooolala.full": "Make room in your inventory first.",
+  "message.ooolala.owner": "This doll belongs to another player.",
+  "subtitles.ooolala.ooolala_pat": "Doll chirps softly"
+}

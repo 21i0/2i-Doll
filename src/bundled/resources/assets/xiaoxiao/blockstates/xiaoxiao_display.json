@@ -1,0 +1,9 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "xiaoxiao:block/xiaoxiao_display"
+      }
+    }
+  ]
+}

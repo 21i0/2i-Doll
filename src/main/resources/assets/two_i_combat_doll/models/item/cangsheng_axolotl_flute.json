@@ -1,0 +1,4 @@
+{
+  "parent":"minecraft:item/handheld",
+  "textures":{"layer0":"two_i_combat_doll:item/cangsheng_axolotl_flute"}
+}

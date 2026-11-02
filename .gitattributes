@@ -1,0 +1,5 @@
+# Keep packaged resource bytes identical across operating-system checkouts.
+* -text
+*.png binary
+*.ogg binary
+*.jar binary

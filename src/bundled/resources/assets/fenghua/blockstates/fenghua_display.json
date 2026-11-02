@@ -1,0 +1,9 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "fenghua:block/fenghua_display"
+      }
+    }
+  ]
+}

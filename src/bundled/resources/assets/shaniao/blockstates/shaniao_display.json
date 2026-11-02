@@ -1,0 +1,9 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "shaniao:block/shaniao_display"
+      }
+    }
+  ]
+}

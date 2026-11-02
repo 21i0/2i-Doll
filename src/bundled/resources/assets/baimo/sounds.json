@@ -1,0 +1,10 @@
+{
+  "baimo_pat": {
+    "subtitle": "subtitles.baimo.baimo_pat",
+    "sounds": [
+      "baimo:baimo_pat_1",
+      "baimo:baimo_pat_2",
+      "baimo:baimo_pat_3"
+    ]
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "qijiu:block/qijiu_display"
+      }
+    }
+  ]
+}

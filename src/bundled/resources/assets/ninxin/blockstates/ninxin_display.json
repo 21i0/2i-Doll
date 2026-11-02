@@ -1,0 +1,9 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "ninxin:block/ninxin_display"
+      }
+    }
+  ]
+}

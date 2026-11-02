@@ -1,0 +1,10 @@
+{
+  "block.shaniao.shaniao_display": "shaniao",
+  "item.shaniao.shaniao_doll": "shaniao",
+  "entity.shaniao.shaniao_doll": "shaniao",
+  "tooltip.shaniao.shaniao_doll": "A little companion in your palm.",
+  "tooltip.shaniao.controls": "Place on blocks. Click display to spin; sneak-click to retrieve. Fits helmet slot. Sneak-use in air to deploy. Click companion to pat; sneak-click to reclaim.",
+  "message.shaniao.full": "Make room in your inventory first.",
+  "message.shaniao.owner": "This doll belongs to another player.",
+  "subtitles.shaniao.shaniao_pat": "Doll chirps softly"
+}

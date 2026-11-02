@@ -1,0 +1,9 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "sishier:block/sishier_display"
+      }
+    }
+  ]
+}

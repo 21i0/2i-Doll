@@ -1,0 +1,5 @@
+{
+  "parent":"builtin/entity",
+  "gui_light":"front",
+  "textures":{"particle":"two_i_combat_doll:entity/cangsheng_axolotl_skin"}
+}

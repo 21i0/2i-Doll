@@ -1,0 +1,28 @@
+.gradle/
+build/
+runs/
+libs/
+*.log
+
+# Local worlds, immutable test evidence, archived characters and third-party mods.
+verification/
+*.jar
+!gradle/wrapper/gradle-wrapper.jar
+*.zip
+*.mp4
+*.blend
+*.blend1
+__pycache__/
+*.pyc
+.idea/
+.vscode/
+*.iml
+.DS_Store
+Thumbs.db
+
+# Local credentials and environment overrides must never be published.
+.env
+.env.*
+*.pem
+*.key
+local.properties

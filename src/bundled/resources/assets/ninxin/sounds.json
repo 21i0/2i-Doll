@@ -1,0 +1,10 @@
+{
+  "ninxin_pat": {
+    "subtitle": "subtitles.ninxin.ninxin_pat",
+    "sounds": [
+      "ninxin:ninxin_pat_1",
+      "ninxin:ninxin_pat_2",
+      "ninxin:ninxin_pat_3"
+    ]
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "ACA",
+    "NWN",
+    "ACA"
+  ],
+  "key": {
+    "A": {
+      "item": "minecraft:amethyst_shard"
+    },
+    "C": {
+      "item": "minecraft:cherry_sapling"
+    },
+    "N": {
+      "item": "minecraft:nether_star"
+    },
+    "W": {
+      "item": "minecraft:axolotl_bucket"
+    }
+  },
+  "result": {
+    "id": "two_i_combat_doll:cangsheng_axolotl",
+    "count": 1
+  }
+}

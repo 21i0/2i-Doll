@@ -1,0 +1,10 @@
+{
+  "block.qijici.qijici_display": "qijici",
+  "item.qijici.qijici_doll": "qijici",
+  "entity.qijici.qijici_doll": "qijici",
+  "tooltip.qijici.qijici_doll": "A little companion in your palm.",
+  "tooltip.qijici.controls": "Place on blocks. Click display to spin; sneak-click to retrieve. Fits helmet slot.",
+  "message.qijici.full": "Make room in your inventory first.",
+  "message.qijici.owner": "This doll belongs to another player.",
+  "subtitles.qijici.qijici_pat": "Doll chirps softly"
+}

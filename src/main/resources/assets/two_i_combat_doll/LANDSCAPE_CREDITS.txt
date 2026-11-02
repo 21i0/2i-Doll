@@ -1,0 +1,40 @@
+Mountain landscape materials (1.2.0)
+
+Current Cangsheng daytime dream realm:
+Original editable Blender geometry and original procedural materials.
+Terraced cliffs, blossom trees, waterfalls, violet-roofed castles, arcades and
+floating islands were authored for this project. No source image, photograph,
+external texture or external mesh is read by this authoring generator.
+Background generator: tools/blender/dream_realm_panorama_j.py (J2)
+Runtime stage/atlas generator: tools/blender/dream_realm_stage_k.py (K)
+Reviewed integration: tools/combine-dream-realm-j2-k.py
+The J2 panorama and K stage use separate editable Blender source scenes; the
+integration copies their completed outputs without claiming one scene produced
+all three resources. Exact per-source script, .blend and output hashes are in
+the source_bakes records of the manifest below.
+Panorama: textures/effect/cangsheng_landscape.png
+Runtime geometry: models/effect/cangsheng_dream_stage.json
+Runtime atlas: textures/effect/cangsheng_dream_materials.png
+Authoring evidence and exact hashes:
+verification/axolotl-20261027/dream-realm-bake-final.json
+The editable .blend scenes, review images, authoring scripts and rejected historical
+bakes remain outside packaged game resources. Project license: see LICENSE.
+
+Separate crimson / Longhuan mountain scene only:
+
+Rock Boulder Cracked, Poly Haven
+Photography: Dimitrios Savva. Processing: Dario Barresi.
+Asset: https://polyhaven.com/a/rock_boulder_cracked
+Source download: https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/rock_boulder_cracked/rock_boulder_cracked_diff_1k.jpg
+License: CC0 1.0 Universal, https://creativecommons.org/publicdomain/zero/1.0/
+Poly Haven's license statement: https://polyhaven.com/license
+
+The licensed photograph supplies only weathered rock microstructure in the
+offline crimson landscape bake. Mountain geometry, composition, palette, shadows and
+animation are authored for this project. The source JPEG is kept in verification
+with official metadata, hashes and the license record; it is not included in the
+mod JAR. The derived crimson sky atlas is retained for that separate scene.
+No pixels, models, audio or video frames from the user's reference media are
+included in these assets. See tools/create-crimson-landscape.py for its
+deterministic recipe. Earlier Cangsheng photo-assisted experiments are rejected
+historical evidence, not the source of the current daytime dream-realm assets.

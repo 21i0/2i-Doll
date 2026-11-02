@@ -1,0 +1,10 @@
+{
+  "sishier_pat": {
+    "subtitle": "subtitles.sishier.sishier_pat",
+    "sounds": [
+      "sishier:sishier_pat_1",
+      "sishier:sishier_pat_2",
+      "sishier:sishier_pat_3"
+    ]
+  }
+}

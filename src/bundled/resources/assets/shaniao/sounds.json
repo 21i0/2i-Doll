@@ -1,0 +1,10 @@
+{
+  "shaniao_pat": {
+    "subtitle": "subtitles.shaniao.shaniao_pat",
+    "sounds": [
+      "shaniao:shaniao_pat_1",
+      "shaniao:shaniao_pat_2",
+      "shaniao:shaniao_pat_3"
+    ]
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "type": "two_i_combat_doll:two_i_starfield",
+  "generator": {
+    "type": "two_i_combat_doll:two_i_starfield_gen",
+    "biome_source": {
+      "type": "minecraft:fixed",
+      "biome": "minecraft:the_void"
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "block.longhuan.longhuan_display": "龙幻的玩偶",
+  "item.longhuan.longhuan_doll": "龙幻的玩偶",
+  "entity.longhuan.longhuan_doll": "龙幻的玩偶",
+  "tooltip.longhuan.longhuan_doll": "小小的陪伴，坐在你的掌心。",
+  "tooltip.longhuan.controls": "右键方块摆放；右键摆件旋转；潜行右键收回；可放入头盔槽。 潜行右键空气放出；右键实体摸头，潜行右键实体回收。 左键摆件或活动玩偶：播放舞蹈音乐，附近 8 格生物一起跳。 附近玩家也会随节拍 Q 弹。",
+  "message.longhuan.full": "背包已满，请空出一格再收回。",
+  "message.longhuan.owner": "这是另一位玩家的玩偶。",
+  "subtitles.longhuan.longhuan_pat": "玩偶轻声回应",
+  "subtitles.longhuan.dance": "龙幻的玩偶：哦耶耶～"
+}

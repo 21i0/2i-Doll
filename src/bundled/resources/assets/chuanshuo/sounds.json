@@ -1,0 +1,19 @@
+{
+  "chuanshuo_pat": {
+    "subtitle": "subtitles.chuanshuo.chuanshuo_pat",
+    "sounds": [
+      "chuanshuo:chuanshuo_pat_1",
+      "chuanshuo:chuanshuo_pat_2",
+      "chuanshuo:chuanshuo_pat_3"
+    ]
+  },
+  "laugh": {
+    "subtitle": "subtitles.chuanshuo.laugh",
+    "sounds": [
+      {
+        "name": "chuanshuo:chuanshuo_laugh",
+        "stream": true
+      }
+    ]
+  }
+}

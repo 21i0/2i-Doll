@@ -1,0 +1,80 @@
+{
+  "sources": [
+    {
+      "type": "minecraft:single",
+      "resource": "two_i_combat_doll:entity/cangsheng_axolotl_skin"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "two_i_combat_doll:entity/two_i"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "two_i_combat_doll:effect/two_i_arcana"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "two_i_combat_doll:effect/scarlet_codex"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "two_i_combat_doll:item/astral_edict"
+    },
+    {
+      "type": "single",
+      "resource": "baimo:entity/skin"
+    },
+    {
+      "type": "single",
+      "resource": "fenghua:entity/skin"
+    },
+    {
+      "type": "single",
+      "resource": "longhuan:entity/skin"
+    },
+    {
+      "type": "single",
+      "resource": "nadir:entity/skin"
+    },
+    {
+      "type": "single",
+      "resource": "ninxin:entity/skin"
+    },
+    {
+      "type": "single",
+      "resource": "ooolala:entity/skin"
+    },
+    {
+      "type": "single",
+      "resource": "qijici:entity/skin"
+    },
+    {
+      "type": "single",
+      "resource": "qijiu:entity/skin"
+    },
+    {
+      "type": "single",
+      "resource": "sishier:entity/skin"
+    },
+    {
+      "type": "single",
+      "resource": "xiaoxiao:entity/skin"
+    },
+    {
+      "type": "single",
+      "resource": "piston:entity/skin"
+    },
+    {
+      "type": "single",
+      "resource": "shaniao:entity/skin"
+    },
+    {
+      "type": "single",
+      "resource": "chuanshuo:entity/skin"
+    },
+    {
+      "type": "single",
+      "resource": "luomu:entity/skin"
+    }
+  ]
+}

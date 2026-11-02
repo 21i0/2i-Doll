@@ -1,0 +1,35 @@
+{
+  "required": true,
+  "minVersion": "0.8.5",
+  "package": "com.twoi.combatdoll.mixin",
+  "plugin": "com.twoi.combatdoll.mixin.CombatMixinPlugin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "XiaoxiaoCombatMixin",
+    "LonghuanCombatMixin",
+    "LonghuanDanceInvoker",
+    "UselessAuraInvoker",
+    "TimeStopTickMixin",
+    "TimeStopPlayerMixin",
+    "TimeStopMovementMixin",
+    "DollCombatMixin",
+    "TwoIArsRitualMixin",
+    "TwoIArsJarMixin",
+    "TwoIBeeEncaseMixin",
+    "TwoIAmberMixin"
+  ],
+  "client": [
+    "XiaoxiaoPoseMixin",
+    "LonghuanScaleMixin",
+    "LonghuanPoseMixin",
+    "DollScaleMixin",
+    "DollPoseMixin",
+    "StarfieldClockAccessor",
+    "CombatCloudMixin",
+    "TwoIHeldDollMixin",
+    "TwoIPlayerArmMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

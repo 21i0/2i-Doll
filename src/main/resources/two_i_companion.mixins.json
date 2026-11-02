@@ -1,0 +1,26 @@
+{
+  "required": true,
+  "minVersion": "0.8.5",
+  "package": "com.twoi.combatdoll.companion.mixin",
+  "plugin": "com.twoi.combatdoll.mixin.CombatMixinPlugin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "LivingHealthDataAccessor",
+    "TwoIStarfieldChunkLifecycleAccess",
+    "TwoIDollRemovalGuardMixin",
+    "TwoIDollLookupGuardMixin",
+    "TwoIDollTickListGuardMixin",
+    "TwoIDollSectionGuardMixin",
+    "TwoIDollManagerLifecycleMixin",
+    "TwoIDollSectionLifecycleMixin",
+    "TwoIDollLevelCallbackGuardMixin",
+    "TwoIDollUselessKillGuardMixin",
+    "TwoIDollSpawnEggMixin",
+    "TwoIDollBrainTargetMixin",
+    "TwoISummonCommandMixin"
+  ],
+  "client": [
+    "TwoIDollClientRemovalMixin"
+  ],
+  "server": []
+}

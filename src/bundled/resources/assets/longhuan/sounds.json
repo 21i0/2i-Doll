@@ -1,0 +1,20 @@
+{
+  "longhuan_pat": {
+    "subtitle": "subtitles.longhuan.longhuan_pat",
+    "sounds": [
+      "longhuan:longhuan_pat_1",
+      "longhuan:longhuan_pat_2",
+      "longhuan:longhuan_pat_3"
+    ]
+  },
+  "dance": {
+    "subtitle": "subtitles.longhuan.dance",
+    "sounds": [
+      {
+        "name": "longhuan:dance",
+        "stream": true,
+        "attenuation_distance": 24
+      }
+    ]
+  }
+}

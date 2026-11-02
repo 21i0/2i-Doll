@@ -1,0 +1,10 @@
+{
+  "piston_pat": {
+    "subtitle": "subtitles.piston.piston_pat",
+    "sounds": [
+      "piston:piston_pat_1",
+      "piston:piston_pat_2",
+      "piston:piston_pat_3"
+    ]
+  }
+}

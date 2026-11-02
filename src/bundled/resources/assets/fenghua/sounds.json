@@ -1,0 +1,10 @@
+{
+  "fenghua_pat": {
+    "subtitle": "subtitles.fenghua.fenghua_pat",
+    "sounds": [
+      "fenghua:fenghua_pat_1",
+      "fenghua:fenghua_pat_2",
+      "fenghua:fenghua_pat_3"
+    ]
+  }
+}

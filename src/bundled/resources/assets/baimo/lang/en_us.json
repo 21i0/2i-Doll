@@ -1,0 +1,10 @@
+{
+  "block.baimo.baimo_display": "baimo",
+  "item.baimo.baimo_doll": "baimo",
+  "entity.baimo.baimo_doll": "baimo",
+  "tooltip.baimo.baimo_doll": "A little companion in your palm.",
+  "tooltip.baimo.controls": "Place on blocks. Click display to spin; sneak-click to retrieve. Fits helmet slot. Sneak-use in air to deploy. Click companion to pat; sneak-click to reclaim.",
+  "message.baimo.full": "Make room in your inventory first.",
+  "message.baimo.owner": "This doll belongs to another player.",
+  "subtitles.baimo.baimo_pat": "Doll chirps softly"
+}

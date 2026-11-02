@@ -1,0 +1,10 @@
+{
+  "nadir_pat": {
+    "subtitle": "subtitles.nadir.nadir_pat",
+    "sounds": [
+      "nadir:nadir_pat_1",
+      "nadir:nadir_pat_2",
+      "nadir:nadir_pat_3"
+    ]
+  }
+}

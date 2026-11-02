@@ -1,0 +1,9 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "luomu:block/luomu_display"
+      }
+    }
+  ]
+}

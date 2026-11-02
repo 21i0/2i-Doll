@@ -1,0 +1,10 @@
+{
+  "block.fenghua.fenghua_display": "fenghua",
+  "item.fenghua.fenghua_doll": "fenghua",
+  "entity.fenghua.fenghua_doll": "fenghua",
+  "tooltip.fenghua.fenghua_doll": "A little companion in your palm.",
+  "tooltip.fenghua.controls": "Place on blocks. Click display to spin; sneak-click to retrieve. Fits helmet slot. Sneak-use in air to deploy. Click companion to pat; sneak-click to reclaim.",
+  "message.fenghua.full": "Make room in your inventory first.",
+  "message.fenghua.owner": "This doll belongs to another player.",
+  "subtitles.fenghua.fenghua_pat": "Doll chirps softly"
+}

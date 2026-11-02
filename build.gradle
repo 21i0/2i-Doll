@@ -1,0 +1,155 @@
+plugins {
+    id 'java-library'
+    id 'net.neoforged.moddev' version '2.0.107'
+}
+
+version = '1.21.1-1.3.0'
+group = 'com.twoi.combatdoll'
+base { archivesName = 'two_i_combat_doll' }
+java.toolchain.languageVersion = JavaLanguageVersion.of(21)
+// Complete source/resource integration, preserving the companions' registry IDs.
+sourceSets.main.java.srcDir 'src/bundled/java'
+sourceSets.main.resources.srcDir 'src/bundled/resources'
+// Both retired Lonya exports stay outside development and release source sets.
+sourceSets.main.java.exclude 'com/customdoll/lonya/**', 'com/customdoll/lonya_plush/**'
+sourceSets.main.resources.exclude 'assets/lonya/**', 'assets/lonya_plush/**',
+        'data/lonya/**', 'data/lonya_plush/**', 'lonya.mixins.json', 'lonya_plush.mixins.json'
+tasks.withType(JavaCompile).configureEach { options.encoding = 'UTF-8' }
+tasks.withType(AbstractArchiveTask).configureEach {
+    preserveFileTimestamps = false
+    reproducibleFileOrder = true
+}
+repositories {
+    mavenCentral()
+    maven {
+        name = 'Curios'
+        url = 'https://maven.theillusivec4.top/'
+        content { includeGroup 'top.theillusivec4.curios' }
+    }
+}
+
+def withStretcher = providers.gradleProperty('combatWithStretcher').isPresent()
+def withLonghuan = providers.gradleProperty('combatWithLonghuan').isPresent()
+def withXiaoxiao = providers.gradleProperty('combatWithXiaoxiao').isPresent()
+def companionTests = providers.gradleProperty('companionTests').isPresent()
+def standaloneTests = providers.gradleProperty('standaloneTests').isPresent()
+def standaloneMinimal = standaloneTests && !providers.gradleProperty('standaloneOptionalTests').isPresent()
+def standaloneOptionalMod = providers.gradleProperty('standaloneOptionalMod').getOrElse('')
+def standaloneExpectedMods = providers.gradleProperty('standaloneExpectedMods').getOrElse('')
+def fixture = file('../UselessStretcher/build/mod-fixture-occultism-full-1.224.4-20261019')
+def runDir = rootProject.file(providers.gradleProperty('combatRunDirectory').getOrElse('build/combat-doll-client'))
+def testEnabled = providers.gradleProperty('combatTests').isPresent()
+if (testEnabled) sourceSets.main.java.srcDir 'src/testmod/java'
+if (testEnabled && providers.gradleProperty('companionCuriosFixture').isPresent()) {
+    tasks.named('processResources') {
+        from('verification/companion-port-20261031/curios-fixture-datapack') { include 'data/**' }
+    }
+}
+
+neoForge {
+    version = rootProject.neo_version
+    parchment {
+        mappingsVersion = rootProject.parchment_mappings_version
+        minecraftVersion = rootProject.parchment_minecraft_version
+    }
+    mods {
+        two_i_combat_doll { sourceSet(sourceSets.main) }
+    }
+    runs {
+        client {
+            client()
+            gameDirectory = runDir
+            programArguments.addAll '--width', '1280', '--height', '800'
+            systemProperty 'two_i_combat_doll.client_test', testEnabled.toString()
+            systemProperty 'two_i_combat_doll.companion_port_test', companionTests.toString()
+            systemProperty 'two_i_combat_doll.standalone_client_test', standaloneTests.toString()
+            systemProperty 'two_i_combat_doll.standalone_minimal', standaloneMinimal.toString()
+            systemProperty 'two_i_combat_doll.standalone_optional_mod', standaloneOptionalMod
+            systemProperty 'two_i_combat_doll.standalone_expected_mods', standaloneExpectedMods
+            systemProperty 'two_i_combat_doll.with_stretcher', withStretcher.toString()
+            systemProperty 'two_i_combat_doll.with_longhuan', withLonghuan.toString()
+            systemProperty 'two_i_combat_doll.weapons_test', providers.gradleProperty('weaponTests').isPresent().toString()
+            systemProperty 'two_i_combat_doll.book_only_test', providers.gradleProperty('bookOnlyTest').isPresent().toString()
+            systemProperty 'two_i_combat_doll.staff_audio_only_test', providers.gradleProperty('staffAudioOnlyTest').isPresent().toString()
+            systemProperty 'two_i_combat_doll.weapon_restart_test', providers.gradleProperty('weaponRestartTest').isPresent().toString()
+            systemProperty 'two_i_combat_doll.axolotl_test', providers.gradleProperty('axolotlTests').isPresent().toString()
+            systemProperty 'two_i_combat_doll.axolotl_visual_quality', providers.gradleProperty('axolotlVisualQuality').getOrElse('3')
+            systemProperty 'two_i_combat_doll.axolotl_restart_test', providers.gradleProperty('axolotlRestartTest').isPresent().toString()
+            systemProperty 'two_i_combat_doll.model_mesh_exports', providers.gradleProperty('modelMeshExports').isPresent().toString()
+            systemProperty 'two_i_combat_doll.model_mesh_export_only', providers.gradleProperty('modelMeshExportOnly').isPresent().toString()
+            systemProperty 'two_i_combat_doll.model_mesh_export_dir', rootProject.file(providers.gradleProperty('modelMeshExportDir').getOrElse('verification/model3d-20261027/runtime')).absolutePath
+            jvmArguments.addAll '-Xmx3G', '-Xms1G'
+        }
+        server {
+            server()
+            gameDirectory = runDir
+            programArgument '--nogui'
+            systemProperty 'two_i_combat_doll.server_test', testEnabled.toString()
+            systemProperty 'two_i_combat_doll.standalone_test', standaloneTests.toString()
+            systemProperty 'two_i_combat_doll.standalone_minimal', standaloneMinimal.toString()
+            systemProperty 'two_i_combat_doll.standalone_optional_mod', standaloneOptionalMod
+            systemProperty 'two_i_combat_doll.standalone_expected_mods', standaloneExpectedMods
+            systemProperty 'two_i_combat_doll.standalone_restart_test', providers.gradleProperty('standaloneRestartTests').isPresent().toString()
+            systemProperty 'two_i_combat_doll.standalone_recovery_fault_test', providers.gradleProperty('standaloneRecoveryFaultTests').isPresent().toString()
+            systemProperty 'two_i_combat_doll.with_stretcher', withStretcher.toString()
+            systemProperty 'two_i_combat_doll.with_longhuan', withLonghuan.toString()
+            systemProperty 'two_i_combat_doll.weapons_test', providers.gradleProperty('weaponTests').isPresent().toString()
+            systemProperty 'two_i_combat_doll.weapon_restart_test', providers.gradleProperty('weaponRestartTest').isPresent().toString()
+            systemProperty 'two_i_combat_doll.axolotl_test', providers.gradleProperty('axolotlTests').isPresent().toString()
+            systemProperty 'two_i_combat_doll.axolotl_restart_test', providers.gradleProperty('axolotlRestartTest').isPresent().toString()
+            jvmArguments.addAll '-Xmx3G', '-Xms1G'
+        }
+        configureEach { logLevel = org.slf4j.event.Level.INFO }
+    }
+}
+
+if (withStretcher) {
+    tasks.register('prepareFixture', Copy) {
+        from(fixture) { include '*.jar'; exclude 'useless_stretcher-*.jar', 'two_i_combat_doll-*.jar' }
+        from('libs/compile') { include 'useless_stretcher-*.jar' }
+        into new File(runDir, 'mods')
+    }
+} else {
+    // A Copy task with no sources owns/cleans its destination on NO-SOURCE.
+    // Do not let a no-op remove explicitly prepared optional-mod fixtures.
+    tasks.register('prepareFixture')
+}
+tasks.named('runClient') { dependsOn 'prepareFixture' }
+tasks.named('runServer') { dependsOn 'prepareFixture' }
+tasks.named('jar') {
+    exclude 'com/twoi/combatdoll/test/**'
+    exclude '**/*Checks*.class'
+    exclude 'com/customdoll/**/checks/**'
+    exclude 'data/two_i_combat_doll_test/**'
+    from('LICENSE')
+    from('THIRD_PARTY_NOTICES.md')
+}
+
+// Both retired Lonya exports are archived outside the source sets. Explicitly
+// exclude stale incremental output from production and private regression JARs.
+tasks.withType(Jar).configureEach {
+    exclude 'com/customdoll/lonya/**'
+    exclude 'com/customdoll/lonya_plush/**'
+    exclude 'assets/lonya/**'
+    exclude 'assets/lonya_plush/**'
+    exclude 'data/lonya/**'
+    exclude 'data/lonya_plush/**'
+    exclude 'lonya.mixins.json'
+    exclude 'lonya_plush.mixins.json'
+}
+
+// Internal standalone migration/UI regression artifact. Never copied to delivery.
+tasks.register('companionChecksJar', Jar) {
+    dependsOn 'classes'
+    onlyIf { testEnabled }
+    archiveFileName='two_i_combat_doll-companion-checks-1.21.1-1.3.0.jar'
+    destinationDirectory=file('verification/companion-port-20261031/internal')
+    from sourceSets.main.output
+    from 'LICENSE'
+    from 'THIRD_PARTY_NOTICES.md'
+    // Artificial equipment slots exist only in this private regression JAR.
+    from('verification/companion-port-20261031/curios-fixture-datapack') { include 'data/**' }
+}
+
+// Compile the optional bridge from a public artifact; Curios is not a runtime dependency.
+dependencies { compileOnly 'top.theillusivec4.curios:curios-neoforge:9.5.1+1.21.1' }

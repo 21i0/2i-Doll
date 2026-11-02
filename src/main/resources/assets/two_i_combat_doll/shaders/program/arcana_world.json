@@ -1,0 +1,180 @@
+{
+  "vertex": "two_i_combat_doll:arcana_screen",
+  "fragment": "two_i_combat_doll:arcana_world",
+  "samplers": [
+    {
+      "name": "DiffuseSampler"
+    },
+    {
+      "name": "DepthSampler"
+    },
+    {
+      "name": "ClockSampler"
+    },
+    {
+      "name": "GalaxySampler"
+    },
+    {
+      "name": "LandscapeSampler"
+    },
+    {
+      "name": "CrimsonSampler"
+    },
+    {
+      "name": "CrimsonGroundSampler"
+    }
+  ],
+  "uniforms": [
+    { "name": "HoleTrail0", "type": "matrix4x4", "count": 16, "values": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] },
+    { "name": "HoleTrail1", "type": "matrix4x4", "count": 16, "values": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] },
+    { "name": "TrailCount", "type": "float", "count": 1, "values": [0] },
+    { "name": "SystemCenters0", "type": "matrix4x4", "count": 16, "values": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] },
+    { "name": "SystemCenters1", "type": "matrix4x4", "count": 16, "values": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] },
+    { "name": "Planets0", "type": "matrix4x4", "count": 16, "values": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] },
+    { "name": "Planets1", "type": "matrix4x4", "count": 16, "values": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] },
+    { "name": "Planets2", "type": "matrix4x4", "count": 16, "values": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] },
+    { "name": "Planets3", "type": "matrix4x4", "count": 16, "values": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] },
+    { "name": "Planets4", "type": "matrix4x4", "count": 16, "values": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] },
+    { "name": "Planets5", "type": "matrix4x4", "count": 16, "values": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] },
+    { "name": "Planets6", "type": "matrix4x4", "count": 16, "values": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] },
+    { "name": "Planets7", "type": "matrix4x4", "count": 16, "values": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] },
+    { "name": "PlanetAnchor", "type": "float", "count": 3, "values": [0,18,14] },
+    { "name": "ChargeExtra", "type": "float", "count": 1, "values": [0] },
+    { "name": "VisualQuality", "type": "float", "count": 1, "values": [3] },
+    { "name": "TerrainPass", "type": "float", "count": 1, "values": [0] },
+    { "name": "FloorStyle", "type": "float", "count": 1, "values": [1] },
+    {
+      "name": "OutSize",
+      "type": "float",
+      "count": 2,
+      "values": [
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Domain",
+      "type": "float",
+      "count": 1,
+      "values": [
+        0
+      ]
+    },
+    {
+      "name": "Takeover",
+      "type": "float",
+      "count": 1,
+      "values": [
+        0
+      ]
+    },
+    {
+      "name": "Age",
+      "type": "float",
+      "count": 1,
+      "values": [
+        0
+      ]
+    },
+    {
+      "name": "Impact",
+      "type": "float",
+      "count": 1,
+      "values": [
+        0
+      ]
+    },
+    {
+      "name": "Clock",
+      "type": "float",
+      "count": 1,
+      "values": [
+        0
+      ]
+    },
+    {
+      "name": "InvProjection",
+      "type": "matrix4x4",
+      "count": 16,
+      "values": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "CameraRotation",
+      "type": "matrix4x4",
+      "count": 16,
+      "values": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "Eye",
+      "type": "float",
+      "count": 3,
+      "values": [
+        0,
+        18,
+        14
+      ]
+    },
+    {
+      "name": "Ground",
+      "type": "float",
+      "count": 3,
+      "values": [
+        0,
+        -1,
+        0
+      ]
+    },
+    {
+      "name": "Mode",
+      "type": "float",
+      "count": 1,
+      "values": [
+        0
+      ]
+    },
+    {
+      "name": "Lens",
+      "type": "float",
+      "count": 3,
+      "values": [
+        0.5,
+        0.5,
+        0.0
+      ]
+    }
+  ]
+}

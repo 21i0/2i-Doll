@@ -1,0 +1,11 @@
+{
+  "block.chuanshuo.chuanshuo_display": "chuanshuo",
+  "item.chuanshuo.chuanshuo_doll": "chuanshuo",
+  "entity.chuanshuo.chuanshuo_doll": "chuanshuo",
+  "tooltip.chuanshuo.chuanshuo_doll": "A little companion in your palm.",
+  "tooltip.chuanshuo.controls": "Place on blocks. Click display to spin; sneak-click to retrieve. Fits helmet slot. Sneak-use in air to deploy. Click companion to pat; sneak-click to reclaim. Left-click your doll or display: laugh for 12 seconds.",
+  "message.chuanshuo.full": "Make room in your inventory first.",
+  "message.chuanshuo.owner": "This doll belongs to another player.",
+  "subtitles.chuanshuo.chuanshuo_pat": "Doll chirps softly",
+  "subtitles.chuanshuo.laugh": "Chuanshuo laughs heartily"
+}

@@ -1,0 +1,27 @@
+Cangsheng Axolotl audio — 2026-10-27
+
+All four cues are original deterministic mathematical synthesis for this project.
+No samples, recordings, reference-video audio or existing melody is imported.
+No paid assets or third-party recording licenses are involved.
+License: project LICENSE.
+
+Current awaken / roar revision 2:
+  tools/synth/original-cangsheng-audio-v2.py
+  verification/axolotl-20261027/audio-v2/audio-audit-v2.json
+  cangsheng_awaken.ogg, cangsheng_roar.ogg
+  Awaken: finite low body hit, stable low stone modes and pearlescent decay.
+  Roar: low guardian vocal pulse, chest resonance and finite throat excitation.
+
+Unchanged impact / flute revision 1:
+  tools/synth/original-cangsheng-audio.py
+  verification/axolotl-20261027/audio/audio-audit.json
+  cangsheng_impact.ogg, cangsheng_flute.ogg
+  Impact: finite low strike with stone/crystal resonance.
+  Flute: original gentle three-note air-column phrase.
+
+Old four-cue recordings, audit and generator remain in:
+  verification/axolotl-20261027/audio/original-v1-history/
+Fantasy guardian vocal design is not a claim about real axolotl sounds.
+Numeric headroom/spectrum audit is not subjective listening approval.
+The separate owner-selected B time_stop.ogg and its Kenney CC0 credits remain
+unchanged; see SOUND_CREDITS.txt.

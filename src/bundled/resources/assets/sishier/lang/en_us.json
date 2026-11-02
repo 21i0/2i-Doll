@@ -1,0 +1,10 @@
+{
+  "block.sishier.sishier_display": "sishier",
+  "item.sishier.sishier_doll": "sishier",
+  "entity.sishier.sishier_doll": "sishier",
+  "tooltip.sishier.sishier_doll": "A little companion in your palm.",
+  "tooltip.sishier.controls": "Place on blocks. Click display to spin; sneak-click to retrieve. Fits helmet slot. Sneak-use in air to deploy. Click companion to pat; sneak-click to reclaim.",
+  "message.sishier.full": "Make room in your inventory first.",
+  "message.sishier.owner": "This doll belongs to another player.",
+  "subtitles.sishier.sishier_pat": "Doll chirps softly"
+}

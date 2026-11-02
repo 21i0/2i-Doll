@@ -1,0 +1,9 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "ooolala:block/ooolala_display"
+      }
+    }
+  ]
+}

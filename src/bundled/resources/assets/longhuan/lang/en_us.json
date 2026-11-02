@@ -1,0 +1,11 @@
+{
+  "block.longhuan.longhuan_display": "longhuan",
+  "item.longhuan.longhuan_doll": "longhuan",
+  "entity.longhuan.longhuan_doll": "longhuan",
+  "tooltip.longhuan.longhuan_doll": "A little companion in your palm.",
+  "tooltip.longhuan.controls": "Place on blocks. Click display to spin; sneak-click to retrieve. Fits helmet slot. Sneak-use in air to deploy. Click companion to pat; sneak-click to reclaim. Left click a placed doll or companion to dance with mobs within 8 blocks.",
+  "message.longhuan.full": "Make room in your inventory first.",
+  "message.longhuan.owner": "This doll belongs to another player.",
+  "subtitles.longhuan.longhuan_pat": "Doll chirps softly",
+  "subtitles.longhuan.dance": "Longhuan doll: dance"
+}

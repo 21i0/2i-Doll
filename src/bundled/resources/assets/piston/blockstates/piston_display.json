@@ -1,0 +1,9 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "piston:block/piston_display"
+      }
+    }
+  ]
+}

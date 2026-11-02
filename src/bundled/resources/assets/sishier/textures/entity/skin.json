@@ -1,0 +1,44 @@
+{
+  "format": "doll_skin_blink_v1",
+  "source": "C:\\Users\\Lenovo\\Downloads\\29.png",
+  "output": "skin.png",
+  "preview_variants": {
+    "half": "skin_blink_half.png",
+    "closed": "skin_blink_closed.png"
+  },
+  "texture": {
+    "width": 64,
+    "height": 64,
+    "logical_size": 64,
+    "scale": 1
+  },
+  "blink_enabled": false,
+  "sync_outer_layer": true,
+  "editor": {
+    "eyelid_color": "#000000",
+    "fill_color": "#fff7d4",
+    "closed_style": "solid",
+    "line_position": 50,
+    "line_thickness": 1,
+    "sync_outer": true,
+    "active_eye": "left",
+    "regions": {
+      "left": null,
+      "right": null
+    },
+    "pixel_edits": {
+      "half": {},
+      "closed": {}
+    }
+  },
+  "regions": {
+    "left_eye": null,
+    "right_eye": null
+  },
+  "preview_states": {
+    "open": "source pixels",
+    "half": "upper eyelid plus lower eye pixels",
+    "closed": "explicit eyelid color with optional fill"
+  },
+  "runtime_note": "Copy the open PNG as skin.png, this JSON as skin.json, and both preview_variants PNG files with their exact filenames. Both standalone mods load the exported frames."
+}

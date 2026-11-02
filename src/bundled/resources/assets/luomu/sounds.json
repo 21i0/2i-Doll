@@ -1,0 +1,10 @@
+{
+  "luomu_pat": {
+    "subtitle": "subtitles.luomu.luomu_pat",
+    "sounds": [
+      "luomu:luomu_pat_1",
+      "luomu:luomu_pat_2",
+      "luomu:luomu_pat_3"
+    ]
+  }
+}

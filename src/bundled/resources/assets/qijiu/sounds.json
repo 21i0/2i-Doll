@@ -1,0 +1,10 @@
+{
+  "qijiu_pat": {
+    "subtitle": "subtitles.qijiu.qijiu_pat",
+    "sounds": [
+      "qijiu:qijiu_pat_1",
+      "qijiu:qijiu_pat_2",
+      "qijiu:qijiu_pat_3"
+    ]
+  }
+}

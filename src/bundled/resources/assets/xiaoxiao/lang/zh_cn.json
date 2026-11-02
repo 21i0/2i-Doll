@@ -1,0 +1,10 @@
+{
+  "block.xiaoxiao.xiaoxiao_display": "萧萧玩偶",
+  "item.xiaoxiao.xiaoxiao_doll": "萧萧玩偶",
+  "entity.xiaoxiao.xiaoxiao_doll": "萧萧玩偶",
+  "tooltip.xiaoxiao.xiaoxiao_doll": "小小的陪伴，坐在你的掌心。",
+  "tooltip.xiaoxiao.controls": "右键方块摆放；右键摆件旋转；潜行右键收回；可放入头盔槽。 潜行右键空气放出；右键实体摸头，潜行右键实体回收。",
+  "message.xiaoxiao.full": "背包已满，请空出一格再收回。",
+  "message.xiaoxiao.owner": "这是另一位玩家的玩偶。",
+  "subtitles.xiaoxiao.xiaoxiao_pat": "玩偶轻声回应"
+}

@@ -1,0 +1,129 @@
+{
+  "two_i_arcana_open": {
+    "subtitle": "subtitles.two_i_combat_doll.two_i_arcana_open",
+    "sounds": [
+      {
+        "name": "two_i_combat_doll:two_i_arcana_open",
+        "volume": 0.8
+      }
+    ]
+  },
+  "two_i_arcana_impact": {
+    "subtitle": "subtitles.two_i_combat_doll.two_i_arcana_impact",
+    "sounds": [
+      {
+        "name": "two_i_combat_doll:two_i_arcana_impact",
+        "volume": 0.8
+      }
+    ]
+  },
+  "time_stop": {
+    "subtitle": "subtitles.two_i_combat_doll.time_stop",
+    "sounds": [
+      {
+        "name": "two_i_combat_doll:time_stop",
+        "attenuation_distance": 64
+      }
+    ]
+  },
+  "star_verdict": {
+    "subtitle": "subtitles.two_i_combat_doll.star_verdict",
+    "sounds": [
+      {
+        "name": "two_i_combat_doll:star_verdict",
+        "attenuation_distance": 64
+      }
+    ]
+  },
+  "astral_tick": {
+    "subtitle": "subtitles.two_i_combat_doll.astral_tick",
+    "sounds": [
+      {
+        "name": "two_i_combat_doll:astral_tick",
+        "attenuation_distance": 64
+      }
+    ]
+  },
+  "astral_charge": {
+    "subtitle": "subtitles.two_i_combat_doll.astral_charge",
+    "sounds": [
+      {
+        "name": "two_i_combat_doll:astral_charge",
+        "attenuation_distance": 64
+      }
+    ]
+  },
+  "astral_reverse": {
+    "subtitle": "subtitles.two_i_combat_doll.astral_reverse",
+    "sounds": [
+      {
+        "name": "two_i_combat_doll:astral_reverse",
+        "attenuation_distance": 64
+      }
+    ]
+  },
+  "cangsheng_awaken": {
+    "subtitle": "subtitles.two_i_combat_doll.cangsheng_awaken",
+    "sounds": [
+      {
+        "name": "two_i_combat_doll:cangsheng_awaken",
+        "attenuation_distance": 64
+      }
+    ]
+  },
+  "cangsheng_roar": {
+    "subtitle": "subtitles.two_i_combat_doll.cangsheng_roar",
+    "sounds": [
+      {
+        "name": "two_i_combat_doll:cangsheng_roar",
+        "attenuation_distance": 64
+      }
+    ]
+  },
+  "cangsheng_impact": {
+    "subtitle": "subtitles.two_i_combat_doll.cangsheng_impact",
+    "sounds": [
+      {
+        "name": "two_i_combat_doll:cangsheng_impact",
+        "attenuation_distance": 64
+      }
+    ]
+  },
+  "cangsheng_flute": {
+    "subtitle": "subtitles.two_i_combat_doll.cangsheng_flute",
+    "sounds": [
+      {
+        "name": "two_i_combat_doll:cangsheng_flute",
+        "attenuation_distance": 64
+      }
+    ]
+  },
+  "two_i_voice": {
+    "sounds": [
+      "two_i_combat_doll:two_i_voice"
+    ]
+  },
+  "two_i_voice_soft": {
+    "sounds": [
+      "two_i_combat_doll:two_i_voice_soft"
+    ]
+  },
+  "two_i_voice_bright": {
+    "sounds": [
+      "two_i_combat_doll:two_i_voice_bright"
+    ]
+  },
+  "player_voice": {
+    "sounds": [
+      "two_i_combat_doll:player_voice"
+    ]
+  },
+  "two_i_pat": {
+    "subtitle": "subtitles.two_i_combat_doll.two_i_pat",
+    "sounds": [
+      "two_i_combat_doll:two_i_pat_1",
+      "two_i_combat_doll:two_i_pat_2",
+      "two_i_combat_doll:two_i_pat_3"
+    ]
+  }
+}

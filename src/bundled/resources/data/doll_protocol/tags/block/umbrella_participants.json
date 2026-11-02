@@ -1,0 +1,19 @@
+{
+  "replace": false,
+  "values": [
+    "baimo:baimo_display",
+    "fenghua:fenghua_display",
+    "longhuan:longhuan_display",
+    "nadir:nadir_display",
+    "ninxin:ninxin_display",
+    "ooolala:ooolala_display",
+    "qijici:qijici_display",
+    "qijiu:qijiu_display",
+    "sishier:sishier_display",
+    "xiaoxiao:xiaoxiao_display",
+    "piston:piston_display",
+    "shaniao:shaniao_display",
+    "chuanshuo:chuanshuo_display",
+    "luomu:luomu_display"
+  ]
+}

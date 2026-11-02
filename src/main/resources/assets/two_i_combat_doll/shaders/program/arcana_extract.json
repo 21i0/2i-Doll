@@ -1,0 +1,29 @@
+{
+  "vertex": "two_i_combat_doll:arcana_screen",
+  "fragment": "two_i_combat_doll:arcana_extract",
+  "samplers": [
+    {
+      "name": "DiffuseSampler"
+    }
+  ],
+  "uniforms": [
+    {
+      "name": "OutSize",
+      "type": "float",
+      "count": 2,
+      "values": [
+        1,
+        1
+      ]
+    },
+    {
+      "name": "InSize",
+      "type": "float",
+      "count": 2,
+      "values": [
+        1,
+        1
+      ]
+    }
+  ]
+}
