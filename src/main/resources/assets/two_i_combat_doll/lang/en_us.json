@@ -235,6 +235,7 @@
   "gui.two_i_combat_doll.two_i.vn.next_page": "Next page",
   "gui.two_i_combat_doll.two_i.vn.speed_value": "Text speed: %s",
   "gui.two_i_combat_doll.two_i.vn.click_hint": "Click to continue",
+  "gui.two_i_combat_doll.two_i.vn.text_scroll": "Scroll over the text to read earlier lines",
   "gui.two_i_combat_doll.two_i.vn.settings_hint": "Text speed controls how quickly letters appear. Auto and Skip stop at choices and wait for your answer.",
   "gui.two_i_combat_doll.two_i.vn.show_hint": "Right-click to show the interface",
   "gui.two_i_combat_doll.two_i.smalltalk": "Small talk",

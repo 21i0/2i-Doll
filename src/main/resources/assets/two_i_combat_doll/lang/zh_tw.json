@@ -220,6 +220,7 @@
   "gui.two_i_combat_doll.two_i.vn.next_page": "下一頁",
   "gui.two_i_combat_doll.two_i.vn.speed_value": "文字速度：%s",
   "gui.two_i_combat_doll.two_i.vn.click_hint": "點擊繼續",
+  "gui.two_i_combat_doll.two_i.vn.text_scroll": "正文上捲輪可查看本句前文",
   "gui.two_i_combat_doll.two_i.vn.settings_hint": "文字速度只影響逐字顯示；自動與快轉會在選項處停下，等你選擇。",
   "gui.two_i_combat_doll.two_i.vn.show_hint": "右鍵恢復介面",
   "gui.two_i_combat_doll.two_i.smalltalk": "隨便聊聊",

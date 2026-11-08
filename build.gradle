@@ -5,7 +5,7 @@ plugins {
 
 version = '1.21.1-1.3.4'
 group = 'com.twoi.combatdoll'
-base { archivesName = 'two_i_combat_doll' }
+base { archivesName = '2i-Doll' }
 java.toolchain.languageVersion = JavaLanguageVersion.of(21)
 // Complete source/resource integration, preserving the companions' registry IDs.
 sourceSets.main.java.srcDir 'src/bundled/java'
@@ -116,7 +116,7 @@ neoForge {
 
 if (withStretcher) {
     tasks.register('prepareFixture', Copy) {
-        from(fixture) { include '*.jar'; exclude 'useless_stretcher-*.jar', 'two_i_combat_doll-*.jar' }
+        from(fixture) { include '*.jar'; exclude 'useless_stretcher-*.jar', 'two_i_combat_doll-*.jar', '2i-Doll-*.jar' }
         from('libs/compile') { include 'useless_stretcher-*.jar' }
         into new File(runDir, 'mods')
     }

@@ -3,6 +3,7 @@ package com.twoi.combatdoll.companion.client;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.twoi.combatdoll.companion.client.dialogue.TwoIStoryScript;
 import com.twoi.combatdoll.companion.client.dialogue.TwoIStoryTimeline;
+import com.twoi.combatdoll.companion.client.gui.CanvasTextLayout;
 import com.twoi.combatdoll.companion.network.Network;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
@@ -20,7 +21,6 @@ import java.util.function.LongSupplier;
 /** Presentation only: no local bond awards, and history/auto never replay network actions. */
 public final class TwoIStoryScreen extends Screen implements TwoIInteractionScreen {
     private static final int CANVAS_W = 800, CANVAS_H = 450;
-    private static final int HISTORY_ROWS = 17;
     private static final ResourceLocation FRAME = texture("ui/dialogue_frame");
     private static final ResourceLocation BOW = texture("ui/bow");
     private static int textSpeed = 2;
@@ -48,6 +48,9 @@ public final class TwoIStoryScreen extends Screen implements TwoIInteractionScre
     private final List<Component> history = new ArrayList<>();
     private List<FormattedCharSequence> historyLines = List.of();
     private int historyScroll;
+    private int dialogueScroll, dialogueMaxScroll;
+    private boolean manualDialogueScroll;
+    private int canvasMouseX, canvasMouseY;
     private final List<Button> controls = new ArrayList<>();
     private final List<Button> overlayControls = new ArrayList<>();
     private final Button[] choices = new Button[3];
@@ -140,12 +143,10 @@ public final class TwoIStoryScreen extends Screen implements TwoIInteractionScre
             int choice = i;
             choices[i] = addRenderableWidget(new NovelButton(200, 164 + i * 40, 400, 34,
                     choiceLabel(i), b -> choose(choice)));
-            choices[i].setTooltip(net.minecraft.client.gui.components.Tooltip.create(ui(replay
-                    ? "replay_hint" : "choice_bond_hint")));
         }
         overlayControls.add(control(546, 90, 96, "close", b -> { overlay = 0; syncWidgets(); }));
-        overlayControls.add(control(170, 312, 106, "previous", b -> scrollHistory(-HISTORY_ROWS)));
-        overlayControls.add(control(284, 312, 106, "next_page", b -> scrollHistory(HISTORY_ROWS)));
+        overlayControls.add(control(170, 312, 106, "previous", b -> scrollHistory(-historyRows())));
+        overlayControls.add(control(284, 312, 106, "next_page", b -> scrollHistory(historyRows())));
         speedButton = control(270, 180, 260, "speed", b -> {
             textSpeed = textSpeed == 1 ? 2 : textSpeed == 2 ? 4 : textSpeed == 4 ? 0 : 1;
             speedButton.setMessage(speedLabel());
@@ -160,7 +161,10 @@ public final class TwoIStoryScreen extends Screen implements TwoIInteractionScre
         voiceButton.setMessage(ui(voiceEnabled ? "voice_on" : "voice_off"));
         overlayControls.add(voiceButton);
         // init also runs after window/GUI-scale changes; retain story, pending choice and text position.
-        if (overlay == 1) rebuildHistory();
+        if (overlay == 1) {
+            rebuildHistory();
+            scrollHistory(0);
+        }
         syncWidgets();
     }
 
@@ -195,6 +199,8 @@ public final class TwoIStoryScreen extends Screen implements TwoIInteractionScre
         for (int i = 0; i < choices.length; i++) {
             Button b = choices[i];
             b.setMessage(choiceLabel(i));
+            b.setTooltip(net.minecraft.client.gui.components.Tooltip.create(b.getMessage().copy()
+                    .append("\n\n").append(ui(replay ? "replay_hint" : "choice_bond_hint"))));
             b.visible = stage == 1 && overlay == 0 && !hidden;
             b.active = !waiting && !failed;
         }
@@ -217,6 +223,8 @@ public final class TwoIStoryScreen extends Screen implements TwoIInteractionScre
         characterCount = fullText.codePointCount(0, fullText.length());
         revealed = 0;
         visibleText = "";
+        dialogueScroll = dialogueMaxScroll = 0;
+        manualDialogueScroll = false;
         voice.stop();
         timeline = new TwoIStoryTimeline(line.key(), fullText, line.player(), line.narration());
         lastFrameNanos = clock.getAsLong();
@@ -240,6 +248,11 @@ public final class TwoIStoryScreen extends Screen implements TwoIInteractionScre
         if (overlay != 0 || hidden || waiting) return;
         if (failed) { onClose(); return; }
         if (revealed < characterCount) { reveal(); return; }
+        if (manualDialogueScroll && dialogueScroll < dialogueMaxScroll) {
+            dialogueScroll = dialogueMaxScroll;
+            manualDialogueScroll = false;
+            return;
+        }
         if (stage == 1) return;
         if (++lineIndex < lines.size()) {
             enterLine();
@@ -359,20 +372,22 @@ public final class TwoIStoryScreen extends Screen implements TwoIInteractionScre
         automatic = false;
         fastForward = false;
         overlay = type;
-        if (type == 1) { rebuildHistory(); historyScroll = Math.max(0, historyLines.size() - HISTORY_ROWS); }
+        if (type == 1) { rebuildHistory(); historyScroll = Math.max(0, historyLines.size() - historyRows()); }
         syncWidgets();
     }
 
     private void rebuildHistory() {
         List<FormattedCharSequence> result = new ArrayList<>();
         for (Component entry : history) {
-            result.addAll(font.split(entry, 450));
+            result.addAll(font.split(entry, textLayout(1).wrapWidth(172, 450)));
             result.add(FormattedCharSequence.EMPTY);
         }
         historyLines = List.copyOf(result);
     }
 
-    private void scrollHistory(int delta) { historyScroll = Mth.clamp(historyScroll + delta, 0, Math.max(0, historyLines.size() - HISTORY_ROWS)); }
+    private void scrollHistory(int delta) { historyScroll = Mth.clamp(historyScroll + delta, 0, Math.max(0, historyLines.size() - historyRows())); }
+
+    private int historyRows() { return textLayout(1).rows(122, 181, font.lineHeight + 2); }
 
     private float scale() { return Math.min(width / (float) CANVAS_W, height / (float) CANVAS_H); }
     private float left() { return (width - CANVAS_W * scale()) / 2; }
@@ -385,6 +400,8 @@ public final class TwoIStoryScreen extends Screen implements TwoIInteractionScre
         g.fill(0, 0, width, height, 0xFF192039);
         float scale = scale();
         int mx = (int) ((mouseX - left()) / scale), my = (int) ((mouseY - top()) / scale);
+        canvasMouseX = mx;
+        canvasMouseY = my;
         g.pose().pushPose();
         g.pose().translate(left(), top(), 0);
         g.pose().scale(scale, scale, 1);
@@ -394,9 +411,12 @@ public final class TwoIStoryScreen extends Screen implements TwoIInteractionScre
         g.blit(cg, 0, 0, CANVAS_W, CANVAS_H, 0f, 0f, 836, 471, 836, 471);
         if (!hidden) {
             g.fillGradient(0, 0, CANVAS_W, 80, 0xB0182448, 0x00182448);
-            g.drawString(font, title, 24, 21, 0xFFFFFFFF, true);
-            g.drawString(font, Component.translatable("gui.two_i_combat_doll.two_i.bond", bond), 24, 37, 0xFFE0E9FF, true);
-            if (replay) g.drawString(font, ui("replay_hint"), 24, 54, 0xFFE0E9FF, true);
+            CanvasTextLayout header = textLayout(1);
+            drawCanvasSingleLine(g, title, 24, 21, 410, header, 0xFFFFFFFF, true);
+            drawCanvasSingleLine(g, Component.translatable("gui.two_i_combat_doll.two_i.bond", bond),
+                    24, header.lineY(21, 1, font.lineHeight + 2), 410, header, 0xFFE0E9FF, true);
+            if (replay) drawCanvasSingleLine(g, ui("replay_hint"), 24,
+                    header.lineY(21, 2, font.lineHeight + 2), 410, header, 0xFFE0E9FF, true);
             var line = lines.get(lineIndex);
             if (!line.cg()) {
                 // The supplied full-body expressions have a white background. Present them as a character card.
@@ -407,18 +427,17 @@ public final class TwoIStoryScreen extends Screen implements TwoIInteractionScre
             drawFrame(g, 24, 314, 752, 128);
             g.blit(BOW, 4, 285, 82, 82, 0f, 0f, 627, 627, 627, 627);
             drawFrame(g, 86, 305, 122, 28);
-            g.drawCenteredString(font, speaker(line), 147, 315, 0xFF2E4476);
+            CanvasTextLayout name = textLayout(1);
+            drawCanvasCentered(g, speaker(line), 147,
+                    305 + (28 - font.lineHeight * name.relativeScale()) / 2, name, 0xFF2E4476);
             Component text = failed ? ui("rejected") : waiting ? ui("waiting") : Component.literal(visibleText);
-            g.pose().pushPose();
-            g.pose().translate(67, 342, 0);
-            g.pose().scale(1.25F, 1.25F, 1);
-            g.drawWordWrap(font, text, 0, 0, 528, 0xFF213653);
-            g.pose().popPose();
-            if (stage == 1 && !waiting && !failed) g.drawCenteredString(font, ui("choose"), 400, 148, 0xFFFFFFFF);
-            g.drawString(font, ui("click_hint"), 63, 399, 0xFF647797, false);
+            drawDialogue(g, text);
+            if (stage == 1 && !waiting && !failed) drawCanvasCentered(g, ui("choose"), 400, 148, textLayout(1), 0xFFFFFFFF);
+            Component hint = dialogueMaxScroll > 0 ? ui("click_hint").copy().append("  ").append(ui("text_scroll")) : ui("click_hint");
+            drawCanvasSingleLine(g, hint, 63, 399, 664, textLayout(1), 0xFF647797, false);
             if (overlay > 0) drawOverlay(g);
             super.render(g, mx, my, partial);
-        } else g.drawString(font, ui("show_hint"), 24, 425, 0xFFFFFFFF, true);
+        } else drawCanvasText(g, ui("show_hint"), 24, 425, textLayout(1), 0xFFFFFFFF, true);
         RenderSystem.disableBlend();
         g.pose().popPose();
     }
@@ -426,16 +445,97 @@ public final class TwoIStoryScreen extends Screen implements TwoIInteractionScre
     private void drawOverlay(GuiGraphics g) {
         g.fill(0, 0, CANVAS_W, CANVAS_H, 0x980E1428);
         drawFrame(g, 140, 58, 520, 324);
-        g.drawString(font, ui(overlay == 1 ? "log" : "settings"), 172, 97, 0xFF243960, false);
+        CanvasTextLayout text = textLayout(1);
+        drawCanvasText(g, ui(overlay == 1 ? "log" : "settings"), 172, 97, text, 0xFF243960, false);
         if (overlay == 1) {
-            int end = Math.min(historyLines.size(), historyScroll + HISTORY_ROWS);
-            for (int i = historyScroll; i < end; i++) g.drawString(font, historyLines.get(i), 172,
-                    122 + (i - historyScroll) * 11, 0xFF344461, false);
-            g.drawWordWrap(font, ui("log_hint"), 400, 318, 222, 0xFF647797);
+            int end = Math.min(historyLines.size(), historyScroll + historyRows());
+            for (int i = historyScroll; i < end; i++) drawCanvasText(g, historyLines.get(i), 172,
+                    text.lineY(122, i - historyScroll, font.lineHeight + 2), text, 0xFF344461, false);
+            drawCanvasWrapped(g, ui("log_hint"), 172, 340, 450, 34, 0xFF647797);
         } else {
-            g.drawWordWrap(font, ui("help"), 172, 118, 454, 0xFF344461);
-            g.drawWordWrap(font, ui("settings_hint"), 172, 264, 454, 0xFF647797);
+            // Flow vertically using the real text height, including the smallest supported window.
+            int helpHeight = (int) Math.ceil(font.split(ui("help"), text.wrapWidth(172, 454)).size()
+                    * font.lineHeight * text.relativeScale() + 1 / (text.guiScale() * text.canvasScale()));
+            int speedY = 118 + helpHeight + 6;
+            speedButton.setY(speedY);
+            voiceButton.setY(speedY + 30);
+            drawCanvasWrapped(g, ui("help"), 172, 118, 454, helpHeight, 0xFF344461);
+            drawCanvasWrapped(g, ui("settings_hint"), 172, speedY + 60, 454,
+                    Math.max(1, 374 - speedY - 60), 0xFF647797);
         }
+    }
+
+    private CanvasTextLayout textLayout(double size) {
+        return CanvasTextLayout.create(minecraft.getWindow().getGuiScale(), scale(), left(), top(), size);
+    }
+
+    private void drawCanvasText(GuiGraphics g, Component text, double x, double y, CanvasTextLayout layout,
+                                int color, boolean shadow) {
+        drawCanvasText(g, text.getVisualOrderText(), x, y, layout, color, shadow);
+    }
+
+    private void drawCanvasText(GuiGraphics g, FormattedCharSequence text, double x, double y,
+                                CanvasTextLayout layout, int color, boolean shadow) {
+        g.pose().pushPose();
+        g.pose().translate(layout.x(x), layout.y(y), 0);
+        g.pose().scale(layout.relativeScale(), layout.relativeScale(), 1);
+        g.drawString(font, text, 0, 0, color, shadow);
+        g.pose().popPose();
+    }
+
+    private void drawCanvasCentered(GuiGraphics g, Component text, double center, double y,
+                                    CanvasTextLayout layout, int color) {
+        drawCanvasText(g, text, layout.centeredLeft(center, font.width(text)), y, layout, color, false);
+    }
+
+    private String shortened(String value, int width) {
+        return font.width(value) <= width ? value
+                : font.plainSubstrByWidth(value, Math.max(0, width - font.width("…"))) + "…";
+    }
+
+    private void fullTextOnHover(Component text, double x, double y, double width, double height) {
+        if (canvasMouseX >= x && canvasMouseX < x + width && canvasMouseY >= y && canvasMouseY < y + height)
+            setTooltipForNextRenderPass(text);
+    }
+
+    private void drawCanvasSingleLine(GuiGraphics g, Component value, double x, double y, double width,
+                                      CanvasTextLayout text, int color, boolean shadow) {
+        int budget = text.wrapWidth(x, width);
+        String label = shortened(value.getString(), budget);
+        drawCanvasText(g, Component.literal(label), x, y, text, color, shadow);
+        if (font.width(value) > budget) fullTextOnHover(value, x, y, width, font.lineHeight * text.relativeScale());
+    }
+
+    private void drawCanvasWrapped(GuiGraphics g, Component value, int x, int y, int width, int height, int color) {
+        CanvasTextLayout text = textLayout(1);
+        var wrapped = font.split(value, text.wrapWidth(x, width));
+        while (text.pixelScale() > 1 && wrapped.size() > text.rows(y, height, font.lineHeight)) {
+            text = text.withPixelScale(text.pixelScale() - 1);
+            wrapped = font.split(value, text.wrapWidth(x, width));
+        }
+        int visibleRows = Math.min(wrapped.size(), text.rows(y, height, font.lineHeight));
+        for (int i = 0; i < visibleRows; i++) {
+            FormattedCharSequence line = wrapped.get(i);
+            if (i == visibleRows - 1 && wrapped.size() > visibleRows) {
+                StringBuilder plain = new StringBuilder();
+                line.accept((index, style, codePoint) -> { plain.appendCodePoint(codePoint); return true; });
+                line = Component.literal(shortened(plain + "…", text.wrapWidth(x, width))).getVisualOrderText();
+            }
+            drawCanvasText(g, line, x, text.lineY(y, i, font.lineHeight), text, color, false);
+        }
+        if (wrapped.size() > visibleRows) fullTextOnHover(value, x, y, width, height);
+    }
+
+    private void drawDialogue(GuiGraphics g, Component value) {
+        CanvasTextLayout text = textLayout(1.25);
+        var wrapped = font.split(value, text.wrapWidth(67, 660));
+        int rows = text.rows(342, 54, font.lineHeight);
+        dialogueMaxScroll = Math.max(0, wrapped.size() - rows);
+        // Follow the revealed glyphs, but let a small-window reader scroll back without changing playback.
+        dialogueScroll = manualDialogueScroll ? Math.min(dialogueScroll, dialogueMaxScroll) : dialogueMaxScroll;
+        for (int i = dialogueScroll; i < Math.min(wrapped.size(), dialogueScroll + rows); i++)
+            drawCanvasText(g, wrapped.get(i), 67, text.lineY(342, i - dialogueScroll, font.lineHeight),
+                    text, 0xFF213653, false);
     }
 
     private static void drawFrame(GuiGraphics g, int x, int y, int w, int h) {
@@ -467,6 +567,18 @@ public final class TwoIStoryScreen extends Screen implements TwoIInteractionScre
     }
 
     @Override public boolean mouseScrolled(double x, double y, double horizontal, double vertical) {
+        double mx = (x - left()) / scale(), my = (y - top()) / scale();
+        if (overlay == 0 && !hidden && dialogueMaxScroll > 0 && mx >= 67 && mx < 727 && my >= 342 && my < 396) {
+            dialogueScroll = Mth.clamp(dialogueScroll - (int) Math.signum(vertical) * 3, 0, dialogueMaxScroll);
+            manualDialogueScroll = dialogueScroll < dialogueMaxScroll;
+            if (manualDialogueScroll) {
+                automatic = false;
+                fastForward = false;
+                readTicks = 0;
+                syncWidgets();
+            }
+            return true;
+        }
         if (overlay == 1) scrollHistory((int) -Math.signum(vertical) * 3);
         else if (vertical > 0) openOverlay(1);
         return true;
@@ -500,9 +612,11 @@ public final class TwoIStoryScreen extends Screen implements TwoIInteractionScre
             drawFrame(g, getX(), getY(), getWidth(), getHeight());
             boolean selected = isHoveredOrFocused() && active;
             if (selected) g.renderOutline(getX() + 3, getY() + 2, getWidth() - 6, getHeight() - 4, 0xFF6A92E0);
-            String label = font.plainSubstrByWidth(getMessage().getString(), getWidth() - 16);
-            g.drawString(font, label, getX() + (getWidth() - font.width(label)) / 2,
-                    getY() + (getHeight() - 8) / 2, active ? 0xFF304675 : 0xFF8994AD, false);
+            CanvasTextLayout text = textLayout(1);
+            String label = shortened(getMessage().getString(), text.wrapWidth(getX() + 8, getWidth() - 16));
+            double x = text.centeredLeftWithin(getX() + 8, getWidth() - 16, font.width(label));
+            double y = getY() + (getHeight() - font.lineHeight * text.relativeScale()) / 2;
+            drawCanvasText(g, Component.literal(label), x, y, text, active ? 0xFF304675 : 0xFF8994AD, false);
         }
     }
 }

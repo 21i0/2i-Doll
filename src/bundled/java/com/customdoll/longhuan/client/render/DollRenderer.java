@@ -210,6 +210,42 @@ public final class DollRenderer extends MobRenderer<DollEntity, DollRenderer.Mod
             rightArm.y += dy;
         }
 
+        /** Seated on the real companion's book; never swaps skin or resets a dance/umbrella grip. */
+        public void setupBookRiding(float time, float headYaw, float headPitch, float speed, boolean animateUpper) {
+            // setupAnim has already reset/posed the rig for this frame. Seat that
+            // same rig, retaining native gestures, blinking and thin-arm scales.
+            float seatedTorso = NECK_Y + FEET_Y - .25F * BODY_HEIGHT - HIP_Y;
+            moveTorso(seatedTorso - body.y);
+            leftLeg.x = 2.60F;
+            rightLeg.x = -2.60F;
+            leftLeg.z = rightLeg.z = -1.6F;
+            float sway = Mth.sin(time * .13F) * .035F;
+            leftLeg.xRot = -Mth.HALF_PI + sway;
+            rightLeg.xRot = -Mth.HALF_PI - sway;
+            leftLeg.yRot = -.24F;
+            rightLeg.yRot = .24F;
+            leftLeg.zRot = rightLeg.zRot = 0;
+            seatLeg(leftLeg);
+            seatLeg(rightLeg);
+            if (animateUpper) {
+                float moving = Mth.clamp(speed, 0, 1);
+                float breath = Mth.sin(time * .08F);
+                body.xRot = .075F * moving;
+                body.zRot = Mth.sin(time * .041F) * .018F * (1 - moving);
+                head.yRot = Mth.clamp(headYaw * Mth.DEG_TO_RAD, -.72F, .72F);
+                head.xRot = Mth.clamp(headPitch * Mth.DEG_TO_RAD, -.38F, .42F) - .035F * moving;
+                head.zRot = Mth.sin(time * .033F) * .03F * (1 - moving);
+                if (!umbrellaPosed) {
+                    leftArm.xRot = -.20F - .16F * moving + breath * .025F;
+                    rightArm.xRot = -.20F - .16F * moving - breath * .025F;
+                    leftArm.yRot = rightArm.yRot = 0;
+                    leftArm.zRot = -.13F;
+                    rightArm.zRot = .13F;
+                }
+            }
+            copySkinLayers();
+        }
+
         /** Twelve gestures over a continuous breathing pose, exclusively client-side. */
         public void setupDecoration(float time) {
             resetDoll();

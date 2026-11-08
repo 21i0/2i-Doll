@@ -24,19 +24,7 @@ public final class ArcanaWeaponRenderer extends BlockEntityWithoutLevelRenderer 
     @Override public void renderByItem(ItemStack stack,ItemDisplayContext context,PoseStack pose,MultiBufferSource buffers,int light,int overlay){
         var kind=((ArcanaWeaponItem)stack.getItem()).kind();float time=TwoIDollItemRenderer.animationTime();
         if(kind==WeaponKind.STAFF){
-            pose.pushPose();pose.translate(.5,.47,.5);
-            if(context==ItemDisplayContext.GUI){
-                pose.translate(0,.08,0);
-                pose.mulPose(Axis.YP.rotationDegrees(-24));pose.mulPose(Axis.XP.rotationDegrees(8));
-                pose.mulPose(Axis.ZP.rotationDegrees(-13));pose.scale(.315F,.315F,.315F);
-            }else if(context.firstPerson()){
-                pose.translate(.04,-.19,-.02);pose.mulPose(Axis.YP.rotationDegrees(158));
-                pose.mulPose(Axis.XP.rotationDegrees(-10));pose.mulPose(Axis.ZP.rotationDegrees(-11));
-                pose.scale(.52F,.52F,.52F);
-            }else{
-                pose.translate(0,-.10,0);pose.mulPose(Axis.YP.rotationDegrees(180));
-                pose.mulPose(Axis.XP.rotationDegrees(-10));pose.scale(.43F,.43F,.43F);
-            }
+            pose.pushPose();AstralStaffItemPose.apply(pose,context);
             AstralEdictModel.render(pose,buffers.getBuffer(AstralEdictModel.TYPE),time,1,1);
             pose.popPose();return;
         }

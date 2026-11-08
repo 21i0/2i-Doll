@@ -235,6 +235,7 @@
   "gui.two_i_combat_doll.two_i.vn.next_page": "下一页",
   "gui.two_i_combat_doll.two_i.vn.speed_value": "文字速度：%s",
   "gui.two_i_combat_doll.two_i.vn.click_hint": "点击继续",
+  "gui.two_i_combat_doll.two_i.vn.text_scroll": "正文上滚轮可查看本句前文",
   "gui.two_i_combat_doll.two_i.vn.settings_hint": "文字速度只影响逐字显示；自动与快进会在选项处停下，等你选择。",
   "gui.two_i_combat_doll.two_i.vn.show_hint": "右键恢复界面",
   "gui.two_i_combat_doll.two_i.smalltalk": "随便聊聊",

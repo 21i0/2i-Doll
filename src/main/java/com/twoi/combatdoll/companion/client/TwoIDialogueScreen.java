@@ -34,6 +34,7 @@ public final class TwoIDialogueScreen extends Screen implements TwoIInteractionS
     private int panelX;
     private int panelY;
     private int panelWidth;
+    private int panelHeight;
     private Button talkButton;
     private Button patButton;
     private Button giftButton;
@@ -63,14 +64,12 @@ public final class TwoIDialogueScreen extends Screen implements TwoIInteractionS
 
     @Override
     protected void init() {
-        panelWidth = Math.min(430, width - 20);
-        panelX = (width - panelWidth) / 2;
-        panelY = (height - PANEL_HEIGHT) / 2;
+        updateLayout();
         int actionX = panelX + 145;
         int actionWidth = panelWidth - 157;
         int gap = 6;
         int buttonWidth = (actionWidth - gap) / 2;
-        int firstY = panelY + 167;
+        int firstY = panelY + panelHeight - 83;
 
         int libraryWidth = Math.min(86, (panelWidth - 95) / 2);
         addAction(panelX + panelWidth - 2 * libraryWidth - 16, panelY + 5, libraryWidth,
@@ -107,6 +106,13 @@ public final class TwoIDialogueScreen extends Screen implements TwoIInteractionS
         addAction(actionX + buttonWidth + gap, firstY + 52, buttonWidth, "smalltalk",
                 button -> Network.sendTwoIDollTalk(entityId));
         talkButton.active = startWait == 0;
+    }
+
+    private void updateLayout() {
+        panelWidth = Math.min(430, width - 20);
+        panelHeight = Math.min(PANEL_HEIGHT, height - 12);
+        panelX = (width - panelWidth) / 2;
+        panelY = (height - panelHeight) / 2;
     }
 
     private Button addAction(int x, int y, int buttonWidth, String action,
@@ -169,17 +175,15 @@ public final class TwoIDialogueScreen extends Screen implements TwoIInteractionS
 
     @Override
     public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
-        panelWidth = Math.min(430, width - 20);
-        panelX = (width - panelWidth) / 2;
-        panelY = (height - PANEL_HEIGHT) / 2;
+        updateLayout();
 
         // Match the rest of the mod's AE-inspired screens instead of using an opaque black box.
         graphics.fill(0, 0, width, height, 0x28000000);
-        StretcherScreenStyle.drawPanel(graphics, panelX, panelY, panelWidth, PANEL_HEIGHT);
+        StretcherScreenStyle.drawPanel(graphics, panelX, panelY, panelWidth, panelHeight);
         graphics.fill(panelX + 5, panelY + 4, panelX + panelWidth - 5, panelY + 25,
                 StretcherScreenStyle.SLOT_COLOR);
         StretcherScreenStyle.drawInset(graphics, panelX + 10, panelY + 31,
-                panelX + 137, panelY + PANEL_HEIGHT - 10);
+                panelX + 137, panelY + panelHeight - 10);
         graphics.fill(panelX + 145, panelY + 31, panelX + panelWidth - 10, panelY + 32,
                 StretcherScreenStyle.SLOT_SHADOW_COLOR);
 
@@ -196,7 +200,7 @@ public final class TwoIDialogueScreen extends Screen implements TwoIInteractionS
             // and pitch.  Render a client-only doll copy so network updates cannot
             // overwrite that orbit while the mouse is moving.
             InventoryScreen.renderEntityInInventoryFollowsMouse(graphics,
-                    panelX + 12, panelY + 35, panelX + 135, panelY + PANEL_HEIGHT - 15, 60,
+                    panelX + 12, panelY + 35, panelX + 135, panelY + panelHeight - 15, 60,
                     0.0625F, mouseX, mouseY, doll);
             if (doll instanceof TwoIDollEntity twoI && !twoI.getBubbleText().isEmpty()) {
                 Component bubble = twoI.getBubbleMessage();
@@ -210,7 +214,7 @@ public final class TwoIDialogueScreen extends Screen implements TwoIInteractionS
                         0xFF242631);
             }
             renderEntityStatus(graphics, status == null ? doll : status,
-                    panelX + 13, panelY + PANEL_HEIGHT - 42, 121);
+                    panelX + 13, panelY + panelHeight - 42, 121);
         }
 
         int textX = panelX + 145;
@@ -233,21 +237,54 @@ public final class TwoIDialogueScreen extends Screen implements TwoIInteractionS
                 : itemMode
                     ? Component.translatable("gui.two_i_combat_doll.two_i.item_dialogue")
                     : bondDialogue();
-        graphics.drawWordWrap(font, dialogue, textX, panelY + 80, textWidth,
-                StretcherScreenStyle.TEXT_COLOR);
+        int relationshipY = panelY + panelHeight - 102;
+        int bodyBottom = relationshipY - 7;
+        int dialogueY = panelY + 80;
         if (invitationUsed) {
-            graphics.drawWordWrap(font, Component.translatable("gui.two_i_combat_doll.two_i.invitation_used"),
-                    textX, panelY + 116, textWidth, StretcherScreenStyle.MUTED_TEXT_COLOR);
+            int reminderRows = Math.min(2, Math.max(1,
+                    (bodyBottom - dialogueY - 2 * font.lineHeight - 4) / font.lineHeight));
+            int reminderY = Math.min(panelY + 116, bodyBottom - reminderRows * font.lineHeight);
+            drawBoundedText(graphics, dialogue, textX, dialogueY, textWidth, reminderY - dialogueY - 4,
+                    StretcherScreenStyle.TEXT_COLOR, mouseX, mouseY);
+            drawBoundedText(graphics, Component.translatable("msg.two_i_combat_doll.two_i.invitation_used"),
+                    textX, reminderY, textWidth, bodyBottom - reminderY,
+                    StretcherScreenStyle.MUTED_TEXT_COLOR, mouseX, mouseY);
+        } else {
+            drawBoundedText(graphics, dialogue, textX, dialogueY, textWidth, bodyBottom - dialogueY,
+                    StretcherScreenStyle.TEXT_COLOR, mouseX, mouseY);
         }
-        graphics.drawString(font, Component.translatable("gui.two_i_combat_doll.two_i.relationship",
-                        Component.translatable("gui.two_i_combat_doll.two_i.relationship." + relationship())),
-                textX, panelY + 148, StretcherScreenStyle.SUBTLE_TEXT_COLOR, false);
+        Component relationshipText = Component.translatable("gui.two_i_combat_doll.two_i.relationship",
+                Component.translatable("gui.two_i_combat_doll.two_i.relationship." + relationship()));
+        graphics.drawString(font, shortened(relationshipText.getString(), textWidth),
+                textX, relationshipY, StretcherScreenStyle.SUBTLE_TEXT_COLOR, false);
 
         super.render(graphics, mouseX, mouseY, partialTick);
-        if (mouseX >= textX && mouseX < textX + textWidth && mouseY >= panelY + 145 && mouseY < panelY + 161) {
-            graphics.renderTooltip(font, font.split(Component.translatable("help.two_i_combat_doll.two_i.relationship"),
-                    240), mouseX, mouseY);
+        if (mouseX >= textX && mouseX < textX + textWidth && mouseY >= relationshipY - 3 && mouseY < relationshipY + 13) {
+            setTooltipForNextRenderPass(relationshipText.copy().append("\n\n")
+                    .append(Component.translatable("help.two_i_combat_doll.two_i.relationship")));
         }
+    }
+
+    private String shortened(String value, int width) {
+        return font.width(value) <= width ? value
+                : font.plainSubstrByWidth(value, Math.max(0, width - font.width("…"))) + "…";
+    }
+
+    private void drawBoundedText(GuiGraphics graphics, Component value, int x, int y, int width, int height,
+                                 int color, int mouseX, int mouseY) {
+        var lines = font.split(value, width);
+        int visibleRows = Math.min(lines.size(), Math.max(0, height / font.lineHeight));
+        for (int i = 0; i < visibleRows; i++) {
+            var line = lines.get(i);
+            if (i == visibleRows - 1 && lines.size() > visibleRows) {
+                StringBuilder plain = new StringBuilder();
+                line.accept((index, style, codePoint) -> { plain.appendCodePoint(codePoint); return true; });
+                line = Component.literal(shortened(plain + "…", width)).getVisualOrderText();
+            }
+            graphics.drawString(font, line, x, y + i * font.lineHeight, color, false);
+        }
+        if (lines.size() > visibleRows && mouseX >= x && mouseX < x + width && mouseY >= y && mouseY < y + height)
+            setTooltipForNextRenderPass(value);
     }
 
     private String relationship() {

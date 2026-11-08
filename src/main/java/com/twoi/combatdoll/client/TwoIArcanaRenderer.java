@@ -7,6 +7,7 @@ import com.twoi.combatdoll.TwoICombatDollMod;
 import com.twoi.combatdoll.config.TwoIVisualConfig;
 import com.twoi.combatdoll.combat.TwoIArcanaTimeline;
 import com.twoi.combatdoll.combat.DollCombatAccess;
+import com.twoi.combatdoll.combat.LonghuanBookFlightGoal;
 import com.twoi.combatdoll.client.compat.LegacyStarfieldVisuals;
 import com.twoi.combatdoll.companion.client.render.TwoIStarfieldEffects;
 import com.twoi.combatdoll.companion.dimension.world.TwoIStarfieldDimensions;
@@ -41,6 +42,9 @@ public final class TwoIArcanaRenderer {
     private static final RenderType TYPE = RenderType.entityTranslucentEmissive(ATLAS, false);
     private static final RenderType SCARLET_TYPE = RenderType.entityTranslucentEmissive(SCARLET_ATLAS, false);
     private static final List<LivingEntity> CASTERS = new ArrayList<>(4);
+    // Supporting books are ordinary companion geometry, independent of the
+    // four expensive simultaneous spell scenes allowed by CASTERS.
+    private static final List<LivingEntity> BOOK_RIDERS = new ArrayList<>();
     private static final int MINT = 0xA0FFDB, WHITE = 0xE4FFF8, CYAN = 0x82CFFF, LILAC = 0xC6A0FF;
     private static final float[] EYE = {0, 0, 1, .5F}, SEAL = {0, .5F, .5F, 1};
     private static final float[] SPARK = {.5F, .5F, .625F, .625F};
@@ -109,13 +113,17 @@ public final class TwoIArcanaRenderer {
     @SubscribeEvent public static void tick(ClientTickEvent.Post event) {
         Minecraft mc = Minecraft.getInstance();
         if (lastLevel != mc.level) {
-            CASTERS.clear(); ROSE_BEDS.clear(); lastLevel = mc.level;
+            CASTERS.clear(); BOOK_RIDERS.clear(); ROSE_BEDS.clear(); lastLevel = mc.level;
             TwoIArcanaPost.close();
         }
         if (mc.level == null || mc.player == null) return;
         if (ClientCombatClock.now() % 5 != 0) return;
         CASTERS.clear();
+        BOOK_RIDERS.clear();
         for (var entity : mc.level.entitiesForRendering()) {
+            if (entity instanceof LivingEntity rider && LonghuanBookFlightGoal.riding(rider)
+                    && rider.distanceToSqr(mc.player) < 80 * 80)
+                BOOK_RIDERS.add(rider);
             if (entity instanceof LivingEntity doll && (doll instanceof DollCombatAccess || doll instanceof net.minecraft.world.entity.player.Player)
                     && DollCombatAccess.state(doll).armed() && (doll instanceof DollCombatAccess || age(doll,0)>=0)
                     && age(doll,0) < TwoIArcanaTimeline.DURATION && doll.distanceToSqr(mc.player) < 80 * 80)
@@ -134,7 +142,7 @@ public final class TwoIArcanaRenderer {
         if (mc.level == null || mc.player == null) return;
         boolean garden = TwoIVisualConfig.GARDEN.get() && (mc.level.dimension().equals(TwoIStarfieldDimensions.KEY)
                 || LegacyStarfieldVisuals.isGarden(mc.level));
-        if (!garden && CASTERS.isEmpty() && !ClientTimeStop.active()) {
+        if (!garden && CASTERS.isEmpty() && BOOK_RIDERS.isEmpty() && !ClientTimeStop.active()) {
             lastVertices=lastTentacles=lastTentacleVertices=0;lastBookSlam=-1;resetPortals();return;
         }
         float partial = event.getPartialTick().getGameTimeDeltaPartialTick(true);
@@ -210,6 +218,9 @@ public final class TwoIArcanaRenderer {
                     if(book)spell(mesh,doll,age,time,partial,i++<2);
                     else upperSpell(mesh,doll,age,time,partial);
                 }
+                if(scarlet)for(LivingEntity rider:BOOK_RIDERS)
+                    if(!rider.isRemoved()&&rider.level()==mc.level&&LonghuanBookFlightGoal.riding(rider))
+                        riddenBook(mesh,rider,time,partial);
                 total+=mesh.vertices;mc.renderBuffers().bufferSource().endBatch(type);
             }
             // The staff uses its own pixel atlas. Request it only after both
@@ -230,10 +241,37 @@ public final class TwoIArcanaRenderer {
 
     private static void orbitWeapon(Mesh m,LivingEntity actor,float time,float partial){
         if(DollCombatAccess.state(actor).kind()!=com.twoi.combatdoll.combat.WeaponKind.BOOK)return;
+        if(LonghuanBookFlightGoal.riding(actor))return;
         double a=time*.025+actor.getId();
         Vec3 at=actor.getPosition(partial).add(Math.cos(a)*.68,.9+Math.sin(a*1.3)*.12,Math.sin(a)*.68);
         m.pose.pushPose();m.at(at);m.pose.mulPose(Axis.YP.rotation((float)-a));
         m.book(time,1,.72F,.08F);
+        m.pose.popPose();
+    }
+
+    /** The same single book slides forward to cast and returns underneath its rider. */
+    private static void riddenBook(Mesh m,LivingEntity actor,float time,float partial){
+        float age=age(actor,partial);
+        float cast=age>=0&&age<TwoIArcanaTimeline.DURATION
+                ?TwoIArcanaTimeline.smooth(0,30,age)*(1-TwoIArcanaTimeline.smooth(184,TwoIArcanaTimeline.DURATION,age)):0;
+        Vec3 forward=direction(actor);
+        float body=Mth.rotLerp(partial,actor.yBodyRotO,actor.yBodyRot);
+        float idleYaw=-body;
+        float spellYaw=(float)Math.toDegrees(Math.atan2(forward.x,forward.z));
+        float size=Mth.lerp(cast,1.15F,1.35F);
+        // The spine bands reach z=.079, slightly above the flat cover at.072.
+        double seatY=-.079*1.15-.01;
+        Vec3 local=new Vec3(forward.x*.65*cast,
+                Mth.lerp(cast,seatY,.72+Math.sin(time*.065)*.045),forward.z*.65*cast);
+        m.pose.pushPose();m.at(actor.getPosition(partial));
+        com.customdoll.longhuan.client.DollDanceClient.transform(m.pose,
+                com.customdoll.longhuan.client.DollDanceClient.elapsed(actor,partial),.45F);
+        m.pose.translate(local.x,local.y,local.z);
+        m.pose.mulPose(Axis.YP.rotationDegrees(Mth.rotLerp(cast,idleYaw,spellYaw)));
+        m.pose.mulPose(Axis.XP.rotationDegrees(Mth.lerp(cast,-90,-12)));
+        // The two flat halves span [-.615,.205], with their spine at -.205.
+        m.pose.translate(.205F*size*(1-cast),0,0);
+        m.book(time,1,size,1,Mth.lerp(cast,180,155));
         m.pose.popPose();
     }
     private static int renderStaffWeapons(PoseStack pose,net.minecraft.client.renderer.MultiBufferSource.BufferSource buffers,
@@ -397,10 +435,12 @@ public final class TwoIArcanaRenderer {
         Vec3 direction = direction(doll);
         // A thorn-bound leather codex opens from its spine, rather than a green
         // eye floating in front of two unrelated page planes.
-        m.pose.pushPose(); m.at(center.add(direction.scale(.65)).add(0, .72 + Math.sin(time * .065) * .045, 0));
-        m.pose.mulPose(Axis.YP.rotation((float)Math.atan2(direction.x, direction.z)));
-        m.pose.mulPose(Axis.XP.rotationDegrees(-12));
-        m.book(time, presence, 1.35F,TwoIArcanaTimeline.smooth(0,38,age)); m.pose.popPose();
+        if(!LonghuanBookFlightGoal.riding(doll)) {
+            m.pose.pushPose(); m.at(center.add(direction.scale(.65)).add(0, .72 + Math.sin(time * .065) * .045, 0));
+            m.pose.mulPose(Axis.YP.rotation((float)Math.atan2(direction.x, direction.z)));
+            m.pose.mulPose(Axis.XP.rotationDegrees(-12));
+            m.book(time, presence, 1.35F,TwoIArcanaTimeline.smooth(0,38,age)); m.pose.popPose();
+        }
         roses(m,doll,age,presence);
         // Sparse, slow embers leave room for the eye and the ground flowers.
         int motes = 6 + quality() * 3;
@@ -767,6 +807,10 @@ public final class TwoIArcanaRenderer {
         }
         public void book(float time,float alpha,float size){book(time,alpha,size,1);}
         public void book(float time, float alpha, float size,float open) {
+            book(time,alpha,size,open,155);
+        }
+        /** Riding may unfold to a flat180°; ordinary held/casting books retain155°. */
+        public void book(float time,float alpha,float size,float open,float openingDegrees) {
             pose.pushPose(); pose.scale(size, size, size);
             open=Mth.clamp(open,0,1);
             // Closed leather binding, ivory page block and a real hinged cover.
@@ -776,7 +820,7 @@ public final class TwoIArcanaRenderer {
             box(-.218F,-.307F,-.067F,.035F,.614F,.145F,RED_COVER,0x932039,alpha);
             for(int i=0;i<4;i++)box(-.225F,-.235F+i*.156F,-.073F,.046F,.025F,.152F,RED_SOLID,0xB99580,alpha);
             pose.pushPose();pose.translate(-.205F,0,.072F);
-            pose.mulPose(Axis.YP.rotationDegrees(-open*155));
+            pose.mulPose(Axis.YP.rotationDegrees(-open*openingDegrees));
             box(0,-.30F,0,.41F,.60F,.025F,RED_COVER,0xFFFFFF,alpha);
             // Inner cover remains readable when the physical front swings open.
             pose.pushPose();pose.translate(.398F,0,-.002F);pose.mulPose(Axis.YP.rotationDegrees(180));
