@@ -1,0 +1,21 @@
+{
+  "date": "2026-11-08",
+  "scope": "TwoICombatDoll project only",
+  "cleanup": {
+    "removed_files": 15919,
+    "removed_logical_bytes": 14184108755,
+    "drive_free_delta": 11077320704,
+    "world_roots_preserved": 150,
+    "method": "Validated individual literal files only; no recursive directory removal; no outside project changes"
+  },
+  "source_backup_commits": {
+    "release_1_3_4": "44e24caa79ec7e6bb1b2d9ee5a5097385505b3b9",
+    "development_before_cleanup": "c9728c126ea3b177b74d8024b5228caa2b8a6eb0"
+  },
+  "formal_version": "1.21.1-1.3.4",
+  "cf_url": "https://www.curseforge.com/minecraft/mc-mods/the-2i-doll/files/9451642",
+  "cf_action": "Already latest accepted formal release; later experiments not promoted",
+  "worlds_or_user_materials_deleted": false,
+  "minecraft_started": false,
+  "modpack_or_D_AI_root_changed": false
+}
