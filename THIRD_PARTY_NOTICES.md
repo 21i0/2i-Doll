@@ -1,5 +1,31 @@
 # Asset licenses
 
+## Canmeng companion integration (2026-11-04)
+
+The source-integrated `canmeng` companion retains its original
+1.21.1-1.0.0 registry identity and author credit **2i学习**. Its generated
+Java sources are MIT licensed; the original source LICENSE and byte manifest
+are preserved under `verification/canmeng-release-20261104/source-import/`.
+The owner-supplied skin and blink artwork retain the artwork terms below.
+Existing shared template pat-response cues are retained, not advertised as
+new character-specific recordings. No reference-video audio was imported.
+Integration changes only the shared umbrella-query cache and an unambiguous
+survival recipe (black wool and a feather).
+
+## Magua, Shuangshi and Qiaotou companion integration (2026-11-04)
+
+The source-integrated `magua`, `shuangshi` and `qiaotou` companions retain
+their original 1.21.1-1.0.0 registry identities and the author credit **2i学习**.
+Their generated Java sources declare MIT; original source LICENSE files and
+byte manifests are preserved under
+`verification/three-dolls-release-20261104/source-import/source-baseline/`.
+Skins and blink images were supplied by the project owner and retain the
+owner-supplied-artwork terms below. No reference-video audio was imported.
+The existing generated pat-response sounds are retained; they are shared
+template cues and are not advertised as new character-specific recordings.
+Integration changes only shared umbrella-query caching, unambiguous survival
+recipes and Qiaotou's requested Chinese display name, **俏头的玩偶**.
+
 Original code, procedural magic artwork and original synthesized sound effects are MIT licensed.
 The 2i skin and custom artwork were supplied by the project owner.
 The code license does not relicense owner-supplied skins or the third-party

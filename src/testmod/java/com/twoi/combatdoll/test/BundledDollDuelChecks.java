@@ -25,12 +25,14 @@ public final class BundledDollDuelChecks {
             Map.entry("longhuan","1.21.1-1.0.3"),Map.entry("luomu","1.21.1-1.0.1"),
             Map.entry("nadir","1.21.1-1.0.0"),Map.entry("ninxin","1.21.1-1.0.1"),Map.entry("ooolala","1.21.1-1.0.0"),
             Map.entry("qijici","1.21.1-1.0.0"),Map.entry("qijiu","1.21.1-1.0.0"),Map.entry("shaniao","1.21.1-1.0.0"),Map.entry("sishier","1.21.1-1.0.1"),
-            Map.entry("xiaoxiao","1.21.1-1.0.1"),Map.entry("piston","1.21.1-1.0.0"));
+            Map.entry("xiaoxiao","1.21.1-1.0.1"),Map.entry("piston","1.21.1-1.0.0"),
+            Map.entry("magua","1.21.1-1.0.0"),Map.entry("shuangshi","1.21.1-1.0.0"),Map.entry("qiaotou","1.21.1-1.0.0"),Map.entry("canmeng","1.21.1-1.0.0"));
     private static final int[] SEQUENCE={1,2,3,0,1,0};
     private static ServerPlayer player;
     private static MinecraftServer server;
     private static Map<UUID,ServerPlayer> online;
     private static CompoundTag storyRow,oldStory;
+    private static AutoCloseable storyCheckpoint;
     private static UUID duel;
     private static int ticks,index,phase;
     private static long lastAction;
@@ -65,11 +67,11 @@ public final class BundledDollDuelChecks {
             storyRow=(CompoundTag)type.getMethod("row",UUID.class).invoke(data,id);oldStory=storyRow.copy();
             storyRow.putBoolean("complete",true);storyRow.putInt("route",1);storyRow.putBoolean("route_confluence",false);
             check(!DollDuelArena.begin(player),"Chronicle rejects a non-graduated direct command/API start");
-            storyRow.putBoolean("route_confluence",true);
+            storyCheckpoint=(AutoCloseable)Class.forName("com.twoi.chronicle.test.DuelStoryCheckpoint").getMethod("install",ServerPlayer.class).invoke(null,player);
         }
         check(DollDuelArena.begin(player),"Actual registered Longhuan/Piston arena begins");
         if(net.neoforged.fml.ModList.get().isLoaded("doll_chronicle"))
-            LogUtils.getLogger().info("BUNDLED CHRONICLE GRADUATION GATE CHECKS PASSED: real non-graduated begin refused, confluence graduation permits the same original actor/player API");
+            LogUtils.getLogger().info("BUNDLED CHRONICLE GRADUATION GATE CHECKS PASSED: real non-graduated begin refused; production-codec completed-chapter save fixture permits original actor/player API; seeded_story_checkpoint=true full_story_playthrough=false");
         else LogUtils.getLogger().info("BUNDLED STANDALONE DUEL ACCESS CHECKS PASSED: actual Longhuan/Piston arena begins without Chronicle");
         duel=row().getUUID("duel_id");check(row().getInt("turn")==1,"New fight starts round 1");
         var projections=player.serverLevel().getEntitiesOfClass(net.minecraft.world.entity.LivingEntity.class,player.getBoundingBox().inflate(16),DollDuelArena::isDuelActor);
@@ -102,7 +104,7 @@ public final class BundledDollDuelChecks {
         DollDuelArena.move(player,0);check(row().getInt("turn")==2&&row().getInt("enemy_hp")==152,"Actual first round resolves HP on server");
         DollDuelArena.move(player,0);check(row().getInt("turn")==2,"Immediate repeat packet cannot advance a second round");
         lastAction=player.serverLevel().getGameTime();phase=1;
-        LogUtils.getLogger().info("BUNDLED DOLL REGISTRY CHECKS PASSED: 14 source-integrated mod IDs, actual versions/items/actors; lonya/lonya_plush absent; Piston original material, Longhuan1.0.3 preserved");
+        LogUtils.getLogger().info("BUNDLED DOLL REGISTRY CHECKS PASSED: 18 source-integrated mod IDs, actual versions/items/actors; lonya/lonya_plush absent; Piston original material, Longhuan1.0.3 preserved");
     }
     @SubscribeEvent public static void tick(ServerTickEvent.Post event){
         if(!started||done||server!=event.getServer())return;
@@ -132,6 +134,7 @@ public final class BundledDollDuelChecks {
                 check(DollDuelArena.hasPistonWin(player),"Validated personal win receipt exists");
                 check(row().getUUID("piston_win_player").equals(player.getUUID())&&row().getUUID("piston_win_duel").equals(duel)&&row().getInt("piston_win_rounds")==7,"Receipt stamps exact owner/fight/rounds");
                 check(player.getInventory().getItem(0).getCount()==1,"Training did not consume or duplicate the original doll");
+                if(storyCheckpoint!=null)check(!DollDuelArena.begin(player),"Chronicle seals the one-time story after an actual native win");
                 ServerPlayer clone=new net.neoforged.neoforge.common.util.FakePlayer(player.serverLevel(),new GameProfile(player.getUUID(),"DuelClone"));
                 DollDuelArena.clone(new PlayerEvent.Clone(clone,player,true));check(DollDuelArena.hasPistonWin(clone),"Death clone preserves validated win receipt");
                 CompoundTag saved=player.saveWithoutId(new CompoundTag());ServerPlayer restored=new net.neoforged.neoforge.common.util.FakePlayer(player.serverLevel(),new GameProfile(player.getUUID(),"DuelReload"));
@@ -148,6 +151,7 @@ public final class BundledDollDuelChecks {
     public static void assertPassed(){if(!done||!passed)throw new AssertionError("Bundled duel runtime checks incomplete/failed",failure);}
     private static void cleanup(){
         if(player!=null){DollDuelArena.logout(new PlayerEvent.PlayerLoggedOutEvent(player));if(online!=null)online.remove(player.getUUID());}
+        if(storyCheckpoint!=null){try{storyCheckpoint.close();}catch(Exception error){throw new AssertionError("Restore completed-chapter fixture",error);}storyCheckpoint=null;}
         if(storyRow!=null&&oldStory!=null){for(String key:List.copyOf(storyRow.getAllKeys()))storyRow.remove(key);for(String key:oldStory.getAllKeys())storyRow.put(key,oldStory.get(key).copy());}
     }
     private static void check(boolean ok,String why){if(!ok)throw new AssertionError("Bundled companion: "+why);}

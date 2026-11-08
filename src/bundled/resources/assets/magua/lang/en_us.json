@@ -1,0 +1,10 @@
+{
+  "block.magua.magua_display": "magua",
+  "item.magua.magua_doll": "magua",
+  "entity.magua.magua_doll": "magua",
+  "tooltip.magua.magua_doll": "A little companion in your palm.",
+  "tooltip.magua.controls": "Place on blocks. Click display to spin; sneak-click to retrieve. Fits helmet slot. Sneak-use in air to deploy. Click companion to pat; sneak-click to reclaim.",
+  "message.magua.full": "Make room in your inventory first.",
+  "message.magua.owner": "This doll belongs to another player.",
+  "subtitles.magua.magua_pat": "Doll chirps softly"
+}

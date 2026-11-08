@@ -192,7 +192,7 @@ public final class DollRenderer extends MobRenderer<DollEntity, DollRenderer.Mod
             body.xScale = 0.875F;
             body.yScale = BODY_HEIGHT;
             body.zScale = 1.125F;
-            leftArm.xScale = rightArm.xScale = 0.75F;
+            leftArm.xScale = rightArm.xScale = 0.75F * 3.0F / 4.0F;
             leftArm.yScale = rightArm.yScale = 0.50F;
             leftArm.zScale = rightArm.zScale = 0.75F;
             leftLeg.xScale = rightLeg.xScale = 0.75F;

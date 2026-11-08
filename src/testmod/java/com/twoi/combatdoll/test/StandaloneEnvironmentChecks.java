@@ -6,7 +6,7 @@ import java.util.*;
 
 /** Fail before creating a world if an isolated case is running with the wrong real providers. */
 final class StandaloneEnvironmentChecks {
-    private static final Set<String> OWN=Set.of("two_i_combat_doll","baimo","chuanshuo","fenghua","longhuan","luomu","nadir","ninxin","ooolala","piston","qijici","qijiu","shaniao","sishier","xiaoxiao");
+    private static final Set<String> OWN=Set.of("two_i_combat_doll","baimo","chuanshuo","fenghua","longhuan","luomu","magua","shuangshi","qiaotou","canmeng","nadir","ninxin","ooolala","piston","qijici","qijiu","shaniao","sishier","xiaoxiao");
     static void run(){
         boolean minimal=Boolean.getBoolean("two_i_combat_doll.standalone_minimal");
         String provider=System.getProperty("two_i_combat_doll.standalone_optional_mod","");
@@ -32,7 +32,7 @@ final class StandaloneEnvironmentChecks {
         check(actual.equals(expected),"real loaded external ModList "+actual+" differs from explicit fixture "+expected);
         for(String id:Set.of("lonya","lonya_plush","chuanshou"))check(!ModList.get().isLoaded(id),"retired mod identity remains absent: "+id);
         for(String id:OWN)check(ModList.get().isLoaded(id),"source-integrated doll absent: "+id);
-        LogUtils.getLogger().info("STANDALONE {} CLIENT MOD SET PASSED: provider={} external={} source-integrated=15; lonya/lonya_plush absent",minimal?"MINIMAL":"OPTIONAL",provider,actual);
+        LogUtils.getLogger().info("STANDALONE {} CLIENT MOD SET PASSED: provider={} external={} source-integrated=19; lonya/lonya_plush absent",minimal?"MINIMAL":"OPTIONAL",provider,actual);
     }
     private static void check(boolean value,String why){if(!value)throw new AssertionError("Standalone environment: "+why);}
 }

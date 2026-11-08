@@ -1,0 +1,11 @@
+# 2026-11-08 backup and cleanup
+
+The published stable version is **2i Doll 1.21.1-1.3.4**, CurseForge file [9451642](https://www.curseforge.com/minecraft/mc-mods/the-2i-doll/files/9451642). Its SHA256 is recorded in version-and-validation.json. No newer experiment has been promoted to a release.
+
+Two source snapshots are retained as separate Git branches: `backup/release-1.3.4-20261108` contains the actual source preserved before the UI experiments (all 1018 production classes in that archive match the accepted JAR byte-for-byte). `backup/development-20261108` contains current source, including later story text, staff grip, Longhuan book flight and a source-only parent interaction UI change. It is a development backup, **not a release**. The latest test JAR deliberately retains the older parent UI class; see the project handoff for the packaging boundary.
+
+Build using Java 21 and the included Gradle wrapper, with NeoForge 21.1.249. `gradlew.bat --no-configuration-cache --max-workers=1 jar` builds the source checkout; do not add `-PcombatTests` to a release build. The first build downloads dependencies. Production JAR excludes test classes and the retired Lonya and display-only Chuanshou exports. Runtime worlds, credentials, mod dependencies and generated files are intentionally not in Git. Restore accepted binaries from the CurseForge file, never from a development branch.
+
+No Minecraft client/server was started for this cleanup. Existing acceptance boundaries remain: stable1.3.4 has focused runtime evidence; Longhuan flight, staff grip and the later parent UI need their stated runtime acceptance. Offline model/geometry checks alone are not gameplay validation. Selected actual production model/mesh probe sources are retained in `repro/`; their historical runners and manifests remain in local verification folders. Those probes require the compiled project and its Minecraft compile classpath, not just a standalone JDK.
+
+Local .blend/.blend1, original materials, all saved worlds and concise verification records are kept. Old generated binaries, duplicate source ZIPs, cached dependencies and redundant test screenshots may be removed only after both remote branch hashes are verified. The machine-readable local deletion ledger records each removed file with size/category; no whole-disk or external-project cleanup is performed.

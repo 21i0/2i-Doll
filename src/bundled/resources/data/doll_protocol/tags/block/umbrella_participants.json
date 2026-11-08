@@ -14,6 +14,10 @@
     "piston:piston_display",
     "shaniao:shaniao_display",
     "chuanshuo:chuanshuo_display",
-    "luomu:luomu_display"
+    "luomu:luomu_display",
+    "magua:magua_display",
+    "shuangshi:shuangshi_display",
+    "qiaotou:qiaotou_display",
+    "canmeng:canmeng_display"
   ]
 }

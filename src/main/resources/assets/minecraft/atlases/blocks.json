@@ -75,6 +75,22 @@
     {
       "type": "single",
       "resource": "luomu:entity/skin"
+    },
+    {
+      "type": "single",
+      "resource": "magua:entity/skin"
+    },
+    {
+      "type": "single",
+      "resource": "shuangshi:entity/skin"
+    },
+    {
+      "type": "single",
+      "resource": "qiaotou:entity/skin"
+    },
+    {
+      "type": "single",
+      "resource": "canmeng:entity/skin"
     }
   ]
 }

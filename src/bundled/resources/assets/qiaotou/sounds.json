@@ -1,0 +1,10 @@
+{
+  "qiaotou_pat": {
+    "subtitle": "subtitles.qiaotou.qiaotou_pat",
+    "sounds": [
+      "qiaotou:qiaotou_pat_1",
+      "qiaotou:qiaotou_pat_2",
+      "qiaotou:qiaotou_pat_3"
+    ]
+  }
+}

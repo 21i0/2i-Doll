@@ -1,0 +1,9 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "shuangshi:block/shuangshi_display"
+      }
+    }
+  ]
+}

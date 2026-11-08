@@ -6,6 +6,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.*;
 import net.minecraft.server.level.*;
+import net.minecraft.util.Mth;
 import net.minecraft.world.*;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
@@ -26,6 +27,8 @@ public final class CangshengAxolotlEntity extends PathfinderMob implements DollC
     private final TwoIGrimoireCombat combat=new TwoIGrimoireCombat();
     private boolean retired;
     private boolean chasing;
+    private Vec3 titanHome;
+    private int nextTitanHop;
     public CangshengAxolotlEntity(EntityType<? extends CangshengAxolotlEntity> type,Level level){
         super(type,level);setPersistenceRequired();setInvulnerable(true);
         // TITAN is the synchronized default. Its false MOUNT value may never be
@@ -76,6 +79,7 @@ public final class CangshengAxolotlEntity extends PathfinderMob implements DollC
         pet.entityData.set(OWNER,Optional.of(owner.getUUID()));pet.entityData.set(MOUNT,rider!=null);
         pet.entityData.set(RIDER,Optional.ofNullable(rider==null?null:rider.getUUID()));pet.entityData.set(PHASE_START,level.getGameTime());
         pet.combat.hold(source.copyWithCount(1));pet.moveTo(position.x,position.y,position.z,owner.getYRot(),0);pet.refreshDimensions();
+        if(rider==null)pet.titanHome=position;
         if(!level.addFreshEntity(pet)){
             var recovered=AxolotlLeaseData.get(owner.getServer()).release(pet.sourceWeapon(),pet.getUUID(),false);
             if(!recovered.isEmpty()){source.set(net.minecraft.core.component.DataComponents.CUSTOM_DATA,recovered.get(net.minecraft.core.component.DataComponents.CUSTOM_DATA));}
@@ -110,7 +114,12 @@ public final class CangshengAxolotlEntity extends PathfinderMob implements DollC
         clearRider();retired=true;combat.disarm();ejectPassengers();owner.getInventory().setItem(slot,stack);owner.getInventory().setChanged();discard();return true;
     }
     @Override public void tick(){
-        super.tick();if(!(level() instanceof ServerLevel level))return;
+        float previousYaw=getYRot(),previousPitch=getXRot();
+        super.tick();
+        if(!(level() instanceof ServerLevel level)){
+            alignPassengerFacing(getFirstPassenger());
+            return;
+        }
         if(retired)return;
         if(!AxolotlLeaseData.get(level.getServer()).valid(sourceWeapon(),ownerId(),getUUID())){retired=true;clearRider();ejectPassengers();discard();return;}
         var owner=level.getServer().getPlayerList().getPlayer(ownerId());
@@ -120,9 +129,11 @@ public final class CangshengAxolotlEntity extends PathfinderMob implements DollC
                 if(!deliver(owner)&&tickCount%100==0)owner.displayClientMessage(Component.translatable("message.two_i_combat_doll.axolotl_pending"),true);
             }return;
         }
+        LivingEntity passenger=null;
         if(mountMode()&&riderId()!=null){
             var rider=level.getEntity(riderId());
             if(rider instanceof LivingEntity doll&&doll.isAlive()){
+                passenger=doll;
                 // Restore the actual passenger relation after chunk/server reload.
                 if(doll.getVehicle()!=this)doll.startRiding(this,true);
                 if(doll instanceof DollCombatAccess)CombatActors.state(doll).hold(sourceWeapon());
@@ -132,25 +143,109 @@ public final class CangshengAxolotlEntity extends PathfinderMob implements DollC
                 getNavigation().stop();setDeltaMovement(0,getDeltaMovement().y,0);return;
             }
         }
+        // A cutscene owns NoAI actors' poses and movement. The custom follow
+        // below must respect that contract too; NoAI only disables vanilla AI.
+        if(isNoAi()||passenger instanceof Mob mob&&mob.isNoAi())return;
         if(owner==null||owner.level()!=level||!owner.isAlive()){setDeltaMovement(0,getDeltaMovement().y,0);return;}
-        getLookControl().setLookAt(owner,180,90);
-        if(isAttacking()||emerging()){getNavigation().stop();setDeltaMovement(0,getDeltaMovement().y,0);return;}
+        if(isAttacking()){
+            getNavigation().stop();setDeltaMovement(0,getDeltaMovement().y,0);
+            updateSharedFacing(passenger,owner,previousYaw,previousPitch);return;
+        }
+        if(emerging()){
+            getNavigation().stop();setDeltaMovement(0,getDeltaMovement().y,0);
+            alignPassengerFacing(passenger);return;
+        }
+        // The enormous deployed form is a resident, not the doll's tiny mount.
+        // Moving the owner must never drag or teleport it through an observer.
+        if(!mountMode()){
+            roamTitan(level,owner);
+            updateSharedFacing(null,owner,previousYaw,previousPitch);
+            if(tickCount%100==0)AxolotlLeaseData.get(level.getServer()).snapshot(sourceWeapon(),getUUID());
+            return;
+        }
         Vec3 delta=owner.position().subtract(position());boolean flying=owner.getAbilities().flying||owner.isFallFlying();
         if(delta.lengthSqr()>64*64){teleportTo(owner.getX()+3,owner.getY(),owner.getZ()+3);delta=owner.position().subtract(position());}
         if(flying){
             setNoGravity(true);noPhysics=true;
-            double distance=delta.length();double speed=mountMode()?Math.min(.90,Math.max(0,(distance-4.5)*.15)):.50;
+            double distance=delta.length();double speed=Math.min(.90,Math.max(0,(distance-4.5)*.15));
             setDeltaMovement(distance>4.5?delta.normalize().scale(speed):Vec3.ZERO);
         }
         else{
             setNoGravity(false);noPhysics=false;
-            if(mountMode())followHopping(delta);
-            else if(onGround()&&(delta.lengthSqr()>36||tickCount%35==0)){
-                Vec3 horizontal=delta.multiply(1,0,1).normalize().scale(delta.lengthSqr()>36?.34:.055);
-                setDeltaMovement(horizontal.x,.30,horizontal.z);hasImpulse=true;faceMovement(horizontal);
-            }
+            followHopping(delta);
         }
+        updateSharedFacing(passenger,owner,previousYaw,previousPitch);
         if(tickCount%100==0)AxolotlLeaseData.get(level.getServer()).snapshot(sourceWeapon(),getUUID());
+    }
+    /** One attention source for the whole pair, after vanilla look/body control.
+     * LookControl queues its request for the next AI tick, so using it here
+     * allowed the owner's stale request to overwrite the combat target later. */
+    private void updateSharedFacing(LivingEntity passenger,ServerPlayer owner,float previousYaw,float previousPitch){
+        Vec3 attention;
+        boolean focused=isAttacking();
+        if(focused)attention=combat.target(this);
+        else if(passenger instanceof DollCombatAccess access&&access.combatState().age(passenger,0)>=0){
+            attention=access.combatState().target(passenger);focused=true;
+        }else if(passenger instanceof Mob rider&&rider.getTarget()!=null&&rider.getTarget().isAlive()){
+            attention=rider.getTarget().getEyePosition();focused=true;
+        }else if(getTarget()!=null&&getTarget().isAlive()){
+            attention=getTarget().getEyePosition();focused=true;
+        }else if(mountMode())attention=owner.getEyePosition();
+        else{
+            // An idle titan keeps its pose or looks along its own movement. In
+            // particular, walking round it must not rotate it after the camera.
+            Vec3 motion=getDeltaMovement();
+            attention=motion.horizontalDistanceSqr()>.001?getEyePosition().add(motion.x*10,0,motion.z*10)
+                    :getEyePosition().add(getLookAngle());
+        }
+        Vec3 delta=attention.subtract(getEyePosition());
+        float wantedYaw=delta.horizontalDistanceSqr()<1.0E-8?previousYaw:(float)Math.toDegrees(Math.atan2(-delta.x,delta.z));
+        float wantedPitch=Mth.clamp((float)-Math.toDegrees(Math.atan2(delta.y,Math.max(1.0E-4,delta.horizontalDistance()))),-35,35);
+        float yaw=Mth.approachDegrees(previousYaw,wantedYaw,focused?30:8);
+        float pitch=Mth.approachDegrees(previousPitch,wantedPitch,focused?15:5);
+        setYRot(yaw);setXRot(pitch);yRotO=previousYaw;xRotO=previousPitch;
+        yBodyRot=yHeadRot=yaw;yBodyRotO=yHeadRotO=previousYaw;
+        alignPassengerFacing(passenger);
+    }
+    /** Also called after the passenger's tick, which runs after its mount and
+     * would otherwise apply the passenger's independent vanilla look control.
+     * Both interpolation endpoints must agree, including on the client. */
+    public void alignPassengerFacing(Entity passenger){
+        if(!mountMode()||!(passenger instanceof LivingEntity rider)||rider.getVehicle()!=this
+                ||!rider.getUUID().equals(riderId())||isNoAi()||rider instanceof Mob mob&&mob.isNoAi())return;
+        float yaw=getYRot(),previous=yRotO;
+        yBodyRot=yHeadRot=yaw;yBodyRotO=yHeadRotO=previous;
+        rider.setYRot(yaw);rider.yRotO=previous;
+        rider.yBodyRot=rider.yHeadRot=yaw;rider.yBodyRotO=rider.yHeadRotO=previous;
+        rider.setXRot(getXRot());rider.xRotO=xRotO;
+    }
+    /** Occasional small local hops, with a long rest when the owner is observing.
+     * No path search, forced chunks or per-tick neighbourhood scan is needed. */
+    private void roamTitan(ServerLevel level,ServerPlayer owner){
+        setNoGravity(false);noPhysics=false;getNavigation().stop();
+        if(titanHome==null)titanHome=position(); // Existing saves establish home in place.
+        if(getBoundingBox().inflate(8).contains(owner.getEyePosition())){
+            setDeltaMovement(0,getDeltaMovement().y,0);
+            nextTitanHop=tickCount+120;
+            return;
+        }
+        if(!onGround())return;
+        setDeltaMovement(0,getDeltaMovement().y,0);
+        if(nextTitanHop==0){nextTitanHop=tickCount+120+random.nextInt(161);return;}
+        if(tickCount<nextTitanHop)return;
+        nextTitanHop=tickCount+120+random.nextInt(161);
+        Vec3 homeward=titanHome.subtract(position()).multiply(1,0,1);
+        double angle=random.nextDouble()*Math.PI*2;
+        Vec3 heading=homeward.lengthSqr()>20*20?homeward.normalize():new Vec3(Math.cos(angle),0,Math.sin(angle));
+        Vec3 probe=position().add(heading.scale(2));
+        // Keep the saved deployment area and avoid hopping into an unloaded
+        // chunk or off a ledge. Ordinary collisions still apply to the titan.
+        if(probe.subtract(titanHome).horizontalDistanceSqr()>24*24)return;
+        var feet=net.minecraft.core.BlockPos.containing(probe);
+        if(!level.hasChunkAt(feet)||level.getBlockState(feet.below()).getCollisionShape(level,feet.below()).isEmpty())return;
+        var ahead=getBoundingBox().move(heading.scale(.6));
+        if(!level.noCollision(this,ahead))return;
+        setDeltaMovement(heading.x*.11,.28,heading.z*.11);hasImpulse=true;
     }
     /** The low hop has sustained airborne drive; repeated .34 impulses were lost to friction. */
     private void followHopping(Vec3 delta){
@@ -184,10 +279,15 @@ public final class CangshengAxolotlEntity extends PathfinderMob implements DollC
     @Override public void addAdditionalSaveData(CompoundTag tag){super.addAdditionalSaveData(tag);
         if(ownerId()!=null)tag.putUUID("Owner",ownerId());if(riderId()!=null)tag.putUUID("Rider",riderId());tag.putBoolean("Mount",mountMode());
         tag.putBoolean("Recalling",recalling());tag.putLong("PhaseStart",entityData.get(PHASE_START));combat.save(tag,0);
+        if(titanHome!=null){tag.putDouble("TitanHomeX",titanHome.x);tag.putDouble("TitanHomeY",titanHome.y);tag.putDouble("TitanHomeZ",titanHome.z);}
     }
     @Override public void readAdditionalSaveData(CompoundTag tag){super.readAdditionalSaveData(tag);
         entityData.set(OWNER,tag.hasUUID("Owner")?Optional.of(tag.getUUID("Owner")):Optional.empty());
         entityData.set(RIDER,tag.hasUUID("Rider")?Optional.of(tag.getUUID("Rider")):Optional.empty());entityData.set(MOUNT,tag.getBoolean("Mount"));
         entityData.set(RECALL,tag.getBoolean("Recalling"));entityData.set(PHASE_START,tag.getLong("PhaseStart"));combat.load(tag,0);refreshDimensions();
+        titanHome=tag.contains("TitanHomeX",net.minecraft.nbt.Tag.TAG_ANY_NUMERIC)
+                &&tag.contains("TitanHomeY",net.minecraft.nbt.Tag.TAG_ANY_NUMERIC)&&tag.contains("TitanHomeZ",net.minecraft.nbt.Tag.TAG_ANY_NUMERIC)
+                ?new Vec3(tag.getDouble("TitanHomeX"),tag.getDouble("TitanHomeY"),tag.getDouble("TitanHomeZ")):null;
+        nextTitanHop=0;
     }
 }

@@ -3,6 +3,8 @@ build/
 runs/
 libs/
 *.log
+logs/
+*.log.gz
 
 # Local worlds, immutable test evidence, archived characters and third-party mods.
 verification/

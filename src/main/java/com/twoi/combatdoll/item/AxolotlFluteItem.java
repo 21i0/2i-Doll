@@ -16,10 +16,20 @@ public final class AxolotlFluteItem extends Item {
     @Override public InteractionResultHolder<ItemStack> use(Level level,Player player,InteractionHand hand){
         if(!level.isClientSide){
             boolean found=false;
+            var nearbyRecalls=new java.util.HashSet<java.util.UUID>();
             for(var pet:level.getEntitiesOfClass(CangshengAxolotlEntity.class,player.getBoundingBox().inflate(128)))
-                if(player.getUUID().equals(pet.ownerId()))found|=pet.requestRecall((ServerPlayer)player);
-            found|=AxolotlLeaseData.get(player.getServer()).claimPending((ServerPlayer)player);
-            if(found){level.playSound(null,player.blockPosition(),TwoICombatDollMod.AXOLOTL_FLUTE_SOUND.get(),SoundSource.PLAYERS,.85F,1);player.getCooldowns().addCooldown(this,20);}
+                if(player.getUUID().equals(pet.ownerId())&&pet.requestRecall((ServerPlayer)player)){
+                    nearbyRecalls.add(pet.getUUID());found=true;
+                }
+            var ledger=AxolotlLeaseData.get(player.getServer());
+            found|=ledger.recallDistant((ServerPlayer)player,nearbyRecalls);
+            found|=ledger.claimPending((ServerPlayer)player);
+            found|=ledger.pending(player.getUUID())>0;
+            if(found){
+                level.playSound(null,player.blockPosition(),TwoICombatDollMod.AXOLOTL_FLUTE_SOUND.get(),SoundSource.PLAYERS,.85F,1);player.getCooldowns().addCooldown(this,20);
+                if(ledger.pending(player.getUUID())>0&&player.getInventory().getFreeSlot()<0)
+                    player.displayClientMessage(Component.translatable("message.two_i_combat_doll.axolotl_pending"),true);
+            }
             else player.displayClientMessage(Component.translatable("message.two_i_combat_doll.axolotl_not_found"),true);
         }
         return InteractionResultHolder.sidedSuccess(player.getItemInHand(hand),level.isClientSide);

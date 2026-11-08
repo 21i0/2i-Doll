@@ -1,0 +1,10 @@
+{
+  "magua_pat": {
+    "subtitle": "subtitles.magua.magua_pat",
+    "sounds": [
+      "magua:magua_pat_1",
+      "magua:magua_pat_2",
+      "magua:magua_pat_3"
+    ]
+  }
+}

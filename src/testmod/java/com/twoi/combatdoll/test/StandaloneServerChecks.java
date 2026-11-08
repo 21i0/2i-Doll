@@ -79,7 +79,8 @@ public final class StandaloneServerChecks {
   loaded.setSitting(false);loaded.moveTo(6,80,6,0,0);check(level.addFreshEntity(loaded),"protected fixture added");loaded.setHealth(0);loaded.kill();loaded.discard();check(!loaded.isRemoved()&&loaded.getHealth()==20,"forced death/discard cannot remove companion");check(loaded.discardForReclaim()&&loaded.isRemoved(),"authorized recall works without resurrection");
   if(net.neoforged.fml.ModList.get().isLoaded("curios")) CompanionCuriosChecks.run(level);
   StandaloneOptionalChecks.run(player);
-
+  StandaloneRecipeChecks.run(level);
+  ThreeNewDollChecks.runServer(player);
   LogUtils.getLogger().info("COMPANION SERVER CHECKS PASSED (pure and registered actions)");
  }
  @SuppressWarnings({"rawtypes","unchecked"}) private static void sharedLedgers(net.minecraft.server.level.ServerLevel level)throws Exception{

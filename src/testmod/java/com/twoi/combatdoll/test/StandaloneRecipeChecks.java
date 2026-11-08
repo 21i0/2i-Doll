@@ -18,6 +18,22 @@ import java.util.Map;
 public final class StandaloneRecipeChecks {
     private StandaloneRecipeChecks(){}
     public static void run(ServerLevel level){
+        verifyDollRecipes(level);
+        verify(level,"two_i_combat_doll:astral_edict",matrix(List.of(" N ","AEA"," S "),Map.of('N',Items.NETHER_STAR,'A',Items.AMETHYST_SHARD,'E',Items.END_ROD,'S',Items.NETHERITE_INGOT)));
+        verify(level,"two_i_combat_doll:boundary_grimoire",matrix(List.of(" E ","ABA"," G "),Map.of('E',Items.ENDER_EYE,'A',Items.AMETHYST_SHARD,'B',Items.BOOK,'G',Items.EMERALD)));
+        verify(level,"two_i_combat_doll:cangsheng_axolotl",matrix(List.of("ACA","NWN","ACA"),Map.of('A',Items.AMETHYST_SHARD,'C',Items.CHERRY_SAPLING,'N',Items.NETHER_STAR,'W',Items.AXOLOTL_BUCKET)));
+        verifyFluteRecipe(level);
+        assertRemovedNamespaces(level);
+        LogUtils.getLogger().info("STANDALONE SURVIVAL RECIPE MATRIX CHECKS PASSED: real RecipeManager uniquely matches and assembles all 18 colored-wool dolls plus four native weapons/pet/flute from vanilla ingredients, 22 exact registry outputs; lonya/lonya_plush recipes absent; no optional provider or local manifest needed");
+    }
+    /** Packs must separately assert the three replaced weapon recipes against their frozen progression. */
+    public static void runForModpack(ServerLevel level){
+        verifyDollRecipes(level);
+        verifyFluteRecipe(level);
+        assertRemovedNamespaces(level);
+        LogUtils.getLogger().info("MODPACK SHARED RECIPE MATRIX CHECKS PASSED: real RecipeManager uniquely matches and assembles 18 colored-wool dolls plus cangsheng_axolotl_flute, 19 exact registry outputs; lonya/lonya_plush recipes absent; NOT VERIFIED HERE: original astral_edict / boundary_grimoire / cangsheng_axolotl matrices, caller must verify its frozen progression recipes; this is not the standalone 22-recipe check");
+    }
+    private static void verifyDollRecipes(ServerLevel level){
         Map<String,Item> dolls=Map.ofEntries(
                 Map.entry("baimo",Items.WHITE_WOOL),Map.entry("chuanshuo",Items.BROWN_WOOL),
                 Map.entry("fenghua",Items.RED_WOOL),Map.entry("longhuan",Items.PURPLE_WOOL),Map.entry("luomu",Items.LIME_WOOL),
@@ -25,18 +41,21 @@ public final class StandaloneRecipeChecks {
                 Map.entry("ninxin",Items.MAGENTA_WOOL),Map.entry("ooolala",Items.YELLOW_WOOL),
                 Map.entry("piston",Items.GRAY_WOOL),Map.entry("qijici",Items.CYAN_WOOL),
                 Map.entry("qijiu",Items.BLUE_WOOL),Map.entry("shaniao",Items.BLACK_WOOL),Map.entry("sishier",Items.ORANGE_WOOL),
-                Map.entry("xiaoxiao",Items.PINK_WOOL));
+                Map.entry("xiaoxiao",Items.PINK_WOOL),Map.entry("magua",Items.GREEN_WOOL),Map.entry("shuangshi",Items.LIGHT_GRAY_WOOL));
         for(var doll:dolls.entrySet())verify(level,doll.getKey()+":"+doll.getKey()+"_doll",
                 matrix(List.of(" W ","WSW"," W "),Map.of('W',doll.getValue(),'S',Items.STRING)));
-        verify(level,"two_i_combat_doll:astral_edict",matrix(List.of(" N ","AEA"," S "),Map.of('N',Items.NETHER_STAR,'A',Items.AMETHYST_SHARD,'E',Items.END_ROD,'S',Items.NETHERITE_INGOT)));
-        verify(level,"two_i_combat_doll:boundary_grimoire",matrix(List.of(" E ","ABA"," G "),Map.of('E',Items.ENDER_EYE,'A',Items.AMETHYST_SHARD,'B',Items.BOOK,'G',Items.EMERALD)));
-        verify(level,"two_i_combat_doll:cangsheng_axolotl",matrix(List.of("ACA","NWN","ACA"),Map.of('A',Items.AMETHYST_SHARD,'C',Items.CHERRY_SAPLING,'N',Items.NETHER_STAR,'W',Items.AXOLOTL_BUCKET)));
+        verify(level,"qiaotou:qiaotou_doll",matrix(List.of(" W ","WSW"," W "),Map.of('W',Items.PINK_WOOL,'S',Items.FEATHER)));
+        verify(level,"canmeng:canmeng_doll",matrix(List.of(" W ","WSW"," W "),Map.of('W',Items.BLACK_WOOL,'S',Items.FEATHER)));
+    }
+    private static void verifyFluteRecipe(ServerLevel level){
         verify(level,"two_i_combat_doll:cangsheng_axolotl_flute",matrix(List.of("  A"," B ","B  "),Map.of('A',Items.AMETHYST_SHARD,'B',Items.BAMBOO)));
+    }
+    /** Registry and recipe-namespace invariants also apply to packs that replace crafting inputs. */
+    private static void assertRemovedNamespaces(ServerLevel level){
         for(String namespace:List.of("lonya","lonya_plush")){
             check(level.getRecipeManager().getRecipes().stream().noneMatch(holder->holder.id().getNamespace().equals(namespace)),"removed doll recipe namespace stays absent: "+namespace);
             check(!BuiltInRegistries.ITEM.containsKey(ResourceLocation.fromNamespaceAndPath(namespace,namespace+"_doll")),"removed doll ingredient stays unregistered: "+namespace);
         }
-        LogUtils.getLogger().info("STANDALONE SURVIVAL RECIPE MATRIX CHECKS PASSED: real RecipeManager uniquely matches and assembles all 14 colored-wool dolls plus four native weapons/pet/flute from vanilla ingredients, 18 exact registry outputs; lonya/lonya_plush recipes absent; no optional provider or local manifest needed");
     }
     private static CraftingInput matrix(List<String> rows,Map<Character,Item> keys){
         var items=new ArrayList<ItemStack>();for(String row:rows)for(char token:row.toCharArray())items.add(token==' '?ItemStack.EMPTY:new ItemStack(keys.get(token)));

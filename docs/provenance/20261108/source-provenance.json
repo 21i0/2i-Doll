@@ -1,0 +1,1183 @@
+{
+  "date": "2026-11-08",
+  "purpose": "Preserve original code-license bytes and safe source provenance before generated source-import snapshots are deduplicated. Originals remain local. No external binary/source JAR or reference media is included.",
+  "roles": [
+    {
+      "mod_id": "magua",
+      "version": "1.21.1-1.0.0",
+      "code_license": "MIT",
+      "code_author": "2i学习",
+      "license_file": "magua-SOURCE-LICENSE.txt",
+      "license_sha256": "83239577d211d69c55a22cea845c391aa874e10ff078713e71f3c0af7e876783",
+      "source_manifest_project_relative": "verification/three-dolls-release-20261104/source-import/source-baseline-manifest.json",
+      "source_manifest_sha256": "b6f541cb707eef0df492143d7406810d7ea3681a94d2a850817534bf9da940c6",
+      "original_source_file_hashes": [
+        {
+          "path": "src/main/java/com/customdoll/magua/client/ClientSetup.java",
+          "bytes": 1641,
+          "sha256": "8f2716acd0403382c1b72749aabd78f1438571523d0709195b811ba13d655388"
+        },
+        {
+          "path": "src/main/java/com/customdoll/magua/client/render/DollCurioRenderer.java",
+          "bytes": 2963,
+          "sha256": "066ce7f7e26653074a04107f419ef79192a396d0b30040754b02c6656c4adecb"
+        },
+        {
+          "path": "src/main/java/com/customdoll/magua/client/render/DollDisplayRenderer.java",
+          "bytes": 3185,
+          "sha256": "9e2890a61b42c583e11b331349b258bf320e629ae6da3690ce626418a58eece0"
+        },
+        {
+          "path": "src/main/java/com/customdoll/magua/client/render/DollHandRenderer.java",
+          "bytes": 5387,
+          "sha256": "64dc54c646e84f5f120fb6a6a0d150ae7f78a3b3654b71634ddb8570363f0646"
+        },
+        {
+          "path": "src/main/java/com/customdoll/magua/client/render/DollHeadLayer.java",
+          "bytes": 3370,
+          "sha256": "77d470f3199cfedf56b4800d5718461096204aab4ba628782f67cba1a42f44b0"
+        },
+        {
+          "path": "src/main/java/com/customdoll/magua/client/render/DollItemRenderer.java",
+          "bytes": 4255,
+          "sha256": "873131c96a0b2641bad860526a5a86e2f437a8a4af0ec0f1b4dfa9b58d07bf14"
+        },
+        {
+          "path": "src/main/java/com/customdoll/magua/client/render/DollRenderer.java",
+          "bytes": 16928,
+          "sha256": "bac333a8b3bfe61b6f10eb1185b962a6eb3d6ff4ce4d00e1aad8409bf6e8a92b"
+        },
+        {
+          "path": "src/main/java/com/customdoll/magua/client/render/DollSkin.java",
+          "bytes": 10499,
+          "sha256": "3f4c48e8f1955231e8eff2d5e5e87025d2822aef470f1c13b3c2e5ee0b6056fa"
+        },
+        {
+          "path": "src/main/java/com/customdoll/magua/client/render/DollThirdPerson.java",
+          "bytes": 1532,
+          "sha256": "de477f37916322bcf71e57617930a985af4466e0a5d898cac3d480d6fbfd448a"
+        },
+        {
+          "path": "src/main/java/com/customdoll/magua/client/render/DollUmbrellaCanopy.java",
+          "bytes": 5788,
+          "sha256": "992a86278440910fb982d071f1c8dffb438b872cbacae6d02fdde34a04011336"
+        },
+        {
+          "path": "src/main/java/com/customdoll/magua/client/render/DollUmbrellaPalette.java",
+          "bytes": 2528,
+          "sha256": "8c249d8e00cc20c1d9a7eef063ce7582873631063547e786f841d44376a2abb3"
+        },
+        {
+          "path": "src/main/java/com/customdoll/magua/client/render/DollUmbrellaRenderer.java",
+          "bytes": 5164,
+          "sha256": "26b745f83c917dc83d6900c3b706de579fdc068a88f710e7506c748983f92ced"
+        },
+        {
+          "path": "src/main/java/com/customdoll/magua/compat/DollCuriosCompat.java",
+          "bytes": 2702,
+          "sha256": "2f9daa10e84768d0d5ce1362dfb25377d2d7dbf35f6698e882364752c8fc91c5"
+        },
+        {
+          "path": "src/main/java/com/customdoll/magua/content/block/DollDisplayBlock.java",
+          "bytes": 6399,
+          "sha256": "13a962a1481bf36cb39bc10d8943791668ed68b3493822d5a9fcbcf4e9c2d0ec"
+        },
+        {
+          "path": "src/main/java/com/customdoll/magua/content/blockentity/DollDisplayBlockEntity.java",
+          "bytes": 3422,
+          "sha256": "fb6a8ea71f8a10ab3a81a11fdba5e956a6c3e244fb692d6ffd99d7c7e0705633"
+        },
+        {
+          "path": "src/main/java/com/customdoll/magua/content/DollAccessoryBridge.java",
+          "bytes": 581,
+          "sha256": "77ba310a229fd9d34f55ce96584952eb18e4fbaea12683efb00126554ce156c6"
+        },
+        {
+          "path": "src/main/java/com/customdoll/magua/content/DollOwnership.java",
+          "bytes": 1374,
+          "sha256": "88513637c9a61822579f126ed12aa6b9b48fe4431857c9e16f8b649286631e12"
+        },
+        {
+          "path": "src/main/java/com/customdoll/magua/content/DollProtection.java",
+          "bytes": 1289,
+          "sha256": "2774efcd4f0ce6798d84936683868683e06cab2b8de71232b55c15280ecb4bd0"
+        },
+        {
+          "path": "src/main/java/com/customdoll/magua/content/DollUmbrellaProtocol.java",
+          "bytes": 5123,
+          "sha256": "0f8d2cf12d0dc89a55d6d461fa7a9ee2a1142f2e4bf2eac073b1746799ca2c09"
+        },
+        {
+          "path": "src/main/java/com/customdoll/magua/content/entity/DollEntity.java",
+          "bytes": 6297,
+          "sha256": "241eeeae63d6f009258c533854de326bdb7c68e3ba46fa3ba20cb915da411a14"
+        },
+        {
+          "path": "src/main/java/com/customdoll/magua/content/item/DollItem.java",
+          "bytes": 3713,
+          "sha256": "265af2be98f8ecad711ad02956acbb6ea5864a3f21347e23e133eea75a5e7881"
+        },
+        {
+          "path": "src/main/java/com/customdoll/magua/DollMod.java",
+          "bytes": 985,
+          "sha256": "ee763339b05fae2af59a4997ee88a6cecc49f5cc91c18576ecb5647db8e20be5"
+        },
+        {
+          "path": "src/main/java/com/customdoll/magua/init/ModBlockEntities.java",
+          "bytes": 821,
+          "sha256": "efd298b33081aaaee4798e23f12169f4cb83b600705639b20c9b110a51664870"
+        },
+        {
+          "path": "src/main/java/com/customdoll/magua/init/ModBlocks.java",
+          "bytes": 596,
+          "sha256": "b942518f1a79fdec38d3ac361d43db13f4696e96ad0e39cedbb59978066d4975"
+        },
+        {
+          "path": "src/main/java/com/customdoll/magua/init/ModEntities.java",
+          "bytes": 1315,
+          "sha256": "9dcbc0f2113f40ff0da2b8ff9928989ad032ba7305c8a18f2e01ce80d9f1906b"
+        },
+        {
+          "path": "src/main/java/com/customdoll/magua/init/ModItems.java",
+          "bytes": 476,
+          "sha256": "6fe34e23eb4bed08d6b4b8ae84999f69f14935514a1b211ba5a659c7c8b747c4"
+        },
+        {
+          "path": "src/main/java/com/customdoll/magua/mixin/DollHeldMixin.java",
+          "bytes": 1713,
+          "sha256": "84ce33f375ea13cd5684477a62bb1f10dad07c7a73e6ef034d01e9d2edc09851"
+        },
+        {
+          "path": "src/main/java/com/customdoll/magua/mixin/DollPlayerArmMixin.java",
+          "bytes": 1155,
+          "sha256": "0e4ce032d4a68c1afa5d1adb24fbcfd19291b0596abdf67ebaaac536291c21fa"
+        },
+        {
+          "path": "src/main/resources/assets/magua/blockstates/magua_display.json",
+          "bytes": 116,
+          "sha256": "16f17394246e28c6880e58a62aee5f52ddeab31ad2debff1c8ff3bcddd18d933"
+        },
+        {
+          "path": "src/main/resources/assets/magua/lang/en_us.json",
+          "bytes": 563,
+          "sha256": "800d04559336ef597ed50fee37ae2a7689eb8ff82366aeb7dbc4980382240929"
+        },
+        {
+          "path": "src/main/resources/assets/magua/lang/zh_cn.json",
+          "bytes": 607,
+          "sha256": "b890090b7b72cfde7626eca0f68c0893c35c9921b7a26fc756c47b2dfee289e6"
+        },
+        {
+          "path": "src/main/resources/assets/magua/models/block/magua_display.json",
+          "bytes": 84,
+          "sha256": "d646dc5d490ab1260a17f23fdff20c0571e5b558a84d5a7f462da71a0a5357d5"
+        },
+        {
+          "path": "src/main/resources/assets/magua/models/item/magua_doll.json",
+          "bytes": 1840,
+          "sha256": "81c32c46d31f5812225e7587b9d2db64fe0deb8759c7c37e3907c4a5fe4ec3db"
+        },
+        {
+          "path": "src/main/resources/assets/magua/sounds/magua_pat_1.ogg",
+          "bytes": 4541,
+          "sha256": "129d5077ad05d3d5ebbfc059748c412c498f56bd7f513ebe4e08bb30815844aa"
+        },
+        {
+          "path": "src/main/resources/assets/magua/sounds/magua_pat_2.ogg",
+          "bytes": 4723,
+          "sha256": "9a9c35df9930b03a9a618ab7758f6bc84a117529975ab2e547ad4536ad2bbe07"
+        },
+        {
+          "path": "src/main/resources/assets/magua/sounds/magua_pat_3.ogg",
+          "bytes": 4670,
+          "sha256": "6c9424856af6965470fc91fbd58f88337c8d1b2fc0c5e730669bea6d6e2bfebd"
+        },
+        {
+          "path": "src/main/resources/assets/magua/sounds.json",
+          "bytes": 182,
+          "sha256": "9d0cbec1a65e674a3e21b4fd2aa307e982a60dce36d2066727ad61ece0442fb3"
+        },
+        {
+          "path": "src/main/resources/assets/magua/textures/entity/skin.json",
+          "bytes": 1488,
+          "sha256": "015811de50d1e9fb5b543e08535cf5c0a44b76598114d59f46cff20d1c548743"
+        },
+        {
+          "path": "src/main/resources/assets/magua/textures/entity/skin.png",
+          "bytes": 4571,
+          "sha256": "f99bab53a06caf79e128659ec590dc17a7ff79e33484540aa07dd6e528e4f992"
+        },
+        {
+          "path": "src/main/resources/assets/magua/textures/entity/skin_blink_closed.png",
+          "bytes": 4564,
+          "sha256": "6a46d5468f24ec210f295d69ec3674de4b3270733d0a3a9a3a3016a2304ce24f"
+        },
+        {
+          "path": "src/main/resources/assets/magua/textures/entity/skin_blink_half.png",
+          "bytes": 4555,
+          "sha256": "1e5e779086d6de914194d61410f332cc6bcca345829c68bd34e9db778e66ab65"
+        },
+        {
+          "path": "src/main/resources/assets/magua/textures/entity/umbrella.json",
+          "bytes": 140,
+          "sha256": "96883d41cc88952c69011fa604349b92433a6ad03156498a3b97eefd9886f329"
+        },
+        {
+          "path": "src/main/resources/assets/magua/textures/entity/umbrella.png",
+          "bytes": 78,
+          "sha256": "803f3b73e9e4960c1b25d25b1dcb493de6cb51a001fbcc7f604e4dfe62c8c26e"
+        },
+        {
+          "path": "src/main/resources/assets/minecraft/atlases/blocks.json",
+          "bytes": 105,
+          "sha256": "355cc905b8f0fe8081d772741d382954ea3dcb0bd4e4ff5c99c6228a0e4ea5f2"
+        },
+        {
+          "path": "src/main/resources/data/curios/tags/item/curio.json",
+          "bytes": 71,
+          "sha256": "8dab58cda235e5b7c63b43aaea8532d4db154821d2f88440826b7e4a74b60ff9"
+        },
+        {
+          "path": "src/main/resources/data/curios/tags/items/head.json",
+          "bytes": 71,
+          "sha256": "8dab58cda235e5b7c63b43aaea8532d4db154821d2f88440826b7e4a74b60ff9"
+        },
+        {
+          "path": "src/main/resources/data/doll_protocol/tags/block/umbrella_participants.json",
+          "bytes": 74,
+          "sha256": "f9bfa78c4d65b6b5e769aa11a5f05f22cfb08a4c14e21b85d479d369e2f9d31f"
+        },
+        {
+          "path": "src/main/resources/data/doll_protocol/tags/entity_type/umbrella_participants.json",
+          "bytes": 71,
+          "sha256": "8dab58cda235e5b7c63b43aaea8532d4db154821d2f88440826b7e4a74b60ff9"
+        },
+        {
+          "path": "src/main/resources/data/doll_protocol/tags/item/umbrella_participants.json",
+          "bytes": 71,
+          "sha256": "8dab58cda235e5b7c63b43aaea8532d4db154821d2f88440826b7e4a74b60ff9"
+        },
+        {
+          "path": "src/main/resources/data/magua/recipe/magua_doll.json",
+          "bytes": 299,
+          "sha256": "70889ecbf8f563a5bb735921566eae3c9f552c5813ff09b425cabe2d50902a61"
+        },
+        {
+          "path": "src/main/resources/magua.mixins.json",
+          "bytes": 250,
+          "sha256": "607b63f6a1589339fffc304ffd32328018b94bf2ec9c058e1697da3fcab48332"
+        },
+        {
+          "path": "src/main/resources/META-INF/neoforge.mods.toml",
+          "bytes": 591,
+          "sha256": "88b00a83ecce276f659a25b283f95669a5033d6fe7e7aa6d2ac6384de7186f32"
+        },
+        {
+          "path": "src/main/resources/pack.mcmeta",
+          "bytes": 95,
+          "sha256": "ad7430512d0fc5ee8434a94b71f5412ec0fd7555d0309bc1a00a40b4f7ed6210"
+        },
+        {
+          "path": "gradle.properties",
+          "bytes": 204,
+          "sha256": "ee30c57af1828dfe84bb531541b782343d79928b4a58739ad7c68c496a6f8b5c"
+        },
+        {
+          "path": "build.gradle",
+          "bytes": 4401,
+          "sha256": "e09070e9a776fef35e0c78e27fd15d1712c4e223818150f9c8cb109446fab3fa"
+        },
+        {
+          "path": "LICENSE",
+          "bytes": 1065,
+          "sha256": "83239577d211d69c55a22cea845c391aa874e10ff078713e71f3c0af7e876783"
+        }
+      ],
+      "artwork_terms": "Owner-supplied skin/blink artwork retains its existing ownership. MIT code license is not a separate artwork or third-party-recording permission.",
+      "sound_terms": "Existing generated shared pat-response cues, byte-identical to the already integrated template. No new character-specific third-party recording."
+    },
+    {
+      "mod_id": "shuangshi",
+      "version": "1.21.1-1.0.0",
+      "code_license": "MIT",
+      "code_author": "2i学习",
+      "license_file": "shuangshi-SOURCE-LICENSE.txt",
+      "license_sha256": "83239577d211d69c55a22cea845c391aa874e10ff078713e71f3c0af7e876783",
+      "source_manifest_project_relative": "verification/three-dolls-release-20261104/source-import/source-baseline-manifest.json",
+      "source_manifest_sha256": "b6f541cb707eef0df492143d7406810d7ea3681a94d2a850817534bf9da940c6",
+      "original_source_file_hashes": [
+        {
+          "path": "src/main/java/com/customdoll/shuangshi/client/ClientSetup.java",
+          "bytes": 1657,
+          "sha256": "0a975ec423df9f1d7c63750eab9ccf508baf6fb12c80f930c29477f4e6535b61"
+        },
+        {
+          "path": "src/main/java/com/customdoll/shuangshi/client/render/DollCurioRenderer.java",
+          "bytes": 2975,
+          "sha256": "52ca752e3f372a94ec931b4d694650c5c6b10dfcb31d78cc7ca754558a7b3c33"
+        },
+        {
+          "path": "src/main/java/com/customdoll/shuangshi/client/render/DollDisplayRenderer.java",
+          "bytes": 3209,
+          "sha256": "24e62305ad884f693fdf4c2c3d873b2e1124e5e9f75b42a57721e16c330042f1"
+        },
+        {
+          "path": "src/main/java/com/customdoll/shuangshi/client/render/DollHandRenderer.java",
+          "bytes": 5399,
+          "sha256": "1f1864d45c7f60ffa664a7e2f2475ba80f6c60f0b87f0ad5454cd51d6341dc97"
+        },
+        {
+          "path": "src/main/java/com/customdoll/shuangshi/client/render/DollHeadLayer.java",
+          "bytes": 3382,
+          "sha256": "22921911bdd70901bfe3cbf2635a5c780a7fa02fc6a8f1f855940d83cc0f60b5"
+        },
+        {
+          "path": "src/main/java/com/customdoll/shuangshi/client/render/DollItemRenderer.java",
+          "bytes": 4259,
+          "sha256": "784e649036665dc06b057f2e49b427ba1e25bb42e751c07815c4c9671645bd93"
+        },
+        {
+          "path": "src/main/java/com/customdoll/shuangshi/client/render/DollRenderer.java",
+          "bytes": 16972,
+          "sha256": "90cbe8a3fe02898a341ef66c916b1a1952458fd3149bbb7a5853296db1d6abe8"
+        },
+        {
+          "path": "src/main/java/com/customdoll/shuangshi/client/render/DollSkin.java",
+          "bytes": 10519,
+          "sha256": "31dcab2a84c4685d41cfdbe51eb65d04cecdf6fc469604630c3734da44c8c349"
+        },
+        {
+          "path": "src/main/java/com/customdoll/shuangshi/client/render/DollThirdPerson.java",
+          "bytes": 1536,
+          "sha256": "35b0f4ef8d2c540c19e9f8a4e3b39a83080fd47d55d2120d277f0d3ac2de7c82"
+        },
+        {
+          "path": "src/main/java/com/customdoll/shuangshi/client/render/DollUmbrellaCanopy.java",
+          "bytes": 5796,
+          "sha256": "1df7180da08b9f0fadf5cb307e732d6c3fc2861c2646a54725e05aa16c2a2e27"
+        },
+        {
+          "path": "src/main/java/com/customdoll/shuangshi/client/render/DollUmbrellaPalette.java",
+          "bytes": 2536,
+          "sha256": "9cf69ebee2b63b27d07bca7c44ebe194e59be5484c6ba37af885cc5e327a7863"
+        },
+        {
+          "path": "src/main/java/com/customdoll/shuangshi/client/render/DollUmbrellaRenderer.java",
+          "bytes": 5176,
+          "sha256": "20d9e0ae5eedec4f86aaa7ec57ca3a3ca62646ab9d58eb0e67fc2f552d714612"
+        },
+        {
+          "path": "src/main/java/com/customdoll/shuangshi/compat/DollCuriosCompat.java",
+          "bytes": 2714,
+          "sha256": "7ce6758df4a0d9bd31c93524358bab45e994bed07cd4ffa247d218920331845c"
+        },
+        {
+          "path": "src/main/java/com/customdoll/shuangshi/content/block/DollDisplayBlock.java",
+          "bytes": 6419,
+          "sha256": "a7252b664348f000b9be821d4e5adfde65f7f4d0003236d9a502db3b34e6ad62"
+        },
+        {
+          "path": "src/main/java/com/customdoll/shuangshi/content/blockentity/DollDisplayBlockEntity.java",
+          "bytes": 3434,
+          "sha256": "1802755de5a2a3a5215d46bfea4d8384c77f1fc3422fc95e1808ab8faef86173"
+        },
+        {
+          "path": "src/main/java/com/customdoll/shuangshi/content/DollAccessoryBridge.java",
+          "bytes": 589,
+          "sha256": "b59fc0e5caa1c3c2442cb7c745dc9942e2fc1942c42896c4278ddb7a301e41cd"
+        },
+        {
+          "path": "src/main/java/com/customdoll/shuangshi/content/DollOwnership.java",
+          "bytes": 1382,
+          "sha256": "cfa28acb73598ee036a131be4ba50fd0d1fdf0c0aff97f2041a985c69ea5a5d5"
+        },
+        {
+          "path": "src/main/java/com/customdoll/shuangshi/content/DollProtection.java",
+          "bytes": 1305,
+          "sha256": "0122179bf3b70da68fb528b3647e1216d1129c45df425aa8e8b5d9f25112e216"
+        },
+        {
+          "path": "src/main/java/com/customdoll/shuangshi/content/DollUmbrellaProtocol.java",
+          "bytes": 5127,
+          "sha256": "41c336d4a21d6e9f4999b83252c30a787bd166644135f4b4d96e5e19b6be67f8"
+        },
+        {
+          "path": "src/main/java/com/customdoll/shuangshi/content/entity/DollEntity.java",
+          "bytes": 6321,
+          "sha256": "9cd56942976eab6410e32276de7e7d59e7d395ccd998481cd67c722175be1d7f"
+        },
+        {
+          "path": "src/main/java/com/customdoll/shuangshi/content/item/DollItem.java",
+          "bytes": 3741,
+          "sha256": "d21d341b22a8cc25181bd799242b0c3ad765a1df2dae199a4bd5d0b010c95788"
+        },
+        {
+          "path": "src/main/java/com/customdoll/shuangshi/DollMod.java",
+          "bytes": 1001,
+          "sha256": "49e74436353208a18e303a3758992a648b7ed544d679a6aa1e062641576042a4"
+        },
+        {
+          "path": "src/main/java/com/customdoll/shuangshi/init/ModBlockEntities.java",
+          "bytes": 841,
+          "sha256": "8deb7dca321a07354e8ba4f72e54fe115055b235f5175aa29a149e8b037d5614"
+        },
+        {
+          "path": "src/main/java/com/customdoll/shuangshi/init/ModBlocks.java",
+          "bytes": 612,
+          "sha256": "40c56bf13a08b11d5c0ced98763361778ae7a3ec0b5a4696ff0c8fa963221819"
+        },
+        {
+          "path": "src/main/java/com/customdoll/shuangshi/init/ModEntities.java",
+          "bytes": 1343,
+          "sha256": "e63848ce5a5715dc82532eeebd5b3b37a413216e8ac124b4401ab34acfb6972d"
+        },
+        {
+          "path": "src/main/java/com/customdoll/shuangshi/init/ModItems.java",
+          "bytes": 496,
+          "sha256": "a9b09f880047effe8952eff3da7015549909f1c0c89e0ba94050e236e67bd9fb"
+        },
+        {
+          "path": "src/main/java/com/customdoll/shuangshi/mixin/DollHeldMixin.java",
+          "bytes": 1729,
+          "sha256": "36cc4438bf5093cde83f4cfa504ae73a766958c73a64c65e989f6b7f5f475a15"
+        },
+        {
+          "path": "src/main/java/com/customdoll/shuangshi/mixin/DollPlayerArmMixin.java",
+          "bytes": 1171,
+          "sha256": "5607e7f9cb32985258c01f403309a2219d6d0451763651c46edf05951002444d"
+        },
+        {
+          "path": "src/main/resources/assets/minecraft/atlases/blocks.json",
+          "bytes": 109,
+          "sha256": "1809c40705e31f94f44877a35140f51ccf0fc5b2b381de0ff19d7724cba535e2"
+        },
+        {
+          "path": "src/main/resources/assets/shuangshi/blockstates/shuangshi_display.json",
+          "bytes": 124,
+          "sha256": "87693dc2be9bbbcf636eb7659bffee65dd73a36703f3c095b1d809a0af369d3a"
+        },
+        {
+          "path": "src/main/resources/assets/shuangshi/lang/en_us.json",
+          "bytes": 627,
+          "sha256": "f8564fcfaeb19cd613ff6f654cf9cf9a8d7b3316a57b5eb1fd3c4dd792a94859"
+        },
+        {
+          "path": "src/main/resources/assets/shuangshi/lang/zh_cn.json",
+          "bytes": 659,
+          "sha256": "e739a88637edd69d52ce050b08657ef60ee925be1d80dca1f841bf3450f990a3"
+        },
+        {
+          "path": "src/main/resources/assets/shuangshi/models/block/shuangshi_display.json",
+          "bytes": 88,
+          "sha256": "0b142dd290fdbf77cd6adf287e4821b0795a4282a1ae03df33cb6ba644d5338a"
+        },
+        {
+          "path": "src/main/resources/assets/shuangshi/models/item/shuangshi_doll.json",
+          "bytes": 1844,
+          "sha256": "02a467d6aabd6981f60e24c3077849b3fa6c5907bc23c9a9cfa04173a8c7948e"
+        },
+        {
+          "path": "src/main/resources/assets/shuangshi/sounds/shuangshi_pat_1.ogg",
+          "bytes": 4541,
+          "sha256": "129d5077ad05d3d5ebbfc059748c412c498f56bd7f513ebe4e08bb30815844aa"
+        },
+        {
+          "path": "src/main/resources/assets/shuangshi/sounds/shuangshi_pat_2.ogg",
+          "bytes": 4723,
+          "sha256": "9a9c35df9930b03a9a618ab7758f6bc84a117529975ab2e547ad4536ad2bbe07"
+        },
+        {
+          "path": "src/main/resources/assets/shuangshi/sounds/shuangshi_pat_3.ogg",
+          "bytes": 4670,
+          "sha256": "6c9424856af6965470fc91fbd58f88337c8d1b2fc0c5e730669bea6d6e2bfebd"
+        },
+        {
+          "path": "src/main/resources/assets/shuangshi/sounds.json",
+          "bytes": 218,
+          "sha256": "51aa78515057959f821f2513de5e8a542edff800b416f2ed9fdcd99d7cf6b7f5"
+        },
+        {
+          "path": "src/main/resources/assets/shuangshi/textures/entity/skin.json",
+          "bytes": 1481,
+          "sha256": "7b0f2682d8efe9f147654ce6000160d48364321c5edd4cad95eac1c330afc369"
+        },
+        {
+          "path": "src/main/resources/assets/shuangshi/textures/entity/skin.png",
+          "bytes": 1865,
+          "sha256": "3ade0c0ba7ade45a4432a99645635062f6984038802063afe21762449503edbb"
+        },
+        {
+          "path": "src/main/resources/assets/shuangshi/textures/entity/skin_blink_closed.png",
+          "bytes": 1846,
+          "sha256": "ee351f9e2a2b9b83b04983a2de76e356536938f96c9d5425caa7299563ae1e2a"
+        },
+        {
+          "path": "src/main/resources/assets/shuangshi/textures/entity/skin_blink_half.png",
+          "bytes": 1863,
+          "sha256": "be413c618f88d230f68d708bb465100b5ac019ebd5c3b5e849bedfe05182a9d7"
+        },
+        {
+          "path": "src/main/resources/assets/shuangshi/textures/entity/umbrella.json",
+          "bytes": 140,
+          "sha256": "8e2f72d9109ad370a8596fd944a4a0cf479dfd1ab54dd1187e9badbfc84c083b"
+        },
+        {
+          "path": "src/main/resources/assets/shuangshi/textures/entity/umbrella.png",
+          "bytes": 78,
+          "sha256": "803f3b73e9e4960c1b25d25b1dcb493de6cb51a001fbcc7f604e4dfe62c8c26e"
+        },
+        {
+          "path": "src/main/resources/data/curios/tags/item/curio.json",
+          "bytes": 79,
+          "sha256": "02da7703d73c0196c7508900679286cd6cadba3d1b2dca3c1fcf45e024ba6619"
+        },
+        {
+          "path": "src/main/resources/data/curios/tags/items/head.json",
+          "bytes": 79,
+          "sha256": "02da7703d73c0196c7508900679286cd6cadba3d1b2dca3c1fcf45e024ba6619"
+        },
+        {
+          "path": "src/main/resources/data/doll_protocol/tags/block/umbrella_participants.json",
+          "bytes": 82,
+          "sha256": "60fe50ac9257d89aca48effe3a09ec8aefe35e401e75f69d1899eec4fdb475c5"
+        },
+        {
+          "path": "src/main/resources/data/doll_protocol/tags/entity_type/umbrella_participants.json",
+          "bytes": 79,
+          "sha256": "02da7703d73c0196c7508900679286cd6cadba3d1b2dca3c1fcf45e024ba6619"
+        },
+        {
+          "path": "src/main/resources/data/doll_protocol/tags/item/umbrella_participants.json",
+          "bytes": 79,
+          "sha256": "02da7703d73c0196c7508900679286cd6cadba3d1b2dca3c1fcf45e024ba6619"
+        },
+        {
+          "path": "src/main/resources/data/shuangshi/recipe/shuangshi_doll.json",
+          "bytes": 307,
+          "sha256": "e7e1023c854f7f1e9f7c654fb43127e6c98af75eac104add73dcfd0dec43192b"
+        },
+        {
+          "path": "src/main/resources/META-INF/neoforge.mods.toml",
+          "bytes": 595,
+          "sha256": "4ed1ebe55f69579e78d17eaacf15e3abde1c23f364eff6ed8d3f6da0661b0000"
+        },
+        {
+          "path": "src/main/resources/pack.mcmeta",
+          "bytes": 99,
+          "sha256": "9eda7061b4f2a0077f4f0163c8150a49d4010601e0a4f867da2c2d2658f2a0ba"
+        },
+        {
+          "path": "src/main/resources/shuangshi.mixins.json",
+          "bytes": 254,
+          "sha256": "a4a4d6440b543b1035c54384fd029e2728c54e01c464b4bef63e1bf7b60736d3"
+        },
+        {
+          "path": "gradle.properties",
+          "bytes": 208,
+          "sha256": "91a728404dbdc3f1263373cdc98b8bad2c95474a75717609a7cf483c18064806"
+        },
+        {
+          "path": "build.gradle",
+          "bytes": 4405,
+          "sha256": "d2520fcdcfb813131c9de4935c8b00bf308476b2dd31cbc0c11fc8c8a1e4966b"
+        },
+        {
+          "path": "LICENSE",
+          "bytes": 1065,
+          "sha256": "83239577d211d69c55a22cea845c391aa874e10ff078713e71f3c0af7e876783"
+        }
+      ],
+      "artwork_terms": "Owner-supplied skin/blink artwork retains its existing ownership. MIT code license is not a separate artwork or third-party-recording permission.",
+      "sound_terms": "Existing generated shared pat-response cues, byte-identical to the already integrated template. No new character-specific third-party recording."
+    },
+    {
+      "mod_id": "qiaotou",
+      "version": "1.21.1-1.0.0",
+      "code_license": "MIT",
+      "code_author": "2i学习",
+      "license_file": "qiaotou-SOURCE-LICENSE.txt",
+      "license_sha256": "83239577d211d69c55a22cea845c391aa874e10ff078713e71f3c0af7e876783",
+      "source_manifest_project_relative": "verification/three-dolls-release-20261104/source-import/source-baseline-manifest.json",
+      "source_manifest_sha256": "b6f541cb707eef0df492143d7406810d7ea3681a94d2a850817534bf9da940c6",
+      "original_source_file_hashes": [
+        {
+          "path": "src/main/java/com/customdoll/qiaotou/client/ClientSetup.java",
+          "bytes": 1649,
+          "sha256": "79825b6ec1f2fb0bc6123e97016d489f8d0b447527d3ecd3ae1df54c13d89889"
+        },
+        {
+          "path": "src/main/java/com/customdoll/qiaotou/client/render/DollCurioRenderer.java",
+          "bytes": 2969,
+          "sha256": "ed09190f722f6d2682773a3f7c7a1b33615c0fc263818367b5e4456cbadbd69c"
+        },
+        {
+          "path": "src/main/java/com/customdoll/qiaotou/client/render/DollDisplayRenderer.java",
+          "bytes": 3197,
+          "sha256": "d28426cfae10d5c4b661faafb52d5856585ad0951db3fb005fb2ec274febb662"
+        },
+        {
+          "path": "src/main/java/com/customdoll/qiaotou/client/render/DollHandRenderer.java",
+          "bytes": 5393,
+          "sha256": "2971b68d7d9c23ad925692c98ad40eb7b3b4de37b18a45907999323375f9c3ca"
+        },
+        {
+          "path": "src/main/java/com/customdoll/qiaotou/client/render/DollHeadLayer.java",
+          "bytes": 3376,
+          "sha256": "153456f90c0898c4d41c0db0ade65e5c9d077e718fbaed895b640f30df4ea75a"
+        },
+        {
+          "path": "src/main/java/com/customdoll/qiaotou/client/render/DollItemRenderer.java",
+          "bytes": 4257,
+          "sha256": "6fd97334fd889739bf3db634d8dcc5412ff18475deb8b4ddbac31f9bf4df0ec8"
+        },
+        {
+          "path": "src/main/java/com/customdoll/qiaotou/client/render/DollRenderer.java",
+          "bytes": 16950,
+          "sha256": "b0f5e1b97974b4e879211d085085ef84965fd89589987a2d111748ba37492231"
+        },
+        {
+          "path": "src/main/java/com/customdoll/qiaotou/client/render/DollSkin.java",
+          "bytes": 10509,
+          "sha256": "b7620bc037c6d3fb336b112c78224f95c99700f207487b93f74f749a92d5a4a6"
+        },
+        {
+          "path": "src/main/java/com/customdoll/qiaotou/client/render/DollThirdPerson.java",
+          "bytes": 1534,
+          "sha256": "4cb73d2b7ee7a24a1b38c723cbe8952a382a3d4bfdbaec881cc8583cd11036e7"
+        },
+        {
+          "path": "src/main/java/com/customdoll/qiaotou/client/render/DollUmbrellaCanopy.java",
+          "bytes": 5792,
+          "sha256": "3fe029c436c50600cfea32b76e371087f72aca99938f39a5e0ef1bffb7cc76ed"
+        },
+        {
+          "path": "src/main/java/com/customdoll/qiaotou/client/render/DollUmbrellaPalette.java",
+          "bytes": 2532,
+          "sha256": "0fdfaa64bbdbdf19f3e756efce63fbe849ae7e8dc5afb1a8f0092188ec399c2b"
+        },
+        {
+          "path": "src/main/java/com/customdoll/qiaotou/client/render/DollUmbrellaRenderer.java",
+          "bytes": 5170,
+          "sha256": "71874b02152184fd66aac807cdc343d84fee5af1c2108ee355cd2be0923337c2"
+        },
+        {
+          "path": "src/main/java/com/customdoll/qiaotou/compat/DollCuriosCompat.java",
+          "bytes": 2708,
+          "sha256": "4c28d0f174a174f787ba6f4762e9b62ad734936081a6b2eb15eb1e2f00b18525"
+        },
+        {
+          "path": "src/main/java/com/customdoll/qiaotou/content/block/DollDisplayBlock.java",
+          "bytes": 6409,
+          "sha256": "bdd5d06ed59483aeb7e1081883539b54e4503dc6875e94ac656fee26f35f4c35"
+        },
+        {
+          "path": "src/main/java/com/customdoll/qiaotou/content/blockentity/DollDisplayBlockEntity.java",
+          "bytes": 3428,
+          "sha256": "04c587e1ed527bb0a63aa0ea8a177d915e620001f5bbf5dae0c5a508f6a03c14"
+        },
+        {
+          "path": "src/main/java/com/customdoll/qiaotou/content/DollAccessoryBridge.java",
+          "bytes": 585,
+          "sha256": "a7df414d307b6e030cbe8c09628bd304676668095f7a93481b40324a145d7c1e"
+        },
+        {
+          "path": "src/main/java/com/customdoll/qiaotou/content/DollOwnership.java",
+          "bytes": 1378,
+          "sha256": "62c46b9180596786f0e4802ef5faaf501d2e4c552844639500ee2cdaf0f38f6b"
+        },
+        {
+          "path": "src/main/java/com/customdoll/qiaotou/content/DollProtection.java",
+          "bytes": 1297,
+          "sha256": "e2b57005f7fa45ddae185200761981a80158c41ad23e143603a44e52e985a769"
+        },
+        {
+          "path": "src/main/java/com/customdoll/qiaotou/content/DollUmbrellaProtocol.java",
+          "bytes": 5125,
+          "sha256": "179a61f4dab9cb80f181b3923fde055990edbbca268a74b95c6c870db7c52f16"
+        },
+        {
+          "path": "src/main/java/com/customdoll/qiaotou/content/entity/DollEntity.java",
+          "bytes": 6309,
+          "sha256": "d0bd2c91cb65d4b44406ab848a6c56bd93a689191ef4320f1aae587d225ff973"
+        },
+        {
+          "path": "src/main/java/com/customdoll/qiaotou/content/item/DollItem.java",
+          "bytes": 3727,
+          "sha256": "7df07cc58fe3ee6113aa514e74aed4afc7d3cc41ac7f49c95645f9da76a24389"
+        },
+        {
+          "path": "src/main/java/com/customdoll/qiaotou/DollMod.java",
+          "bytes": 993,
+          "sha256": "7865ad3188cff63ba6ea83de3ad00866e29b92ed8003f8e5d38ffd33db387234"
+        },
+        {
+          "path": "src/main/java/com/customdoll/qiaotou/init/ModBlockEntities.java",
+          "bytes": 831,
+          "sha256": "438eb5c92e7c37867a2bb90a0646e7f07b3cb1f6a1602aa5b6e49ec4af4a1a0e"
+        },
+        {
+          "path": "src/main/java/com/customdoll/qiaotou/init/ModBlocks.java",
+          "bytes": 604,
+          "sha256": "8de54b9acf8a4aab7cc1f9cd0a7b2e020b3ee59240d41ed69f5e6f451a219d3a"
+        },
+        {
+          "path": "src/main/java/com/customdoll/qiaotou/init/ModEntities.java",
+          "bytes": 1329,
+          "sha256": "5307d83bbc83a63680434fee122c5bbbbd800258bf57a2dc128555470fcdddb0"
+        },
+        {
+          "path": "src/main/java/com/customdoll/qiaotou/init/ModItems.java",
+          "bytes": 486,
+          "sha256": "a87f7cba720d0f28b14f168ead7e5601ce6e4f3a29c759189103bf72007a557f"
+        },
+        {
+          "path": "src/main/java/com/customdoll/qiaotou/mixin/DollHeldMixin.java",
+          "bytes": 1721,
+          "sha256": "73432af24a1eef387e6ca8b9b7fc31e5e2c3d3a8fe040060e9c1d4ca54ba935b"
+        },
+        {
+          "path": "src/main/java/com/customdoll/qiaotou/mixin/DollPlayerArmMixin.java",
+          "bytes": 1163,
+          "sha256": "9030ad1e3f9aef8a4639e99e7bf20185ee38d7f45e7b1ff92d499fbe4638cc4a"
+        },
+        {
+          "path": "src/main/resources/assets/minecraft/atlases/blocks.json",
+          "bytes": 107,
+          "sha256": "1048f8bcaf62155a42f68e676ff4829078f5ff6378d81d7ae445ca300dd3b3ed"
+        },
+        {
+          "path": "src/main/resources/assets/qiaotou/blockstates/qiaotou_display.json",
+          "bytes": 120,
+          "sha256": "ddac9966fc80d4e699a21d59a26376a44d6b1b3e8c1377d16950a482ead4afc8"
+        },
+        {
+          "path": "src/main/resources/assets/qiaotou/lang/en_us.json",
+          "bytes": 595,
+          "sha256": "bba36508f209a25662e3d472c6d34cb956413f175b927f74c484263978f27885"
+        },
+        {
+          "path": "src/main/resources/assets/qiaotou/lang/zh_cn.json",
+          "bytes": 633,
+          "sha256": "ea1e55947a693d4908693965b6173f34ae60c7e6c96813423600dae8dc2530ff"
+        },
+        {
+          "path": "src/main/resources/assets/qiaotou/models/block/qiaotou_display.json",
+          "bytes": 86,
+          "sha256": "1300a7726587932ef5fa03dedee61ba01446fea1c2a429092c43ba201d86e33f"
+        },
+        {
+          "path": "src/main/resources/assets/qiaotou/models/item/qiaotou_doll.json",
+          "bytes": 1842,
+          "sha256": "0faf891f58c56adc68308b37c959cbeafac0c6cd53d0c28a365bf17087bb425f"
+        },
+        {
+          "path": "src/main/resources/assets/qiaotou/sounds/qiaotou_pat_1.ogg",
+          "bytes": 4541,
+          "sha256": "129d5077ad05d3d5ebbfc059748c412c498f56bd7f513ebe4e08bb30815844aa"
+        },
+        {
+          "path": "src/main/resources/assets/qiaotou/sounds/qiaotou_pat_2.ogg",
+          "bytes": 4723,
+          "sha256": "9a9c35df9930b03a9a618ab7758f6bc84a117529975ab2e547ad4536ad2bbe07"
+        },
+        {
+          "path": "src/main/resources/assets/qiaotou/sounds/qiaotou_pat_3.ogg",
+          "bytes": 4670,
+          "sha256": "6c9424856af6965470fc91fbd58f88337c8d1b2fc0c5e730669bea6d6e2bfebd"
+        },
+        {
+          "path": "src/main/resources/assets/qiaotou/sounds.json",
+          "bytes": 200,
+          "sha256": "947a25b07c49704130142fe3a629996f82f57b03ff3b77587dfc432737e5d11d"
+        },
+        {
+          "path": "src/main/resources/assets/qiaotou/textures/entity/skin.json",
+          "bytes": 1473,
+          "sha256": "e9f752750c0afab67122a2488b082fb0902e9d00b606bbd4413d49eb50611419"
+        },
+        {
+          "path": "src/main/resources/assets/qiaotou/textures/entity/skin.png",
+          "bytes": 2384,
+          "sha256": "50e4b02b367d9da67dad6074e2af1d195e8b0357d1f306405a79eda7e0753203"
+        },
+        {
+          "path": "src/main/resources/assets/qiaotou/textures/entity/skin_blink_closed.png",
+          "bytes": 2392,
+          "sha256": "835eaa3cc298c16e3cc4ebbc154958be9694228ec7929b4889e18cb3a479d357"
+        },
+        {
+          "path": "src/main/resources/assets/qiaotou/textures/entity/skin_blink_half.png",
+          "bytes": 2385,
+          "sha256": "729f625f353ad3233901125f9c04e01da6764d5a1dcc23288a20f8fe00a152d0"
+        },
+        {
+          "path": "src/main/resources/assets/qiaotou/textures/entity/umbrella.json",
+          "bytes": 140,
+          "sha256": "0543174760d1dbebf5840f054d1c6acd6cba1f4030e1f3409f5ccd569c2e056b"
+        },
+        {
+          "path": "src/main/resources/assets/qiaotou/textures/entity/umbrella.png",
+          "bytes": 78,
+          "sha256": "803f3b73e9e4960c1b25d25b1dcb493de6cb51a001fbcc7f604e4dfe62c8c26e"
+        },
+        {
+          "path": "src/main/resources/data/curios/tags/item/curio.json",
+          "bytes": 75,
+          "sha256": "62ea626e54550c191a104f3c4f3f01aefc9a9eacc5b807d913c13c11144c66db"
+        },
+        {
+          "path": "src/main/resources/data/curios/tags/items/head.json",
+          "bytes": 75,
+          "sha256": "62ea626e54550c191a104f3c4f3f01aefc9a9eacc5b807d913c13c11144c66db"
+        },
+        {
+          "path": "src/main/resources/data/doll_protocol/tags/block/umbrella_participants.json",
+          "bytes": 78,
+          "sha256": "bf62b367ab9b8da9250bfabf1dfa0ee42c8b6a649791c42354d3b3ee952fa8b4"
+        },
+        {
+          "path": "src/main/resources/data/doll_protocol/tags/entity_type/umbrella_participants.json",
+          "bytes": 75,
+          "sha256": "62ea626e54550c191a104f3c4f3f01aefc9a9eacc5b807d913c13c11144c66db"
+        },
+        {
+          "path": "src/main/resources/data/doll_protocol/tags/item/umbrella_participants.json",
+          "bytes": 75,
+          "sha256": "62ea626e54550c191a104f3c4f3f01aefc9a9eacc5b807d913c13c11144c66db"
+        },
+        {
+          "path": "src/main/resources/data/qiaotou/recipe/qiaotou_doll.json",
+          "bytes": 303,
+          "sha256": "2c27ef8281c6e63f76d0dafb5d82942cdfb58d47bdeb1ba277850c7b88253e01"
+        },
+        {
+          "path": "src/main/resources/META-INF/neoforge.mods.toml",
+          "bytes": 593,
+          "sha256": "f058abf5e155e0b8a8d3ec77952aa805a581f58ed5d43f4a9ca47ccba4e2ebf1"
+        },
+        {
+          "path": "src/main/resources/pack.mcmeta",
+          "bytes": 97,
+          "sha256": "318c925042ae98e7d34639c0288a6cad8f74d9fdec4c63c671cf6c40c9523272"
+        },
+        {
+          "path": "src/main/resources/qiaotou.mixins.json",
+          "bytes": 252,
+          "sha256": "cf80471cdb792342c41b16e20d76b74b1e0e75869bd0771681ff3fe1e4aebee1"
+        },
+        {
+          "path": "gradle.properties",
+          "bytes": 206,
+          "sha256": "4f01e0d21550bae9df5921c4b3d29ac9adcd2c94b20e3cc6ea660f60bd8fc82f"
+        },
+        {
+          "path": "build.gradle",
+          "bytes": 4403,
+          "sha256": "76218e9b925d09ec45ec04702639d0904baf244be5e4c7c449741b3d624c8e81"
+        },
+        {
+          "path": "LICENSE",
+          "bytes": 1065,
+          "sha256": "83239577d211d69c55a22cea845c391aa874e10ff078713e71f3c0af7e876783"
+        }
+      ],
+      "artwork_terms": "Owner-supplied skin/blink artwork retains its existing ownership. MIT code license is not a separate artwork or third-party-recording permission.",
+      "sound_terms": "Existing generated shared pat-response cues, byte-identical to the already integrated template. No new character-specific third-party recording."
+    },
+    {
+      "mod_id": "canmeng",
+      "version": "1.21.1-1.0.0",
+      "code_license": "MIT",
+      "code_author": "2i学习",
+      "license_file": "canmeng-SOURCE-LICENSE.txt",
+      "license_sha256": "83239577d211d69c55a22cea845c391aa874e10ff078713e71f3c0af7e876783",
+      "source_manifest_project_relative": "verification/canmeng-release-20261104/source-import/source-baseline-manifest.json",
+      "source_manifest_sha256": "25ceb005cae38d14afdb0f7ef2db18b2f32628b8f38bf1be020bd78b335ea40d",
+      "original_source_file_hashes": [
+        {
+          "path": "src/main/java/com/customdoll/canmeng/client/ClientSetup.java",
+          "bytes": 1649,
+          "sha256": "a54ac70cfc3db41e03580983f64e179cf44048ad65302c770b2f17a795c6d8bc"
+        },
+        {
+          "path": "src/main/java/com/customdoll/canmeng/client/render/DollCurioRenderer.java",
+          "bytes": 2969,
+          "sha256": "f40673af3e995388a2c59ac40ed2a9d1295d7d56aa66f86924ee9c21c2c0ee66"
+        },
+        {
+          "path": "src/main/java/com/customdoll/canmeng/client/render/DollDisplayRenderer.java",
+          "bytes": 3197,
+          "sha256": "17b01629c2cdbe975d6c2851f909daafe4f697c41aef2a5a4925f2a164e54a01"
+        },
+        {
+          "path": "src/main/java/com/customdoll/canmeng/client/render/DollHandRenderer.java",
+          "bytes": 5393,
+          "sha256": "1127a93c1adf2ae892ac5915a1c1f0c3576746ba98dc53a22c31ca02e36571bb"
+        },
+        {
+          "path": "src/main/java/com/customdoll/canmeng/client/render/DollHeadLayer.java",
+          "bytes": 3376,
+          "sha256": "140dcfd31f85bede942be988e785261c4a07c546c787eb0c8ad7a75bd1501f5c"
+        },
+        {
+          "path": "src/main/java/com/customdoll/canmeng/client/render/DollItemRenderer.java",
+          "bytes": 4257,
+          "sha256": "b5ca569e8e38d049c842cce1911fa6dbca341285e0417e9b5c8d8f5a2135f2ab"
+        },
+        {
+          "path": "src/main/java/com/customdoll/canmeng/client/render/DollRenderer.java",
+          "bytes": 16950,
+          "sha256": "8045b55b5ec4f1ee2c09f8e74de5c8ae5ed56daac486ee5b70ea2312d0069b10"
+        },
+        {
+          "path": "src/main/java/com/customdoll/canmeng/client/render/DollSkin.java",
+          "bytes": 10509,
+          "sha256": "3877227a3d3433c759b1df290df11f91d42d7dfde56cec90e588df47cd2e5355"
+        },
+        {
+          "path": "src/main/java/com/customdoll/canmeng/client/render/DollThirdPerson.java",
+          "bytes": 1534,
+          "sha256": "9621aa234ddcda37ce3d522ed9557a13093de28f726131c423b6478aff099ff5"
+        },
+        {
+          "path": "src/main/java/com/customdoll/canmeng/client/render/DollUmbrellaCanopy.java",
+          "bytes": 5792,
+          "sha256": "e3c55f2bc9908e762e5b73950de77b6c694666ab399b3b9f621f91c07c9a5728"
+        },
+        {
+          "path": "src/main/java/com/customdoll/canmeng/client/render/DollUmbrellaPalette.java",
+          "bytes": 2532,
+          "sha256": "c318230aff70bd818e8955175c82b9e4f62e17b2e3cef0e8613ef08a34ea3937"
+        },
+        {
+          "path": "src/main/java/com/customdoll/canmeng/client/render/DollUmbrellaRenderer.java",
+          "bytes": 5170,
+          "sha256": "37edb7d535e7fbb0e513fd8d8d0511ecb69ba1df803b700b1dd10a25adf14374"
+        },
+        {
+          "path": "src/main/java/com/customdoll/canmeng/compat/DollCuriosCompat.java",
+          "bytes": 2708,
+          "sha256": "bec2472f81a7e80bbef29fa52b5c715abf68d023635ee5b0fdbafb6d18441f55"
+        },
+        {
+          "path": "src/main/java/com/customdoll/canmeng/content/block/DollDisplayBlock.java",
+          "bytes": 6409,
+          "sha256": "6b5581bc771643d640b75ba499ff19078758b29f8e3109fae8d294df0ea9e243"
+        },
+        {
+          "path": "src/main/java/com/customdoll/canmeng/content/blockentity/DollDisplayBlockEntity.java",
+          "bytes": 3428,
+          "sha256": "204fc13492f4ebf2e6093a8cfc274fcf6dde0fcfc2fa13aeefeeafee4e4a6555"
+        },
+        {
+          "path": "src/main/java/com/customdoll/canmeng/content/DollAccessoryBridge.java",
+          "bytes": 585,
+          "sha256": "ec029896778bd751993766c3ed34c9632ce9b71035fa8ad64fd29cc1d69b40ef"
+        },
+        {
+          "path": "src/main/java/com/customdoll/canmeng/content/DollOwnership.java",
+          "bytes": 1378,
+          "sha256": "e3c78af960db50c85b8a8a89e4d6e9d2feac2f21c5a835241856691879ec9f6d"
+        },
+        {
+          "path": "src/main/java/com/customdoll/canmeng/content/DollProtection.java",
+          "bytes": 1297,
+          "sha256": "e723c1a98fafb5bef155994d276772f7da45815971d40c45571bafdf8a56a2b1"
+        },
+        {
+          "path": "src/main/java/com/customdoll/canmeng/content/DollUmbrellaProtocol.java",
+          "bytes": 5125,
+          "sha256": "361148183c9ac31d830afa030997a8632c4aa6c8879efe20d8258a417bd48c1d"
+        },
+        {
+          "path": "src/main/java/com/customdoll/canmeng/content/entity/DollEntity.java",
+          "bytes": 6309,
+          "sha256": "e776850922779ca45a39f21cd2b159b4e5c88b258c70554507264a960a023b64"
+        },
+        {
+          "path": "src/main/java/com/customdoll/canmeng/content/item/DollItem.java",
+          "bytes": 3727,
+          "sha256": "e42e27cacb2c2cac79d947c79b37d2f97920cf2a2dc29ca7feb04c03e8a69d12"
+        },
+        {
+          "path": "src/main/java/com/customdoll/canmeng/DollMod.java",
+          "bytes": 993,
+          "sha256": "71b59b9c52819fecb8a22470d3453fd92a68138a744cbb734121f2e35a903359"
+        },
+        {
+          "path": "src/main/java/com/customdoll/canmeng/init/ModBlockEntities.java",
+          "bytes": 831,
+          "sha256": "f17f27af74abc5f970db40ad6c8c03492c0ab5a1253e64b0f581a9f33556c2c0"
+        },
+        {
+          "path": "src/main/java/com/customdoll/canmeng/init/ModBlocks.java",
+          "bytes": 604,
+          "sha256": "7545a5bccaaf33af99d841d733537905ad968e1d6c58fb3edad3b5a6a9b42478"
+        },
+        {
+          "path": "src/main/java/com/customdoll/canmeng/init/ModEntities.java",
+          "bytes": 1329,
+          "sha256": "d450d0cc73f5cb91b13eccff752698f5e135dfb8ae2fe30d89394dddefabea33"
+        },
+        {
+          "path": "src/main/java/com/customdoll/canmeng/init/ModItems.java",
+          "bytes": 486,
+          "sha256": "0b6ee538eaf70906ad6b90bbf9ee7b872c1f436393817bffd3be77c14c02e4e8"
+        },
+        {
+          "path": "src/main/java/com/customdoll/canmeng/mixin/DollHeldMixin.java",
+          "bytes": 1721,
+          "sha256": "f1708f7adc49e3a34e6c80c705f9d85222820d6384d2324bdab990e18479a514"
+        },
+        {
+          "path": "src/main/java/com/customdoll/canmeng/mixin/DollPlayerArmMixin.java",
+          "bytes": 1163,
+          "sha256": "8ee41f76a92427afc14149d66e63bc2d895166aedc7b414ba788aabd8ba13918"
+        },
+        {
+          "path": "src/main/resources/assets/canmeng/blockstates/canmeng_display.json",
+          "bytes": 120,
+          "sha256": "4dec7a27dcbbe27406fbd7c73d19444f0045dc1a800536bbb2b0cef4cf969435"
+        },
+        {
+          "path": "src/main/resources/assets/canmeng/lang/en_us.json",
+          "bytes": 595,
+          "sha256": "d98b6d9c1c77be28dab17a934240bc101819c8f726a087721163c9e90bdd5003"
+        },
+        {
+          "path": "src/main/resources/assets/canmeng/lang/zh_cn.json",
+          "bytes": 633,
+          "sha256": "c619a0dd2123c114b868c3c502f023cffb1ee9cc1ce8d0a4db529bf222862964"
+        },
+        {
+          "path": "src/main/resources/assets/canmeng/models/block/canmeng_display.json",
+          "bytes": 86,
+          "sha256": "6ba7a6194b09f852de464f3893b4679e88c85dff7c0c149aea21746b42286d72"
+        },
+        {
+          "path": "src/main/resources/assets/canmeng/models/item/canmeng_doll.json",
+          "bytes": 1842,
+          "sha256": "cd99a6dfe010d040bfeba9fde828b3dd51f8bc3c697ee6dc7e00a7a2251f5de9"
+        },
+        {
+          "path": "src/main/resources/assets/canmeng/sounds/canmeng_pat_1.ogg",
+          "bytes": 4541,
+          "sha256": "129d5077ad05d3d5ebbfc059748c412c498f56bd7f513ebe4e08bb30815844aa"
+        },
+        {
+          "path": "src/main/resources/assets/canmeng/sounds/canmeng_pat_2.ogg",
+          "bytes": 4723,
+          "sha256": "9a9c35df9930b03a9a618ab7758f6bc84a117529975ab2e547ad4536ad2bbe07"
+        },
+        {
+          "path": "src/main/resources/assets/canmeng/sounds/canmeng_pat_3.ogg",
+          "bytes": 4670,
+          "sha256": "6c9424856af6965470fc91fbd58f88337c8d1b2fc0c5e730669bea6d6e2bfebd"
+        },
+        {
+          "path": "src/main/resources/assets/canmeng/sounds.json",
+          "bytes": 200,
+          "sha256": "9f06443e336bf2909dffcc332e1e0b236074fe921dbce60b5ec355de4d4866ab"
+        },
+        {
+          "path": "src/main/resources/assets/canmeng/textures/entity/skin.json",
+          "bytes": 1489,
+          "sha256": "f743e6a4fa066bc8e65bcdf9f9d2a9529e3674e4758986f1c800e246e29ee565"
+        },
+        {
+          "path": "src/main/resources/assets/canmeng/textures/entity/skin.png",
+          "bytes": 2739,
+          "sha256": "6345ef4b9446b8197d6aa5ced86e6635fa9f1d2b2c5c59ce98039f69d7db1ebf"
+        },
+        {
+          "path": "src/main/resources/assets/canmeng/textures/entity/skin_blink_closed.png",
+          "bytes": 2720,
+          "sha256": "c8b6987c51bbb79e6b5d194936e6f80f90f85cf4aac42de2393bd7e866224096"
+        },
+        {
+          "path": "src/main/resources/assets/canmeng/textures/entity/skin_blink_half.png",
+          "bytes": 2732,
+          "sha256": "f90021fa777b65b2eb963d56ee10bc3426d55238f265f2f8c5d3bb40c0d1646b"
+        },
+        {
+          "path": "src/main/resources/assets/canmeng/textures/entity/umbrella.json",
+          "bytes": 140,
+          "sha256": "7bdd2328fb70a8e56b6d1fb3d62c50936667e37ddd701bc10835c76bda008eef"
+        },
+        {
+          "path": "src/main/resources/assets/canmeng/textures/entity/umbrella.png",
+          "bytes": 78,
+          "sha256": "803f3b73e9e4960c1b25d25b1dcb493de6cb51a001fbcc7f604e4dfe62c8c26e"
+        },
+        {
+          "path": "src/main/resources/assets/minecraft/atlases/blocks.json",
+          "bytes": 107,
+          "sha256": "30f3d53908e58c35a2377f63ef77b4b69d40f3f2742fc18177a62d03e41fa3b7"
+        },
+        {
+          "path": "src/main/resources/canmeng.mixins.json",
+          "bytes": 252,
+          "sha256": "43aa7f789a10e254378fb246ee8f0b8c1773a6ad1e381c54a55a289fb6ed3301"
+        },
+        {
+          "path": "src/main/resources/data/canmeng/recipe/canmeng_doll.json",
+          "bytes": 303,
+          "sha256": "d7086fe7b593113a1adf5613e5ca7a0a9708e2bfcb51e7493d62dcf50341ad7f"
+        },
+        {
+          "path": "src/main/resources/data/curios/tags/item/curio.json",
+          "bytes": 75,
+          "sha256": "57d96f898d0b3c7d40c242417f2bc8d2df6254430af9bb5ac5b77f3ab3272b2c"
+        },
+        {
+          "path": "src/main/resources/data/curios/tags/items/head.json",
+          "bytes": 75,
+          "sha256": "57d96f898d0b3c7d40c242417f2bc8d2df6254430af9bb5ac5b77f3ab3272b2c"
+        },
+        {
+          "path": "src/main/resources/data/doll_protocol/tags/block/umbrella_participants.json",
+          "bytes": 78,
+          "sha256": "2ed3331c26afc75ddd867783839d76229725a914a015832f2cd9e51c135b3c52"
+        },
+        {
+          "path": "src/main/resources/data/doll_protocol/tags/entity_type/umbrella_participants.json",
+          "bytes": 75,
+          "sha256": "57d96f898d0b3c7d40c242417f2bc8d2df6254430af9bb5ac5b77f3ab3272b2c"
+        },
+        {
+          "path": "src/main/resources/data/doll_protocol/tags/item/umbrella_participants.json",
+          "bytes": 75,
+          "sha256": "57d96f898d0b3c7d40c242417f2bc8d2df6254430af9bb5ac5b77f3ab3272b2c"
+        },
+        {
+          "path": "src/main/resources/META-INF/neoforge.mods.toml",
+          "bytes": 593,
+          "sha256": "78510f3c5dafe45e6e7009cb0783e18a7ede969e8c46d4bc4b9f6810e0c9f1af"
+        },
+        {
+          "path": "src/main/resources/pack.mcmeta",
+          "bytes": 97,
+          "sha256": "c54dd4970035efc5f528d4cd5936f59e7d4491d6423d1d1f0a6c14a37aefdbc9"
+        },
+        {
+          "path": "gradle.properties",
+          "bytes": 206,
+          "sha256": "fb0c022a8b1696ec4da7798954e3f0bad009fcf5e558a57332b03dadf7f3ce11"
+        },
+        {
+          "path": "build.gradle",
+          "bytes": 4403,
+          "sha256": "a2fdcadcafeda3b06d6228e87641b24dcc32c1b19f95e62fd7debe27a12aea6e"
+        },
+        {
+          "path": "LICENSE",
+          "bytes": 1065,
+          "sha256": "83239577d211d69c55a22cea845c391aa874e10ff078713e71f3c0af7e876783"
+        }
+      ],
+      "artwork_terms": "Owner-supplied skin/blink artwork retains its existing ownership. MIT code license is not a separate artwork or third-party-recording permission.",
+      "sound_terms": "Existing generated shared pat-response cues, byte-identical to the already integrated template. No new character-specific third-party recording."
+    }
+  ],
+  "asset_terms_reference": "../../../THIRD_PARTY_NOTICES.md"
+}

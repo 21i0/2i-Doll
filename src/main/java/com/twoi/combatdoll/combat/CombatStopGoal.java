@@ -5,7 +5,8 @@ import java.util.EnumSet;
 
 public final class CombatStopGoal extends Goal {
     private final PathfinderMob doll;
-    public CombatStopGoal(PathfinderMob doll) { this.doll=doll;setFlags(EnumSet.of(Flag.MOVE,Flag.JUMP)); }
-    @Override public boolean canUse() { return DollCombatAccess.state(doll).age(doll,0)>=0; }
+    public CombatStopGoal(PathfinderMob doll) { this.doll=doll;setFlags(EnumSet.of(Flag.MOVE,Flag.JUMP,Flag.LOOK)); }
+    @Override public boolean canUse() { return DollCombatAccess.state(doll).age(doll,0)>=0
+            ||doll.getVehicle() instanceof com.twoi.combatdoll.entity.CangshengAxolotlEntity mount&&mount.mountMode(); }
     @Override public void tick() { doll.getNavigation().stop(); }
 }

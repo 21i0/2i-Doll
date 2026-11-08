@@ -13,6 +13,18 @@ public final class CombatTestBootstrap {
     private static int ticks;
     private static boolean done;
     @SubscribeEvent public static void server(ServerTickEvent.Post event) {
+        if(Boolean.getBoolean("two_i_combat_doll.doll_uv_catalog_test")){
+            if(event.getServer().isDedicatedServer())DollUvCatalogServerChecks.tick(event.getServer());
+            return;
+        }
+        if(Boolean.getBoolean("two_i_combat_doll.titan_freedom_test")){
+            if(event.getServer().isDedicatedServer())TitanFreedomServerChecks.tick(event.getServer());
+            return;
+        }
+        if(Boolean.getBoolean("two_i_combat_doll.native_fix_test")){
+            if(event.getServer().isDedicatedServer())NativeFixServerChecks.tick(event.getServer());
+            return;
+        }
         if(Boolean.getBoolean("two_i_combat_doll.standalone_test")){
             StandaloneServerChecks.tick(event.getServer());return;
         }
@@ -31,6 +43,15 @@ public final class CombatTestBootstrap {
     @EventBusSubscriber(modid=TwoICombatDollMod.MODID,value=Dist.CLIENT)
     public static final class Client {
         @SubscribeEvent public static void tick(ClientTickEvent.Post event) {
+            if(Boolean.getBoolean("two_i_combat_doll.doll_uv_catalog_test")){
+                DollUvCatalogClientChecks.tick(net.minecraft.client.Minecraft.getInstance());return;
+            }
+            if(Boolean.getBoolean("two_i_combat_doll.titan_freedom_test")){
+                TitanFreedomClientChecks.tick(net.minecraft.client.Minecraft.getInstance());return;
+            }
+            if(Boolean.getBoolean("two_i_combat_doll.native_fix_test")){
+                NativeFixClientChecks.tick(net.minecraft.client.Minecraft.getInstance());return;
+            }
             if(Boolean.getBoolean("two_i_combat_doll.companion_port_test"))return;
             // Export-only stops at the title screen. Starting an integrated
             // world concurrently with that stop races server initialization.

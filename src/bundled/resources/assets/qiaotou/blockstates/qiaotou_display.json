@@ -1,0 +1,9 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "qiaotou:block/qiaotou_display"
+      }
+    }
+  ]
+}

@@ -3,7 +3,7 @@ plugins {
     id 'net.neoforged.moddev' version '2.0.107'
 }
 
-version = '1.21.1-1.3.0'
+version = '1.21.1-1.3.4'
 group = 'com.twoi.combatdoll'
 base { archivesName = 'two_i_combat_doll' }
 java.toolchain.languageVersion = JavaLanguageVersion.of(21)
@@ -14,6 +14,10 @@ sourceSets.main.resources.srcDir 'src/bundled/resources'
 sourceSets.main.java.exclude 'com/customdoll/lonya/**', 'com/customdoll/lonya_plush/**'
 sourceSets.main.resources.exclude 'assets/lonya/**', 'assets/lonya_plush/**',
         'data/lonya/**', 'data/lonya_plush/**', 'lonya.mixins.json', 'lonya_plush.mixins.json'
+// The retired display-only Chuanshou export must not return through old output
+// directories. Its saved registry names still resolve via LegacyChuanshouAliases.
+sourceSets.main.java.exclude 'com/customdoll/chuanshou/**'
+sourceSets.main.resources.exclude 'assets/chuanshou/**', 'data/chuanshou/**', 'chuanshou.mixins.json'
 tasks.withType(JavaCompile).configureEach { options.encoding = 'UTF-8' }
 tasks.withType(AbstractArchiveTask).configureEach {
     preserveFileTimestamps = false
@@ -61,6 +65,9 @@ neoForge {
             gameDirectory = runDir
             programArguments.addAll '--width', '1280', '--height', '800'
             systemProperty 'two_i_combat_doll.client_test', testEnabled.toString()
+            systemProperty 'two_i_combat_doll.native_fix_test', providers.gradleProperty('nativeFixTests').isPresent().toString()
+            systemProperty 'two_i_combat_doll.titan_freedom_test', providers.gradleProperty('titanFreedomTests').isPresent().toString()
+            systemProperty 'two_i_combat_doll.doll_uv_catalog_test', providers.gradleProperty('dollUvCatalogTests').isPresent().toString()
             systemProperty 'two_i_combat_doll.companion_port_test', companionTests.toString()
             systemProperty 'two_i_combat_doll.standalone_client_test', standaloneTests.toString()
             systemProperty 'two_i_combat_doll.standalone_minimal', standaloneMinimal.toString()
@@ -85,6 +92,10 @@ neoForge {
             gameDirectory = runDir
             programArgument '--nogui'
             systemProperty 'two_i_combat_doll.server_test', testEnabled.toString()
+            systemProperty 'two_i_combat_doll.native_fix_test', providers.gradleProperty('nativeFixTests').isPresent().toString()
+            systemProperty 'two_i_combat_doll.titan_freedom_test', providers.gradleProperty('titanFreedomTests').isPresent().toString()
+            systemProperty 'two_i_combat_doll.doll_uv_catalog_test', providers.gradleProperty('dollUvCatalogTests').isPresent().toString()
+            systemProperty 'two_i_combat_doll.titan_freedom_restart_test', providers.gradleProperty('titanFreedomRestartTests').isPresent().toString()
             systemProperty 'two_i_combat_doll.standalone_test', standaloneTests.toString()
             systemProperty 'two_i_combat_doll.standalone_minimal', standaloneMinimal.toString()
             systemProperty 'two_i_combat_doll.standalone_optional_mod', standaloneOptionalMod
@@ -128,6 +139,10 @@ tasks.named('jar') {
 // Both retired Lonya exports are archived outside the source sets. Explicitly
 // exclude stale incremental output from production and private regression JARs.
 tasks.withType(Jar).configureEach {
+    exclude 'com/customdoll/chuanshou/**'
+    exclude 'assets/chuanshou/**'
+    exclude 'data/chuanshou/**'
+    exclude 'chuanshou.mixins.json'
     exclude 'com/customdoll/lonya/**'
     exclude 'com/customdoll/lonya_plush/**'
     exclude 'assets/lonya/**'
@@ -142,7 +157,7 @@ tasks.withType(Jar).configureEach {
 tasks.register('companionChecksJar', Jar) {
     dependsOn 'classes'
     onlyIf { testEnabled }
-    archiveFileName='two_i_combat_doll-companion-checks-1.21.1-1.3.0.jar'
+    archiveFileName="two_i_combat_doll-companion-checks-${project.version}.jar"
     destinationDirectory=file('verification/companion-port-20261031/internal')
     from sourceSets.main.output
     from 'LICENSE'

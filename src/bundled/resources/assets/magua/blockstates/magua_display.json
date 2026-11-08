@@ -1,0 +1,9 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "magua:block/magua_display"
+      }
+    }
+  ]
+}

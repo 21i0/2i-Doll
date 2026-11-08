@@ -25,6 +25,9 @@ public abstract class XiaoxiaoCombatMixin extends PathfinderMob implements DollC
     @Override public boolean combatBusy(){return isSharedUmbrella()||twoi$combat.armed();}
     @Override public WeaponKind combatKind(){return WeaponKind.AXOLOTL;}
     @Inject(method="registerGoals",at=@At("TAIL")) private void twoi$goals(CallbackInfo ci){goalSelector.addGoal(0,new CombatStopGoal(this));}
+    @Inject(method="tick",at=@At("TAIL")) private void twoi$mountedFacing(CallbackInfo ci){
+        if(getVehicle() instanceof com.twoi.combatdoll.entity.CangshengAxolotlEntity mount)mount.alignPassengerFacing(this);
+    }
     // Run only on the successful branch, after the target mod reserves its inventory slot.
     @Inject(method="reclaim",at=@At(value="FIELD",target="Lcom/customdoll/xiaoxiao/content/entity/DollEntity;reclaimed:Z",opcode=org.objectweb.asm.Opcodes.PUTFIELD))
     private void twoi$reclaim(Player player,CallbackInfoReturnable<Boolean> cir){

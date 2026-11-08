@@ -1,0 +1,10 @@
+{
+  "shuangshi_pat": {
+    "subtitle": "subtitles.shuangshi.shuangshi_pat",
+    "sounds": [
+      "shuangshi:shuangshi_pat_1",
+      "shuangshi:shuangshi_pat_2",
+      "shuangshi:shuangshi_pat_3"
+    ]
+  }
+}

@@ -132,6 +132,7 @@ public final class CompanionPortChecks {
    if(phase==8){if(ready.get()!=3||!(mc.screen instanceof TwoIDialogueScreen))return;if(++wait<24)return;try(var shot=capture(mc,"companion-item-ui")){}mc.screen.onClose();phase=9;return;}
    if(phase==9){
     if(!BundledDollDuelChecks.finished())return;BundledDollDuelChecks.assertPassed();
+    if(!ThreeNewDollChecks.Client.tick(mc))return;
     if(!featuresRequested){featuresRequested=true;server(mc,()->BundledCompanionFeatureChecks.start(mc.getSingleplayerServer().getPlayerList().getPlayer(mc.player.getUUID())));return;}
     if(!BundledCompanionFeatureClientChecks.tick(mc))return;
     if(!StandaloneGardenClientChecks.tick(mc))return;if(!StandaloneOptionalClientChecks.tick(mc))return;if(Boolean.getBoolean("two_i_combat_doll.standalone_minimal")&&!StandaloneClientReconnectChecks.tick(mc))return;finishClient(mc);
@@ -139,13 +140,20 @@ public final class CompanionPortChecks {
   }catch(Throwable ex){done=true;LogUtils.getLogger().error("COMPANION PORT CHECKS FAILED",ex);if(left!=null)left.close();mc.stop();}
  }
  @FunctionalInterface private interface ServerAction {void run() throws Exception;}
- private static void finishClient(Minecraft mc){done=true;LogUtils.getLogger().info("COMPANION PORT CHECKS PASSED: standalone interaction/6 chapters/owner/NBT/combat/leaf receipts/actual UI+cursor+recall+item UI; bundled14/registered Piston duel; native garden entry/show/rewards/expiry/return and actual catalog passed; {}",Boolean.getBoolean("two_i_combat_doll.standalone_minimal")?"minimal real client reconnect passed":"applicable optional integration checks passed");mc.stop();}
+ private static void finishClient(Minecraft mc){done=true;LogUtils.getLogger().info("COMPANION PORT CHECKS PASSED: standalone interaction/6 chapters/owner/NBT/combat/leaf receipts/actual UI+cursor+recall+item UI; bundled18/registered Piston duel; four new dolls server and real renderer checks; native garden entry/show/rewards/expiry/return and actual catalog passed; {}",Boolean.getBoolean("two_i_combat_doll.standalone_minimal")?"minimal real client reconnect passed":"applicable optional integration checks passed");mc.stop();}
  private static void server(Minecraft mc,ServerAction action){mc.getSingleplayerServer().execute(()->{try{action.run();}catch(Throwable ex){failure.set(ex);}});}
  private static CombatDollEntity find(Minecraft mc){for(var entity:mc.level.entitiesForRendering())if(entity.getUUID().equals(actorId.get()))return (CombatDollEntity)entity;return null;}
  private static com.mojang.blaze3d.platform.NativeImage capture(Minecraft mc,String name)throws Exception{
   var image=Screenshot.takeScreenshot(mc.getMainRenderTarget());Path dir=mc.gameDirectory.toPath().resolve("companion-port-screenshots");Files.createDirectories(dir);image.writeToFile(dir.resolve(name+".png"));return image;
  }
  public static void runServer(ServerPlayer player)throws Exception{
+  runServerChecks(player,true);
+ }
+ /** Explicit pack entry: the caller must verify its own loaded progression recipes. */
+ public static void runServerForModpack(ServerPlayer player)throws Exception{
+  runServerChecks(player,false);
+ }
+ private static void runServerChecks(ServerPlayer player,boolean standaloneRecipes)throws Exception{
   var level=player.serverLevel();
   LegacyChuanshouMigrationChecks.run(player);
   TwoIStorySessionChecks.main(new String[0]);TwoIStarfieldDataChecks.run(level.registryAccess());
@@ -170,7 +178,9 @@ public final class CompanionPortChecks {
   loaded.setSitting(false);loaded.moveTo(6,80,6,0,0);check(level.addFreshEntity(loaded),"protected fixture added");loaded.setHealth(0);loaded.kill();loaded.discard();check(!loaded.isRemoved()&&loaded.getHealth()==20,"forced death/discard cannot remove companion");check(loaded.discardForReclaim()&&loaded.isRemoved(),"authorized recall works without resurrection");
   CompanionCuriosChecks.run(level);
   StandaloneOptionalChecks.run(player);
-  StandaloneRecipeChecks.run(player.serverLevel());
+  if(standaloneRecipes)StandaloneRecipeChecks.run(player.serverLevel());
+  else StandaloneRecipeChecks.runForModpack(player.serverLevel());
+  ThreeNewDollChecks.runServer(player);
   BundledDollDuelChecks.start(player);
   LogUtils.getLogger().info("COMPANION SERVER CHECKS PASSED (pure and registered actions)");
  }

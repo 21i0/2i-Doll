@@ -1,0 +1,10 @@
+{
+  "canmeng_pat": {
+    "subtitle": "subtitles.canmeng.canmeng_pat",
+    "sounds": [
+      "canmeng:canmeng_pat_1",
+      "canmeng:canmeng_pat_2",
+      "canmeng:canmeng_pat_3"
+    ]
+  }
+}

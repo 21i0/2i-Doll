@@ -51,6 +51,34 @@ public final class AxolotlLeaseData extends SavedData {
         row.state=pending?PENDING:AVAILABLE;row.stack=pending?result.copy():ItemStack.EMPTY;if(pending)pendingOwners.add(row.owner);setDirty();return result;
     }
     public int pending(UUID owner){return (int)leases.values().stream().filter(row->row.state==PENDING&&owner.equals(row.owner)).count();}
+    /** Recall distant/unloaded forms without loading chunks or trusting a copied
+     * item. Retiring the authoritative generation precedes delivery, so an old
+     * entity or doll carrier can never become another live pet on reloading. */
+    public boolean recallDistant(ServerPlayer player,Set<UUID> nearbyRecalls){
+        boolean found=false;
+        for(var entry:leases.entrySet()){
+            Lease row=entry.getValue();
+            if(row.state!=ACTIVE||!player.getUUID().equals(row.owner)||row.entity==null
+                    ||nearbyRecalls.contains(row.entity)||row.stack.isEmpty()
+                    ||!entry.getKey().equals(WeaponData.identity(row.stack)))continue;
+            UUID oldEntity=row.entity;
+            com.twoi.combatdoll.entity.CangshengAxolotlEntity loaded=null;
+            for(var level:player.getServer().getAllLevels()){
+                var entity=level.getEntity(oldEntity);
+                if(entity instanceof com.twoi.combatdoll.entity.CangshengAxolotlEntity pet
+                        &&player.getUUID().equals(pet.ownerId())&&valid(pet.sourceWeapon(),row.owner,oldEntity)){
+                    loaded=pet;snapshot(pet.sourceWeapon(),oldEntity);break;
+                }
+            }
+            if(release(row.stack,oldEntity,true).isEmpty())continue;
+            found=true;
+            if(loaded!=null){
+                loaded.combatState().reset();com.twoi.combatdoll.network.CombatNetwork.send(loaded);
+                loaded.discard();
+            }
+        }
+        return found;
+    }
     public boolean claimPending(ServerPlayer player){
         if(!pendingOwners.contains(player.getUUID()))return false;
         int slot=player.getInventory().getFreeSlot();if(slot<0)return false;
